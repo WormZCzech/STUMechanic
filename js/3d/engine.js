@@ -481,6 +481,7 @@
     snapBusy = true;
     setTimeout(function () {
       var job = snapQueue.shift();
+      if (!job) { snapBusy = false; return; }
       try {
         if (!snapCache[job.key]) snapCache[job.key] = E.snapshot(job.id, job.vehicle, 480, 270);
         if (job.img.isConnected) job.img.src = snapCache[job.key];

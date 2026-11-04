@@ -123,12 +123,12 @@
       var s = housing('', 130, ctx.uid) +
         plug(374, 130) + plug(250, 248) +
         '<g transform="translate(386,130)"><g class="drive-w1"><g transform="rotate(-90)">' + L.wrench(80) + '</g></g></g>' +
-        '<g transform="translate(250,258)"><g class="drive-w2"><g transform="rotate(180)">' + L.wrench(70) + '</g></g></g>' +
-        L.badge(420, 172, '1', 'accent') + L.badge(200, 270, '2', 'accent') +
-        '<g class="drive-c1">' + L.check(450, 130) + '</g><g class="drive-c2">' + L.check(290, 280) + '</g>' +
+        '<g transform="translate(250,258)"><g class="drive-w2">' + L.wrench(70) + '</g></g>' +
+        L.badge(420, 172, '1', 'accent') + L.badge(222, 262, '2', 'accent') +
+        '<g class="drive-c1">' + L.check(450, 130) + '</g><g class="drive-c2">' + L.check(420, 248) + '</g>' +
         L.label(16, 20, ctx.t({ cs: '1. NEJDŘÍV povolit plnicí šroub', en: '1. FIRST loosen the fill plug' }), { anchor: 'start', bg: true }) +
         L.label(16, 44, ctx.t({ cs: '2. teprve pak vypouštěcí', en: '2. only then the drain plug' }), { anchor: 'start', bg: true }) +
-        L.label(16, 286, ctx.t({ cs: 'Plnicí nejde povolit? Nevypouštět!', en: 'Fill plug stuck? Do not drain!' }), { anchor: 'start', bg: true, cls: 'k-danger' });
+        L.label(470, 288, ctx.t({ cs: 'Plnicí nejde povolit? Nevypouštět!', en: 'Fill plug stuck? Do not drain!' }), { anchor: 'end', bg: true, cls: 'k-danger' });
       return L.svg(s, ctx.t({ cs: 'Nejdřív plnicí, potom vypouštěcí šroub', en: 'Fill plug first, then drain plug' }));
     }
   });
@@ -137,12 +137,12 @@
   A.register('drive.drain', {
     render: function (ctx) {
       var s = '<g transform="translate(-60,-30)">' + housing('drive-lvl', 120, ctx.uid) + '</g>' +
-        plug(312, 140, '') +
-        '<path class="k-none s-oil drive-stream" stroke-width="7" stroke-linecap="round" d="M190,214 Q200,240 220,262"/>' +
+        plug(190, 216, '') +
+        '<path class="k-none s-oil drive-stream" stroke-width="7" stroke-linecap="round" d="M196,226 Q206,244 222,264"/>' +
         '<path class="k-dark" d="M170,262 L292,262 L284,292 L178,292 Z"/><g class="drive-pan"><rect class="k-oil" x="182" y="266" width="98" height="24"/></g>' +
-        '<g transform="translate(330,180)"><circle class="k-metal" r="22"/><circle class="k-dark" r="10"/><circle class="k-none s-muted" stroke-width="5" stroke-dasharray="2 3" r="16"/></g>' +
-        L.label(330, 222, ctx.t({ cs: 'Magnet: jemná pasta = OK', en: 'Magnet: fine paste = OK' }), { bg: true, size: 11 }) +
-        L.label(330, 246, ctx.t({ cs: 'kousky kovu = problém', en: 'metal chunks = problem' }), { bg: true, size: 11, cls: 'k-danger' }) +
+        '<g transform="translate(390,160)"><circle class="k-metal" r="22"/><circle class="k-dark" r="10"/><circle class="k-none s-muted" stroke-width="5" stroke-dasharray="2 3" r="16"/></g>' +
+        L.label(390, 202, ctx.t({ cs: 'Magnet: jemná pasta = OK', en: 'Magnet: fine paste = OK' }), { bg: true, size: 11 }) +
+        L.label(390, 226, ctx.t({ cs: 'kousky kovu = problém', en: 'metal chunks = problem' }), { bg: true, size: 11, cls: 'k-danger' }) +
         L.label(16, 286, ctx.t({ cs: 'Teplý olej', en: 'Warm oil' }), { anchor: 'start', bg: true, size: 12 }) +
         L.label(470, 24, ctx.t({ cs: 'Vypustit do záchytné vany', en: 'Drain into a catch pan' }), { anchor: 'end', bg: true });
       return L.svg(s, ctx.t({ cs: 'Vypuštění převodového oleje', en: 'Draining the gear oil' }));
@@ -192,7 +192,7 @@
         '<g clip-path="url(#drive-lv-' + ctx.uid + ')"><g class="drive-rise"><rect class="k-oil" opacity=".85" x="40" y="154" width="210" height="120"/></g></g>' +
         '<line class="s-ok" stroke-width="3" stroke-dasharray="6 4" x1="40" y1="154" x2="300" y2="154"/>' +
         '<g class="drive-finger"><path class="k-filler s-dark" stroke-width="1.5" d="M440,130 L290,130 Q262,130 262,150 L262,160 Q262,168 270,168 Q278,168 278,160 L278,148 L440,148 Z"/></g>' +
-        L.label(310, 190, ctx.t({ cs: 'Hladina = spodní hrana otvoru', en: 'Level = lower edge of the hole' }), { anchor: 'start', bg: true, size: 12 }) +
+        L.label(470, 230, ctx.t({ cs: 'Hladina = spodní hrana otvoru', en: 'Level = lower edge of the hole' }), { anchor: 'end', bg: true, size: 12 }) +
         L.label(16, 24, ctx.t({ cs: 'Vůz musí stát VODOROVNĚ', en: 'Car must be LEVEL' }), { anchor: 'start', bg: true, cls: 'k-danger' }) +
         L.label(16, 286, ctx.t({ cs: 'Přebytek nechat odkapat, pak zašroubovat', en: 'Let the excess drip out, then refit the plug' }), { anchor: 'start', bg: true });
       return L.svg(s, ctx.t({ cs: 'Kontrola hladiny u plnicího otvoru', en: 'Checking the level at the fill hole' }));

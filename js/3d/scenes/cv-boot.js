@@ -51,6 +51,7 @@
     ball.add(K.mesh(K.G.sphere(0.022, 16), 'steelDark'));
     var stud = K.mesh(K.G.cyl(0.008, 0.06, 12), 'zinc'); stud.position.y = 0.03; ball.add(stud);
     var bnut = K.mesh(K.G.hex(0.011, 0.01), 'zinc'); bnut.position.y = 0.06; ball.add(bnut);
+    g.position.y = 0.42;
     return { group: g, hub: hub, ds: ds, nut: nut, ball: ball, arm: arm };
   }
 
@@ -75,6 +76,11 @@
         }
         return {
           root: root,
+          cameraPath: function (t) {
+            var a = -t * 0.5, cp = new THREE.Vector3(Math.sin(a) * Rr, 0, Math.cos(a) * Rr);
+            var out = cp.clone().normalize();
+            return { pos: cp.clone().add(out.multiplyScalar(d.L * 1.1)).add(new THREE.Vector3(0, d.H * 2.2, 0)), target: cp.clone().add(new THREE.Vector3(0, d.H * 0.3, 0)) };
+          },
           update: function (t) {
             arm.rotation.y = -t * 0.5;
             c.wheels.forEach(function (w) { w.wheel.rotation.z = -t * 6; });
@@ -104,13 +110,13 @@
 
   /* --------------------------------------------------------------- inspect */
   R('cv-boot.inspect', {
-    duration: 7, camera: { pos: [0.45, 0.08, 0.05], target: [0.0, -0.05, -0.2], fov: 38 }, shadow: 0.8, thumbT: 3,
+    duration: 7, camera: { pos: [0.48, 0.52, 0.08], target: [0.0, 0.37, -0.2], fov: 38 }, shadow: 0.8, thumbT: 3,
     build: function (ctx, K) {
       var root = new THREE.Group();
       var a = hubAssembly(K); root.add(a.group);
       var boot = a.ds.userData.bootOuter;
       var glow = K.FX.glow(boot, 0xe5484d);
-      var crack = K.mesh(K.G.box(0.002, 0.03, 0.006), 'blackOxide'); crack.position.set(0.035, 0.015, -0.12); a.group.add(crack);
+      var crack = K.mesh(K.G.box(0.002, 0.03, 0.006), 'blackOxide'); crack.position.set(0.04, 0.015, -0.13); a.group.add(crack);
       var gm = K.M.clone('blackGloss', { color: 0x2a2620 });
       for (var i = 0; i < 16; i++) {
         var sp = K.mesh(K.G.sphere(0.006 + (i % 3) * 0.002, 8), gm); sp.scale.y = 0.35;
@@ -121,7 +127,7 @@
         update: function (t) { glow(t > 1 ? 0.4 + 0.4 * Math.sin(t * 4) : 0); a.ds.rotation.x = Math.sin(t * 0.8) * 0.05; },
         labels: [
           { text: V('prasklina v záhybu', 'crack in a fold'), at: function () { return crack.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0.02, 0.03, 0)); }, show: [1, 7], level: 'danger' },
-          { text: V('rozstříknutý tuk', 'flung-out grease'), at: [0.1, 0.12, -0.08], show: [2.5, 7] }
+          { text: V('rozstříknutý tuk', 'flung-out grease'), at: [0.1, 0.54, -0.08], show: [2.5, 7] }
         ],
         captions: [
           { text: V('Kola do rejdu, prohlédnout manžety ze všech stran', 'Wheels on full lock, inspect the boots all round') },
@@ -157,7 +163,7 @@
 
   /* -------------------------------------------------------------- separate */
   R('cv-boot.separate', {
-    duration: 9, camera: { pos: [0.55, 0.15, 0.55], target: [0, -0.08, -0.15], fov: 38 }, shadow: 0.9, thumbT: 6,
+    duration: 9, camera: { pos: [0.6, 0.6, 0.6], target: [0, 0.34, -0.15], fov: 38 }, shadow: 0.9, thumbT: 6,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
       var a = hubAssembly(K); root.add(a.group);
@@ -185,7 +191,7 @@
         },
         labels: [
           { text: V('kulový čep – stahovák', 'ball joint – splitter'), at: function () { return a.ball.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0.05, -0.04, 0)); }, show: [1.4, 4.4], level: 'accent' },
-          { text: V('pozor na kabel ABS a hadici', 'mind the ABS cable and hose'), at: [0.08, 0.15, -0.05], show: [4.6, 9], level: 'info' }
+          { text: V('pozor na kabel ABS a hadici', 'mind the ABS cable and hose'), at: [0.08, 0.57, -0.05], show: [4.6, 9], level: 'info' }
         ],
         captions: [
           { text: V('Matice poloosy pryč, rozpojit kulový čep', 'Axle nut off, separate the ball joint'), show: [0, 4.6] },
@@ -198,9 +204,10 @@
 
   /* -------------------------------------------------------------- shaft out */
   R('cv-boot.shaftout', {
-    duration: 8, camera: { pos: [0.55, 0.25, -0.15], target: [0, 0, -0.42], fov: 38 }, shadow: 0.9, thumbT: 4,
+    duration: 8, camera: { pos: [0.6, 0.65, -0.12], target: [0, 0.38, -0.42], fov: 38 }, shadow: 0.9, thumbT: 4,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
+      root.position.y = 0.4;
       var gb = K.mesh(K.G.rbox(0.36, 0.3, 0.22, 0.04), 'aluCast'); gb.position.set(-0.05, 0, -0.72); root.add(gb);
       var seal = K.mesh(K.G.torus(0.035, 0.005, PI * 2, 24), 'rubber'); seal.position.set(0, 0, -0.61); root.add(seal);
       var ds = driveshaft(K); ds.rotation.y = -PI / 2; root.add(ds);
@@ -217,7 +224,7 @@
           drops.update(t, t > 3, 1.2);
           tray.userData.setLevel(T.seg(t, 3.2, 7.8) * 0.4);
         },
-        labels: [{ text: V('páčit jen za kloub', 'lever on the joint only'), at: [0.06, 0.08, -0.55], show: [0.5, 3.6], level: 'accent' }],
+        labels: [{ text: V('páčit jen za kloub', 'lever on the joint only'), at: [0.06, 0.48, -0.55], show: [0.5, 3.6], level: 'accent' }],
         captions: [
           { text: V('Vnitřní kloub vypáčit z převodovky (pojistný kroužek)', 'Lever the inner joint out of the gearbox (circlip)') },
           { text: V('Netahat za poloosu – vnitřní kloub se rozebere', 'Do not pull on the shaft – the inner joint comes apart'), level: 'danger', show: [1.5, 5] },
@@ -379,7 +386,7 @@
 
   /* ---------------------------------------------------------------- refit */
   R('cv-boot.refit', {
-    duration: 9, camera: { pos: [0.5, 0.18, 0.55], target: [0, -0.02, -0.12], fov: 38 }, shadow: 0.9, thumbT: 7,
+    duration: 9, camera: { pos: [0.55, 0.6, 0.6], target: [0, 0.4, -0.12], fov: 38 }, shadow: 0.9, thumbT: 7,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
       var a = hubAssembly(K); root.add(a.group);

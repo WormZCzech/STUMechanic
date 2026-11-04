@@ -52,7 +52,7 @@
       var H = S.n5, r = rack(ctx, K);
       var flow = H.flow(K, [[0.3, 0.26, -0.13], [-0.2, 0.26, -0.13]], K.M.clone('oil', { color: 0xf0d27a }), 14, 0.006);
       r.root.add(flow.group);
-      var gauge = H.sign(K, 0.18, 0.09, ['~1800 bar'], { border: '#c9282d' }); gauge.position.set(0.32, 0.36, -0.13); r.root.add(gauge);
+      var gauge = H.sign(K, 0.18, 0.09, ['~1800 bar'], { border: '#c9282d' }); gauge.position.set(0.18, 0.4, -0.16); r.root.add(gauge);
       return {
         root: r.root,
         update: function (t) { flow.update(t, true, 0.5); r.injs.forEach(function (j, i) { j.position.y = 0.095 + (Math.floor(t * 4) % r.n === i ? 0.0015 : 0); }); },
@@ -70,7 +70,7 @@
   });
 
   R('injectors.hpDanger', {
-    duration: 6, camera: { pos: [0.3, 0.3, 0.45], target: [0.05, 0.22, -0.05], fov: 34 }, shadow: 0.6, thumbT: 2.5,
+    duration: 6, camera: { pos: [0.5, 0.42, 0.62], target: [0.14, 0.22, -0.04], fov: 36 }, shadow: 0.6, thumbT: 2.5,
     build: function (ctx, K) {
       var T = K.T, r = rack(ctx, K);
       var jet = K.mesh(new THREE.ConeGeometry(0.004, 0.25, 12, 1, true), K.M.clone('water', { color: 0xf0e2a0, opacity: 0.7 }));
@@ -141,7 +141,7 @@
       var H = S.n5, T = K.T, r = rack(ctx, K, { leakoff: false });
       var rates = [0.45, 0.5, 0.42, 1.0];
       var tubes = r.injs.map(function (j, i) {
-        var jar = H.jar(K, 0.012, 0.12, K.M.clone('oil', { color: 0xe8cf86, opacity: 0.85 }), 'oil');
+        var jar = H.jar(K, 0.016, 0.12, K.M.clone('oil', { color: 0xd9a531, opacity: 0.95 }), 'oil');
         jar.group.position.set(j.position.x, 0.3, 0.04); r.root.add(jar.group);
         r.root.add(H.pipe(K, [[j.position.x - 0.006, j.position.y + 0.18, 0], [j.position.x - 0.004, 0.33, 0.02], [j.position.x, 0.3 + 0.13, 0.04]], 0.0025, K.M.clone('glassClear', { opacity: 0.5 })));
         return jar;
@@ -162,7 +162,7 @@
   });
 
   R('injectors.washer', {
-    duration: 7, camera: { pos: [0.18, 0.25, 0.3], target: [0, 0.13, 0], fov: 32 }, shadow: 0.5, thumbT: 3,
+    duration: 7, camera: { pos: [0.22, 0.34, 0.42], target: [0, 0.17, 0], fov: 34 }, shadow: 0.5, thumbT: 3,
     build: function (ctx, K) {
       var T = K.T, r = rack(ctx, K, { hp: false, leakoff: false });
       var j = r.injs[1];
@@ -212,7 +212,7 @@
   });
 
   R('injectors.seat', {
-    duration: 8, camera: { pos: [0.18, 0.28, 0.3], target: [0, 0.12, 0], fov: 32 }, shadow: 0.5, thumbT: 4,
+    duration: 8, camera: { pos: [0.22, 0.36, 0.42], target: [0, 0.17, 0], fov: 34 }, shadow: 0.5, thumbT: 4,
     build: function (ctx, K) {
       var T = K.T, r = rack(ctx, K, { hp: false, leakoff: false });
       var j = r.injs[1]; j.visible = false;

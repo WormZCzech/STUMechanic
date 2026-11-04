@@ -29,7 +29,6 @@
         var cone = K.mesh(new THREE.ConeGeometry(0.5, 2.2, 24, 1, true), K.M.clone('lightWhite', { transparent: true, opacity: 0.12, depthWrite: false }));
         cone.rotation.z = PI / 2; cone.position.set(d.front + 1.1, s.hoodF - 0.15, sd * (d.W / 2 - 0.3)); cone.userData.noShadow = true; root.add(cone); return cone;
       });
-      var ind = [-1, 1].map(function (sd) { var m = K.mesh(K.G.sphere(0.035, 12), K.M.clone('lightAmber')); m.position.set(d.rear - 0.02, s.style === 'van' ? 1.15 : s.deckR - 0.13, sd * (d.W / 2 - 0.12)); root.add(m); return m; });
       return {
         root: root,
         cameraPath: function (t) {
@@ -42,8 +41,7 @@
           hl.forEach(function (f) { f(front && t > 0.5); });
           beams.forEach(function (bm) { bm.visible = front && t > 2; });
           var brake = t > 7 && t < 8.5, rev = t > 8.5 && t < 9.7, blink = t > 9.7 && Math.floor(t * 3) % 2 === 0;
-          tl.forEach(function (f) { f(brake || rev); });
-          ind.forEach(function (m, i) { m.material.emissiveIntensity = (blink || (t > 5 && t < 7 && i === 0 && Math.floor(t * 3) % 2 === 0)) ? 2.5 : 0.1; });
+          tl.forEach(function (f, i) { f(brake || rev || blink || (t > 5 && t < 7 && i === 0 && Math.floor(t * 3) % 2 === 0)); });
         },
         captions: [
           { text: V('Potkávací, dálková, obrysová, mlhová, směrovky (+ výstražná)', 'Low beam, high beam, side lights, fog, indicators (+ hazards)'), show: [0, 5] },
@@ -100,6 +98,7 @@
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
       var floor = K.mesh(K.G.box(0.8, 0.02, 0.8), 'fabric'); floor.position.y = 0.01; root.add(floor);
+      var wall = K.mesh(K.G.box(0.8, 0.7, 0.02), 'plasticTex'); wall.position.set(0, 0.35, -0.3); root.add(wall);
       var pedal = new THREE.Group();
       var arm = K.mesh(K.G.rbox(0.025, 0.32, 0.02, 0.006), 'steelDark'); arm.position.y = -0.16; pedal.add(arm);
       var padP = K.mesh(K.G.rbox(0.09, 0.07, 0.015, 0.008), 'rubber'); padP.position.y = -0.32; pedal.add(padP);
@@ -204,7 +203,7 @@
       });
       return {
         root: root,
-        cameraPath: function () { var k = Math.max(1, c.spec.H / 1.45); return { pos: [d.front + 1.6 * k, 1.3 * k, 2.6 * k], target: [d.xf, 0.1, 0] }; },
+        cameraPath: function () { var k = Math.max(1, c.spec.H / 1.45); return { pos: [d.front + 1.3 * k, 0.5 * k, 2.3 * k], target: [d.xf - 0.1, 0.05, 0.1] }; },
         update: function (t) {
           drops.update(t, true);
           puddles.forEach(function (p, i) { var k = T.seg(t, 0.5 + i * 1.5, 1.5 + i * 1.5); p.scale.set(0.2 + 0.8 * k, 1, (0.2 + 0.8 * k) * 0.7); });

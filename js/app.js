@@ -323,7 +323,7 @@
     // vehicle block
     if (r.isGeneric) {
       h += callout({ level: 'info', text: ui('genericSpecsHint') });
-    } else {
+    } else if (r.specs.length || r.notes.length) {
       h += '<section class="section card"><h2>' + esc(ui('vehicleSpecs')) + ' – ' + esc(t(S.vehicleMap[vid].name)) + '</h2>';
       if (r.specs.length) {
         h += '<table class="specs"><tbody>' + r.specs.map(function (sp) {

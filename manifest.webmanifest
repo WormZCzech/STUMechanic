@@ -1,0 +1,15 @@
+{
+  "name": "STUMechanic",
+  "short_name": "STUMechanic",
+  "description": "Step-by-step car repair tutorials with animations and safety warnings.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#12151b",
+  "theme_color": "#12151b",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

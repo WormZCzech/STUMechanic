@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>STUMechanic</title>
+  <meta name="description" content="Návody na opravy aut krok za krokem s animacemi a bezpečnostními upozorněními / Step-by-step car repair tutorials with animations and safety warnings.">
+  <meta name="theme-color" content="#12151b">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="chrome"></div>
+  <main id="app" aria-live="polite"></main>
+  <footer class="footer">STUMechanic · <a href="#/about">⚠ Disclaimer</a></footer>
+
+  <!-- core -->
+  <script src="js/core.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/vehicles.js"></script>
+  <!-- animations -->
+  <script src="js/anim/lib.js"></script>
+  <script src="js/anim/lifting.js"></script>
+  <script src="js/anim/oil.js"></script>
+  <script src="js/anim/brakes.js"></script>
+  <script src="js/anim/timing.js"></script>
+  <script src="js/anim/body.js"></script>
+  <!-- tutorials (order inside a level = order of these tags) -->
+  <script src="js/tutorials/lifting.js"></script>
+  <script src="js/tutorials/oil-change.js"></script>
+  <script src="js/tutorials/brakes.js"></script>
+  <script src="js/tutorials/timing-belt.js"></script>
+  <script src="js/tutorials/bodywork.js"></script>
+  <!-- app -->
+  <script src="js/app.js"></script>
+</body>
+</html>

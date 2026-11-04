@@ -24,7 +24,6 @@
     var sets = [];
     [-0.12, 0.03, 0.17].forEach(function (x) {
       var g = new THREE.Group(); g.position.x = x; root.add(g);
-      var ringG = K.G.gear(60, 0.105, 0.11, 0.035, 0.0); ringG.rotateY(PI / 2);
       var ring = K.mesh(new THREE.TorusGeometry(0.105, 0.012, 10, 48), 'steelDark'); ring.rotation.y = PI / 2; g.add(ring);
       var sunG = K.G.gear(18, 0.032, 0.026, 0.035, 0.012); sunG.rotateY(PI / 2);
       var sun = K.mesh(sunG, 'steel'); g.add(sun);

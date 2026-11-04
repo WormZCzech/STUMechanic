@@ -485,7 +485,7 @@
   });
 
   R('lights.aimWall', {
-    duration: 9, camera: { pos: [7.6, 3.6, 11.0], target: [7.4, 0.6, 0], fov: 42 }, shadow: 8, thumbT: 6,
+    duration: 9, camera: { pos: [6.8, 3.8, 11.8], target: [6.8, 0.6, 0], fov: 46 }, shadow: 8, thumbT: 6,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group(), f = frontCar(ctx, K); root.add(f.car.group);
       var d = f.car.dims, wallX = d.front + 10;

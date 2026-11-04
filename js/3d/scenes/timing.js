@@ -192,7 +192,8 @@
   var CAM_FRONT = { pos: [0.18, 0.5, 1.05], target: [0.0, 0.36, 0], fov: 36 };
 
   /* ------------------------------------------------------- chain drive (CL 500 / GR Yaris) */
-  function chainScene(ctx, K) {
+  function chainScene(ctx, K, opts) {
+    opts = opts || {};
     var root = new THREE.Group();
     var cs = [{ x: 0, y: 0.18, r: 0.024 }, { x: 0.12, y: 0.52, r: 0.048 }, { x: -0.12, y: 0.52, r: 0.048 }]; // CCW: crank, right cam, left cam
     var plate = K.mesh(K.G.extrude(K.G.rrect(0.46, 0.52, 0.06), 0.03, 0.006), 'castIron'); plate.position.set(0, 0.37, -0.045); root.add(plate);
@@ -251,6 +252,25 @@
       plates.instanceMatrix.needsUpdate = true; rollers.instanceMatrix.needsUpdate = true;
     }
     var codes = ctx.vehicle === 'mb-cl500-c216' ? 'P0016–P0019' : 'P0016 / P0017';
+    if (opts.locks) {
+      var pins = [1, 2].map(function (i) {
+        var p = new THREE.Group();
+        var rod = K.mesh(K.G.cylZ(0.005, 0.07, 16), 'chrome'); rod.position.z = 0.035; p.add(rod);
+        var grip = K.mesh(K.G.cylZ(0.011, 0.03, 20), 'toolYellow'); grip.position.z = 0.08; p.add(grip);
+        var lh = spins[i].children[0].userData.lockHole;
+        p.position.set(cs[i].x + lh.x, cs[i].y + lh.y, 0); root.add(p); return p;
+      });
+      setChain(0, 0, 0);
+      return {
+        root: root,
+        update: function (t) { pins.forEach(function (p, i) { var k = K.T.seg(t, 0.5 + i * 0.6, 1.8 + i * 0.6); p.position.z = (1 - k) * 0.12 - k * 0.012; }); },
+        labels: [{ text: V('Aretace vaček', 'Camshaft locking tools'), at: [0, 0.6, 0.06], show: [1.5, 6], level: 'accent' }],
+        captions: [
+          { text: V('Řetěz: výměna = dílna (aretace, nýtovačka článků, diagnostika)', 'Chain: replacement = workshop (locking tools, link riveter, diagnostics)') },
+          { text: V('Zajistit nářadím – ne jen značky barvou!', 'Lock with tools – not just paint marks!'), level: 'danger' }
+        ]
+      };
+    }
     return {
       root: root,
       update: function (t) {
@@ -279,7 +299,7 @@
 
   /* ------------------------------------------------------- overview */
   R('timing.overview', {
-    duration: 4.8, camera: CAM_FRONT, shadow: 1.2, thumbT: 1,
+    duration: 9.6, camera: CAM_FRONT, shadow: 1.2, thumbT: 1,
     build: function (ctx, K) {
       if (CHAIN[ctx.vehicle]) return chainScene(ctx, K);
       var rig = timingRig(ctx, K);
@@ -431,6 +451,7 @@
   R('timing.lock', {
     duration: 6, camera: { pos: [0.35, 0.55, 0.85], target: [0.02, 0.36, 0], fov: 38 }, shadow: 1.2, thumbT: 4.5,
     build: function (ctx, K) {
+      if (CHAIN[ctx.vehicle]) return chainScene(ctx, K, { locks: true });
       var T = K.T, rig = timingRig(ctx, K), L = addLocks(ctx, K, rig);
       var labels = L.pins.map(function (p) {
         return { text: p.it.id === 'hp' ? V('Kolík VT čerpadla', 'HP pump pin') : V('Kolík vačky', 'Cam locking pin'), at: p.obj, show: [1.2, 6] };

@@ -16,7 +16,7 @@
     if (o.see) shell.userData.noShadow = true;
     for (var i = 0; i < 5; i++) { var rib = K.mesh(K.G.box(0.012, 0.28, 0.31), shellMat); rib.position.x = -0.18 + i * 0.09; if (!o.see) g.add(rib); }
     var bell = K.mesh(K.G.cylX(0.17, 0.08, 40), shellMat); bell.position.x = -0.26; g.add(bell);
-    var flange = K.mesh(K.G.cylZ(0.05, 0.04, 24), 'steelDark'); flange.position.set(0.1, -0.06, 0.16); g.add(flange);
+    var flange = K.mesh(K.G.cylX(0.04, 0.04, 24), 'steelDark'); flange.position.set(0.25, -0.04, 0); g.add(flange);
     // oil volume (scale.y = level)
     var oilG = new THREE.Group(); oilG.position.y = -0.14; g.add(oilG);
     var oil = K.mesh(K.G.box(0.42, 0.28, 0.26), K.M.clone('oil', { opacity: o.see ? 0.75 : 0.9 })); oil.position.y = 0.14; oilG.add(oil);
@@ -168,7 +168,7 @@
     duration: 8, camera: { pos: [0.55, 0.35, 0.9], target: [0.05, 0.25, 0.05], fov: 38 }, shadow: 1, thumbT: 4,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group(), c = gearCase(K, { see: true }); root.add(c);
-      var pan = K.P.drainPan(0.18, 0.07); pan.position.set(0.02, 0, 0.05); K.FX.fader; root.add(pan);
+      var pan = K.P.drainPan(0.18, 0.07); pan.position.set(0.02, 0, 0.05); root.add(pan);
       pan.traverse(function (o) { if (o.isMesh && o.material === K.M.oilOld) o.material = K.M.oil; });
       var dp = c.userData.drainPos;
       var stream = K.FX.stream([dp.x, dp.y - 0.01, dp.z], [dp.x + 0.01, dp.y - 0.12, dp.z], [dp.x + 0.02, 0.03, dp.z], K.M.oil, 0.006); root.add(stream.mesh);
@@ -202,7 +202,7 @@
 
   /* ------------------------------------------------------------------ new seal + torque */
   R('drive.seal', {
-    duration: 7, camera: { pos: [0.25, 0.3, 0.42], target: [0.0, 0.3, 0.12], fov: 34 }, shadow: 0.6, thumbT: 5,
+    duration: 7, camera: { pos: [0.2, 0.16, 0.42], target: [0.0, 0.26, 0.05], fov: 34 }, shadow: 0.6, thumbT: 5,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group(), c = gearCase(K); root.add(c);
       c.userData.drain.visible = false;
@@ -246,7 +246,7 @@
     return g;
   }
   R('drive.pump', {
-    duration: 9, camera: { pos: [0.5, 0.5, 1.05], target: [0.15, 0.36, 0.1], fov: 36 }, shadow: 1, thumbT: 7,
+    duration: 9, camera: { pos: [0.65, 0.55, 1.3], target: [0.2, 0.33, 0.1], fov: 36 }, shadow: 1, thumbT: 7,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group(), c = gearCase(K, { see: true }); root.add(c);
       c.userData.fill.visible = false;
@@ -270,12 +270,16 @@
 
   /* ------------------------------------------------------------------ level at fill hole */
   R('drive.level', {
-    duration: 7, camera: { pos: [0.42, 0.42, 0.55], target: [0.1, 0.44, 0.1], fov: 34 }, shadow: 0.8, thumbT: 4,
+    duration: 7, camera: { pos: [0.5, 0.5, 0.65], target: [0.06, 0.43, 0.08], fov: 34 }, shadow: 0.8, thumbT: 4.5,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group(), c = gearCase(K, { see: true }); root.add(c);
       c.userData.fill.visible = false;
       var line = K.mesh(K.G.box(0.44, 0.002, 0.27), K.M.clone('hiOk', { transparent: true, opacity: 0.5 })); line.position.set(0, CY + FILL_Y - 0.009, 0); line.userData.noShadow = true; root.add(line);
-      var hand = K.P.glove(); hand.scale.setScalar(0.8); hand.rotation.set(-PI / 2, 0, PI / 2); root.add(hand);
+      var hand = new THREE.Group(); var nitrile = K.M.clone('toolBlue', { roughness: 0.85 });
+      var finger = K.mesh(K.G.cylZ(0.0075, 0.09, 16), nitrile); finger.position.z = 0.045; hand.add(finger);
+      var tipS = K.mesh(K.G.sphere(0.0075, 12), nitrile); hand.add(tipS);
+      var palm = K.mesh(K.G.rbox(0.07, 0.03, 0.08, 0.012), nitrile); palm.position.set(0.0, -0.005, 0.12); hand.add(palm);
+      root.add(hand);
       var fp = c.userData.fillPos;
       var drops = K.FX.drops(K.M.oil, 4, 0.35, 0.006); drops.group.position.set(fp.x, fp.y - 0.012, fp.z + 0.01); root.add(drops.group);
       return {
@@ -284,11 +288,11 @@
           setLevel(c, c.userData.levelAtHole + 0.02 * (1 - T.seg(t, 0.5, 3)));
           drops.update(t, t < 3);
           var k = T.seg(t, 3.4, 4.4) * (1 - T.seg(t, 6.2, 6.8));
-          hand.position.set(fp.x + 0.05, fp.y + 0.0, fp.z + 0.14 - k * 0.07);
+          hand.position.set(fp.x, fp.y - 0.003, fp.z + 0.1 - k * 0.11);
         },
         labels: [
           { text: V('Hladina = spodní hrana otvoru', 'Level = lower edge of the hole'), at: [fp.x - 0.2, fp.y - 0.012, fp.z], level: 'ok' },
-          { text: V('prst nahmatá olej', 'finger touches the oil'), at: [fp.x + 0.05, fp.y + 0.06, fp.z + 0.08], show: [4.2, 6.4] }
+          { text: V('prst nahmatá olej', 'finger touches the oil'), at: [fp.x, fp.y + 0.04, fp.z + 0.04], show: [4.2, 6.4] }
         ],
         captions: [
           { text: V('Vůz musí stát VODOROVNĚ', 'Car must be LEVEL'), level: 'danger' },

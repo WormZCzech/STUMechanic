@@ -107,7 +107,7 @@
 
   /* ----------------------------------------------------------- bleed.order */
   R('bleed.order', {
-    duration: 9, camera: { pos: [-0.6, 7.2, 1.4], target: [0, 0, 0], fov: 40 }, shadow: 3.5, thumbT: 7.5,
+    duration: 9, camera: { pos: [-0.5, 6.2, 1.3], target: [0, 0, 0], fov: 40 }, shadow: 3.5, thumbT: 7.5,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
       var c = K.car(ctx.vehicle); root.add(c.group);
@@ -115,7 +115,7 @@
       var names = [V('PZ', 'RR'), V('LZ', 'LR'), V('PP', 'RF'), V('LP', 'LF')];
       var rings = order.map(function (o) {
         var w = c.wheels.filter(function (x) { return x.axle === o[0] && x.side === o[1]; })[0];
-        var r = K.mesh(K.G.torus(c.dims.wr + 0.08, 0.025, PI * 2, 48), K.M.clone('hiAccent'));
+        var r = K.mesh(K.G.torus(c.dims.wr + 0.1, 0.045, PI * 2, 48), K.M.clone('hiAccent', { emissiveIntensity: 1.3 }));
         r.rotation.x = PI / 2; r.position.set(w.pivot.position.x, 0.03, w.pivot.position.z + o[1] * 0.25); root.add(r);
         return { ring: r, wheel: w };
       });

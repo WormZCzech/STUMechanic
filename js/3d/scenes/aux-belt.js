@@ -554,7 +554,7 @@
         root: rig.root,
         update: function (t) { g(0.5 + 0.5 * Math.sin(t * 4)); rig.run(t < 4 ? t * 3 : 12); },
         cameraPath: function () { return camFor(rig, 1.05, 0.3, 0.2); },
-        labels: [{ text: V('48V ISGM – roztáčí motor řemenem', '48V ISGM – cranks the engine through the belt'), at: function () { return pW(rig, 'isg', [0, 0.1, 0.03]); }, level: 'danger' }],
+        labels: [{ text: V('48V ISGM – roztáčí motor řemenem', '48V ISGM – cranks the engine through the belt'), at: function () { return pW(rig, 'isg', [0.2, -0.03, 0.03]); }, level: 'danger', show: [1, 8] }],
         captions: [
           { text: V('Start-stop může motor kdykoli roztočit přes řemen', 'Start-stop can spin the engine via the belt at any moment'), level: 'danger' },
           { text: V('Před prací: 12V i 48V odpojit dle VIDA, klíč mimo dosah', 'Before work: disconnect 12V and 48V per VIDA, key out of range'), level: 'danger', show: [3, 8] }

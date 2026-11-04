@@ -31,7 +31,7 @@
         cx2.fillStyle = st > 0.92 ? '#e5484d' : '#30a46c'; cx2.fillRect(W * 0.08, H * 0.42, W * 0.84 * Math.min(1, st), H * 0.18);
         cx2.fillStyle = '#fff'; cx2.font = '800 ' + Math.round(H * 0.16) + 'px system-ui'; cx2.fillText(Math.round(st * 100) + ' %', W / 2, H * 0.85);
       }, { px: 520, state: 0 });
-      scale.position.set(d.rear - 0.3, s.H + 0.6, 0.6); scale.rotation.y = -PI / 3; root.add(scale);
+      scale.position.set(d.rear + 0.6, s.H + 0.3, 1.2); scale.rotation.y = -0.85; root.add(scale);
       return {
         root: root,
         update: function (t) {
@@ -51,7 +51,7 @@
   });
 
   R('van-care.springs', {
-    duration: 8, camera: { pos: [0.9, 0.55, 1.2], target: [0, 0.32, 0], fov: 36 }, shadow: 1.4, thumbT: 3,
+    duration: 8, camera: { pos: [0.35, 0.55, 1.75], target: [0, 0.33, 0.5], fov: 36 }, shadow: 1.4, thumbT: 3,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
       var axle = K.mesh(K.G.cylZ(0.045, 1.6, 24), 'blackOxide'); axle.position.set(0, 0.33, 0); root.add(axle);
@@ -71,12 +71,12 @@
       [-0.6, 0.6].forEach(function (x) { var eye = K.mesh(K.G.torus(0.025, 0.012, PI * 2, 20), 'blackOxide'); eye.position.set(x, 0.42, 0.55); root.add(eye); var bush = K.mesh(K.G.cylZ(0.016, 0.07, 16), 'rubber'); bush.position.copy(eye.position); root.add(bush); });
       var shackle = K.mesh(K.G.box(0.02, 0.1, 0.075), 'steelDark'); shackle.position.set(0.62, 0.48, 0.55); shackle.rotation.z = 0.25; root.add(shackle);
       [-0.05, 0.05].forEach(function (x) { var ub = K.mesh(K.G.tube([[x, 0.42, 0.51], [x, 0.24, 0.51], [x, 0.24, 0.59], [x, 0.42, 0.59]], 0.007), 'zinc'); root.add(ub); });
-      var crack = K.mesh(K.G.box(0.003, 0.016, 0.062), K.M.clone('hiDanger')); crack.position.set(-0.25, 0.375, 0.55); root.add(crack);
+      var crack = K.mesh(K.G.box(0.004, 0.016, 0.064), K.M.clone('hiDanger')); crack.position.set(-0.25, 0.4 - 0.016 - 0.12 * (1 - Math.pow(2 * -0.25 / 1.2, 2)) - 0.006, 0.55); root.add(crack);
       return {
         root: root,
         update: function (t) { crack.material.emissiveIntensity = t > 2 ? 0.5 + 0.5 * Math.sin(t * 6) : 0; leaves.position.y = Math.sin(t * 1.4) * 0.004; },
         labels: [
-          { text: V('prasklý list = vyměnit (vždy v páru)', 'cracked leaf = replace (always in pairs)'), at: [-0.25, 0.43, 0.6], show: [2, 8], level: 'danger' },
+          { text: V('prasklý list = vyměnit (vždy v páru)', 'cracked leaf = replace (always in pairs)'), at: [-0.25, 0.32, 0.6], show: [2, 8], level: 'danger' },
           { text: V('silentbloky ok? (praskliny, vůle)', 'bushes ok? (cracks, play)'), at: [0.6, 0.5, 0.6], show: [4, 8], level: 'accent' },
           { text: V('třmeny (U-šrouby) dotažené', 'U-bolts tight'), at: [0, 0.2, 0.6], show: [5.5, 8], level: 'accent' }
         ],

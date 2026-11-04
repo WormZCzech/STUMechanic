@@ -418,6 +418,12 @@
         intro: V(AUTO_INTRO_CS, AUTO_INTRO_EN),
         time: V('30–60 min (diagnostika)', '30–60 min (diagnosis)'),
         replaceTools: true,
+        replaceSafety: true,
+        safety: [
+          { level: 'warning', text: V('Diagnostiku a kontrolu ATF provádějte na rovině, se zataženou parkovací brzdou a v poloze **P**. Při práci s běžícím motorem nikdy nestůjte před ani za vozem.', 'Do diagnosis and ATF checks on level ground, parking brake on and in **P**. With the engine running never stand in front of or behind the car.') },
+          { level: 'warning', text: V('ATF a převodovka mohou mít přes 80 °C – rukavice, brýle.', 'ATF and the transmission can be above 80 °C – gloves, glasses.') },
+          { level: 'caution', text: V('Adaptace a resety převodovky dělejte jen diagnostikou určenou pro vůz – špatný reset zhorší řazení.', 'Only do transmission adaptations and resets with a scan tool made for the car – a wrong reset makes shifting worse.') }
+        ],
         replaceFinalChecks: true,
         tools: AUTO_TOOLS,
         parts: [V('Nic – jen diagnostika a kontrola', 'Nothing – diagnostics and checks only')],
@@ -440,6 +446,12 @@
         intro: V(AUTO_INTRO_CS, AUTO_INTRO_EN),
         time: V('30–60 min (diagnostika)', '30–60 min (diagnosis)'),
         replaceTools: true,
+        replaceSafety: true,
+        safety: [
+          { level: 'warning', text: V('Diagnostiku a kontrolu ATF provádějte na rovině, se zataženou parkovací brzdou a v poloze **P**. Při práci s běžícím motorem nikdy nestůjte před ani za vozem.', 'Do diagnosis and ATF checks on level ground, parking brake on and in **P**. With the engine running never stand in front of or behind the car.') },
+          { level: 'warning', text: V('ATF a převodovka mohou mít přes 80 °C – rukavice, brýle.', 'ATF and the transmission can be above 80 °C – gloves, glasses.') },
+          { level: 'caution', text: V('Adaptace a resety převodovky dělejte jen diagnostikou určenou pro vůz – špatný reset zhorší řazení.', 'Only do transmission adaptations and resets with a scan tool made for the car – a wrong reset makes shifting worse.') }
+        ],
         replaceFinalChecks: true,
         tools: AUTO_TOOLS,
         parts: [V('Nic – jen diagnostika a kontrola', 'Nothing – diagnostics and checks only')],

@@ -106,7 +106,7 @@
       status: vo.status || tut.status || 'ok',
       specs: vo.specs || [],
       notes: sortNotes(tagNotes(vo.notes, vid)),
-      safety: sortNotes((tut.safety || []).concat(tagNotes(vo.safety, vid))),
+      safety: sortNotes((vo.replaceSafety ? [] : (tut.safety || [])).concat(tagNotes(vo.safety, vid))),
       title: vo.title || tut.title,
       time: vo.time || tut.time,
       intro: vo.intro || tut.intro || tut.summary,

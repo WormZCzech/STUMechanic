@@ -1,5 +1,5 @@
 /* STUMechanic service worker – offline cache. Bump VERSION when files change. */
-var VERSION = 'stu-v3';
+var VERSION = 'stu-v4';
 var FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/styles.css', 'assets/icon.svg', 'assets/icon-192.png', 'assets/icon-512.png',
   'js/core.js', 'js/i18n.js', 'js/vehicles.js', 'js/app.js',

@@ -9,16 +9,17 @@ safety warnings, built for beginners. It's an installable web app (PWA) that wor
 
 ## Features
 
-- **Tutorials by level:** Basics → Intermediate → Advanced
-  - Basics: safe lifting & wheel removal, oil & filter change, brake pads & discs
-  - Intermediate: timing belt replacement (výměna rozvodů)
-  - Advanced: bodywork – dent & rust repair, filler, primer, paint (klempířské práce)
+- **15 tutorials by level:**
+  - **Basics:** safe lifting & wheel removal, OBD diagnostics, oil & filter change, brake pads & discs, coolant change, spark plugs (glow plugs on diesel), headlights (bulbs, units, xenon, aiming), rear lights
+  - **Intermediate:** brake fluid change & bleeding, gearbox & differential oils, exhaust replacement + legal modifications, steering wheel (airbag), timing belt (výměna rozvodů)
+  - **Advanced:** clutch + dual-mass flywheel, bodywork – dent & rust repair, filler, primer, paint (klempířské práce)
+- **Search** on the home page, plus a per-vehicle list of all tutorials with difficulty status.
 - **Animated SVG illustration for each step** with pause, slow-motion and replay.
 - **Failsafe warnings** at every step, in five levels: DANGER, WARNING, CAUTION, NOTE and TIP.
 - **Vehicle switch:** a generic procedure plus vehicle-specific specs, torques, extra steps, warnings and animation variants for:
   - Mercedes-Benz CL 500 (C216) 2007 – M273 V8, 7G-Tronic, RWD, ABC
-  - Volvo XC60 B4 AWD 2024 – 2.0 petrol, 48 V mild hybrid
-  - Škoda Octavia RS 2.0 TDI 2011 – CR 125 kW, 6-speed manual
+  - Volvo XC60 B4 AWD 2024 – 2.0 petrol, 48 V mild hybrid, air suspension
+  - Škoda Octavia RS 2.0 TDI 2011 liftback – CR 125 kW, 6-speed manual, bi-xenon AFS
   - Toyota GR Yaris 2024 – G16E-GTS, 6-speed manual, GR-FOUR
 - Checklists for tools and parts, plus step progress (saved on the device).
 - Nothing is locked. Demanding jobs are only labelled "workshop recommended".
@@ -64,7 +65,8 @@ sw.js                   offline cache (bump VERSION when files change)
 - `safety[]`, `tools[]`, `parts[]`, `finalChecks[]`
 - `steps[]`: `{ id, title, body, anim, notes[], specs[] }`
 - `vehicles[<vehicleId>]`: `{ status: 'ok'|'caution'|'pro', specs[], notes[], tools[], parts[], safety[], finalChecks[],
-  steps: { <stepId>: { title?, body?, anim?, notes?, specs?, skip? } }, extraSteps: [{ after: <stepId>, step: {...} }] }`
+  steps: { <stepId>: { title?, body?, anim?, notes?, specs?, skip? } }, extraSteps: [{ after: <stepId>, step: {...} }],
+  title?, intro?, summary?, time?, replaceTools?, replaceFinalChecks?, replaceSafety? }`
 
 Notes are `{ level: 'danger'|'warning'|'caution'|'info'|'tip', text, verify? }`. Specs are `{ label, value, verify? }`.
 All texts are `{ cs, en }`. Add the script tag to `index.html` and the file path to `sw.js`.

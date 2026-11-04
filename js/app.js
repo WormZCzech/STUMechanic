@@ -107,9 +107,12 @@
       specs: vo.specs || [],
       notes: sortNotes(tagNotes(vo.notes, vid)),
       safety: sortNotes((tut.safety || []).concat(tagNotes(vo.safety, vid))),
-      tools: (tut.tools || []).map(function (x) { return { text: x }; }).concat((vo.tools || []).map(function (x) { return { text: x, vehicle: vid }; })),
+      title: vo.title || tut.title,
+      time: vo.time || tut.time,
+      intro: vo.intro || tut.intro || tut.summary,
+      tools: (vo.replaceTools ? [] : (tut.tools || []).map(function (x) { return { text: x }; })).concat((vo.tools || []).map(function (x) { return { text: x, vehicle: vid }; })),
       parts: vo.parts ? vo.parts.map(function (x) { return { text: x, vehicle: vid }; }) : (tut.parts || []).map(function (x) { return { text: x }; }),
-      finalChecks: (tut.finalChecks || []).map(function (x) { return { text: x }; }).concat((vo.finalChecks || []).map(function (x) { return { text: x, vehicle: vid }; })),
+      finalChecks: (vo.replaceFinalChecks ? [] : (tut.finalChecks || []).map(function (x) { return { text: x }; })).concat((vo.finalChecks || []).map(function (x) { return { text: x, vehicle: vid }; })),
       steps: steps,
       isGeneric: isGeneric
     };
@@ -227,8 +230,8 @@
           var r = resolve(tut, vid);
           return '<a class="card tcard" href="#/t/' + tut.id + '">' +
             '<div class="thumb">' + animBox(tut.thumb || (tut.steps[0] && tut.steps[0].anim), { controls: false, cls: 'thumbbox' }) + '</div>' +
-            '<h3>' + esc(t(tut.title)) + '</h3><p>' + esc(t(tut.summary)) + '</p>' +
-            '<div class="meta"><span class="pill">⏱ ' + esc(t(tut.time)) + '</span><span class="pill">' + r.steps.length + ' ' + esc(ui('steps').toLowerCase()) + '</span>' +
+            '<h3>' + esc(t(r.title)) + '</h3><p>' + esc(t((tut.vehicles && tut.vehicles[vid] && tut.vehicles[vid].summary) || tut.summary)) + '</p>' +
+            '<div class="meta"><span class="pill">⏱ ' + esc(t(r.time)) + '</span><span class="pill">' + r.steps.length + ' ' + esc(ui('steps').toLowerCase()) + '</span>' +
             (vid !== 'generic' ? statusPill(r.status) : '') + '</div></a>';
         }).join('') + '</div>';
       }
@@ -257,10 +260,10 @@
     var doneCount = r.steps.filter(function (s) { return prog[s.id]; }).length;
 
     var h = '<div class="crumbs"><a href="#/">' + esc(ui('allTutorials')) + '</a> › ' + esc(ui('level' + tut.level)) + '</div>';
-    h += '<div class="t-head"><h1>' + esc(t(tut.title)) + '</h1>' +
-      '<div class="meta">' + levelPill(tut.level) + '<span class="pill">⏱ ' + esc(t(tut.time)) + '</span><span class="pill">' + r.steps.length + ' ' + esc(ui('steps').toLowerCase()) + '</span>' +
+    h += '<div class="t-head"><h1>' + esc(t(r.title)) + '</h1>' +
+      '<div class="meta">' + levelPill(tut.level) + '<span class="pill">⏱ ' + esc(t(r.time)) + '</span><span class="pill">' + r.steps.length + ' ' + esc(ui('steps').toLowerCase()) + '</span>' +
       (vid !== 'generic' ? statusPill(r.status) + ' ' + vtag(vid) : '') + '</div>' +
-      '<div>' + md(tut.intro || tut.summary) + '</div></div>';
+      '<div>' + md(r.intro) + '</div></div>';
 
     h += '<div class="row" style="margin-bottom:18px"><a class="btn primary big" href="#/t/' + tid + '/0">▶ ' + esc(doneCount ? ui('continue') : ui('start')) + '</a>' +
       (doneCount ? '<span class="muted small">' + esc(ui('progress')) + ': ' + doneCount + ' / ' + r.steps.length + '</span> <button class="btn small" data-reset="' + tid + '">' + esc(ui('resetProgress')) + '</button>' : '') + '</div>';
@@ -308,7 +311,7 @@
     n = Math.max(0, Math.min(total + 1, n));
     var prog = progressOf(tid, vid);
     var pct = Math.round((n / (total + 1)) * 100);
-    var head = '<div class="crumbs"><a href="#/t/' + tid + '">← ' + esc(t(tut.title)) + '</a></div>' +
+    var head = '<div class="crumbs"><a href="#/t/' + tid + '">← ' + esc(t(r.title)) + '</a></div>' +
       '<div class="progress" style="margin:10px 0 16px"><i style="width:' + pct + '%"></i></div>';
     var nav = function (prevHref, nextHref, nextLabel) {
       return '<div class="stepnav">' +

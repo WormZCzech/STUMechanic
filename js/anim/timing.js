@@ -225,7 +225,7 @@
         labels(ctx, lay) +
         L.rotArrow(30, 40, 13, 'cw', 'accent', 270) +
         L.label(52, 44, ctx.t({ cs: 'Směr chodu motoru', en: 'Engine rotation' }), { anchor: 'start', bg: true, size: 12 }) +
-        L.label(16, 72, ctx.t({ cs: 'Schéma – skutečné vedení dle příručky', en: 'Schematic – real routing per manual' }), { anchor: 'start', bg: true, size: 10, cls: 'k-muted' });
+        L.label(474, 292, ctx.t({ cs: 'Schéma (vedení dle příručky)', en: 'Schematic (see manual routing)' }), { anchor: 'end', size: 10, cls: 'k-muted' });
       return L.svg(s, ctx.t({ cs: 'Schéma rozvodového řemene', en: 'Timing belt layout' }));
     }
   });
@@ -532,7 +532,7 @@
   A.register('timing.diag', {
     render: function (ctx) {
       var tool = ctx.vehicle === 'mb-cl500-c216' ? 'XENTRY / DAS' : ctx.vehicle === 'toyota-gr-yaris' ? 'Techstream / OBD' : ctx.vehicle === 'volvo-xc60-b4' ? 'VIDA' : ctx.vehicle === 'skoda-octavia-rs-tdi' ? 'VCDS / ODIS' : 'OBD';
-      var s = '<rect class="k-dark" x="110" y="34" width="250" height="250" rx="22"/>' +
+      var s = '<g transform="translate(-50,0)"><rect class="k-dark" x="110" y="34" width="250" height="250" rx="22"/>' +
         '<rect class="k-ground s-line" stroke-width="2" x="128" y="52" width="214" height="160" rx="8"/>' +
         L.label(235, 74, ctx.t({ cs: 'Vačka vs. klika (°)', en: 'Cam vs. crank (°)' }), { size: 12 }) +
         '<rect class="k-danger" x="150" y="118" width="32" height="16"/><rect class="k-warn" x="182" y="118" width="26" height="16"/>' +
@@ -541,10 +541,10 @@
         '<g class="timing-needle"><polygon class="k-text" points="235,112 229,100 241,100"/><line class="s-text" stroke-width="3" x1="235" y1="110" x2="235" y2="140"/></g>' +
         '<g class="timing-q1">' + L.label(235, 170, ctx.t({ cs: 'V toleranci – OK', en: 'Within limits – OK' }), { size: 13, cls: 'k-ok' }) + '</g>' +
         '<g class="timing-q2">' + L.label(235, 170, ctx.t({ cs: 'Mimo toleranci → servis', en: 'Out of limits → workshop' }), { size: 13, cls: 'k-danger' }) + '</g>' +
-        '<circle class="k-metal2" cx="190" cy="248" r="14"/><circle class="k-metal2" cx="235" cy="248" r="14"/><circle class="k-metal2" cx="280" cy="248" r="14"/>' +
-        L.label(372, 60, tool, { anchor: 'start', bg: true, size: 13 }) +
-        L.label(372, 88, ctx.t({ cs: 'skutečné hodnoty', en: 'live data' }), { anchor: 'start', bg: true, size: 12 }) +
-        L.label(372, 112, ctx.t({ cs: 'limity dle příručky', en: 'limits per manual' }), { anchor: 'start', bg: true, size: 12 }) +
+        '<circle class="k-metal2" cx="190" cy="248" r="14"/><circle class="k-metal2" cx="235" cy="248" r="14"/><circle class="k-metal2" cx="280" cy="248" r="14"/></g>' +
+        L.label(322, 60, tool, { anchor: 'start', bg: true, size: 13 }) +
+        L.label(322, 88, ctx.t({ cs: 'skutečné hodnoty', en: 'live data' }), { anchor: 'start', bg: true, size: 12 }) +
+        L.label(322, 112, ctx.t({ cs: 'limity dle příručky', en: 'limits per manual' }), { anchor: 'start', bg: true, size: 12 }) +
         L.label(16, 18, ctx.t({ cs: 'Diagnostika natažení řetězu', en: 'Diagnosing chain stretch' }), { anchor: 'start', bg: true, size: 13 });
       return L.svg(s, ctx.t({ cs: 'Diagnostika polohy vačkových hřídelů', en: 'Camshaft position diagnostics' }));
     }

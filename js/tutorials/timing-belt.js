@@ -394,6 +394,10 @@
       },
       'mb-cl500-c216': {
         status: 'pro',
+        title: V('Rozvody: kontrola rozvodového řetězu', 'Timing drive: checking the timing chain'),
+        time: V('30–60 min (diagnostika)', '30–60 min (diagnosis)'),
+        summary: V('Tento motor má řetěz, ne řemen. Jak poznat natažený řetěz a kdy do servisu.', 'This engine has a chain, not a belt. How to spot a stretched chain and when to see a workshop.'),
+        intro: V('Váš motor **nemá rozvodový řemen**, ale **řetěz**, který nemá pravidelný interval výměny. Tento návod proto neobsahuje výměnu řemenu – ukáže vám, jak **včas poznat opotřebení řetězu**, jak ho diagnostikovat a jak ho chránit.', 'Your engine has **no timing belt** but a **chain**, which has no scheduled replacement interval. So this tutorial does not cover a belt change – it shows you how to **spot chain wear early**, how to diagnose it and how to protect it.'),
         specs: [
           { label: V('Rozvody', 'Timing drive'), value: V('řetěz (M273 V8, 4 vačky)', 'chain (M273 V8, 4 camshafts)') },
           { label: V('Interval výměny', 'Replacement interval'), value: V('bez intervalu – výměna dle stavu', 'none – replace on condition') },
@@ -423,6 +427,10 @@
       },
       'toyota-gr-yaris': {
         status: 'pro',
+        title: V('Rozvody: kontrola rozvodového řetězu', 'Timing drive: checking the timing chain'),
+        time: V('30–60 min (diagnostika)', '30–60 min (diagnosis)'),
+        summary: V('Tento motor má řetěz, ne řemen. Jak poznat natažený řetěz a kdy do servisu.', 'This engine has a chain, not a belt. How to spot a stretched chain and when to see a workshop.'),
+        intro: V('Váš motor **nemá rozvodový řemen**, ale **řetěz**, který nemá pravidelný interval výměny. Tento návod proto neobsahuje výměnu řemenu – ukáže vám, jak **včas poznat opotřebení řetězu**, jak ho diagnostikovat a jak ho chránit.', 'Your engine has **no timing belt** but a **chain**, which has no scheduled replacement interval. So this tutorial does not cover a belt change – it shows you how to **spot chain wear early**, how to diagnose it and how to protect it.'),
         specs: [
           { label: V('Rozvody', 'Timing drive'), value: V('řetěz (G16E-GTS)', 'chain (G16E-GTS)') },
           { label: V('Interval výměny', 'Replacement interval'), value: V('bez intervalu – výměna dle stavu', 'none – replace on condition') },

@@ -8,7 +8,8 @@
     'mb-cl500-c216': { cs: 'pod palubní deskou vlevo (za krytkou)', en: 'under the dash, left (behind a cover)' },
     'volvo-xc60-b4': { cs: 'pod palubní deskou u řidiče', en: 'under the dash, driver side' },
     'skoda-octavia-rs-tdi': { cs: 'pod palubní deskou vlevo od volantu', en: 'under the dash, left of the steering column' },
-    'toyota-gr-yaris': { cs: 'pod palubní deskou u řidiče', en: 'under the dash, driver side' }
+    'toyota-gr-yaris': { cs: 'pod palubní deskou u řidiče', en: 'under the dash, driver side' },
+    'citroen-jumper-22hdi': { cs: 'pod palubní deskou u řidiče, za krytkou (ověřit)', en: 'under the dash, driver side, behind a cover (verify)' }
   };
 
   A.css('diag', [
@@ -134,7 +135,8 @@
         'mb-cl500-c216': 'XENTRY / DAS',
         'volvo-xc60-b4': 'VIDA',
         'skoda-octavia-rs-tdi': 'VCDS / OBDeleven',
-        'toyota-gr-yaris': 'Techstream / GTS'
+        'toyota-gr-yaris': 'Techstream / GTS',
+        'citroen-jumper-22hdi': 'Diagbox / Lexia (PP2000)'
       }[ctx.vehicle] || '';
       s += L.label(390, 222, brand, { size: 11, cls: 'k-accent' });
       s += L.label(16, 24, ctx.t({ cs: 'Vyberte nástroj podle toho, co potřebujete vidět', en: 'Choose a tool by what you need to see' }), { anchor: 'start', bg: true });

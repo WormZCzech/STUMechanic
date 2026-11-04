@@ -5,6 +5,12 @@
   var THREE = window.THREE, R = S.scene3d.register, PI = Math.PI;
   var V = function (cs, en) { return { cs: cs, en: en }; };
 
+  var JUMPER = 'citroen-jumper-22hdi';
+  /** Camera framing for whole-vehicle scenes: the tall Jumper van needs a higher / wider view. */
+  function vanCam(ctx, K, pos, target) {
+    if (K.carSpec(ctx.vehicle).style !== 'van') return null;
+    return function () { return { pos: pos, target: target }; };
+  }
   function lampType(vid) {
     if (vid === 'volvo-xc60-b4' || vid === 'toyota-gr-yaris') return 'led';
     if (vid === 'skoda-octavia-rs-tdi' || vid === 'mb-cl500-c216') return 'xenon';
@@ -441,6 +447,7 @@
           });
           glows.forEach(function (m) { m.opacity = low || high ? 0.85 : 0.2; });
         },
+        cameraPath: vanCam(ctx, K, [7.4, 2.1, 4.6], [2.7, 0.95, 0]),
         captions: [
           { text: V('Potkávací', 'Low beam'), show: [0, 2.5] },
           { text: V('Dálková', 'High beam'), show: [2.5, 4.5] },
@@ -457,7 +464,8 @@
     'skoda-octavia-rs-tdi': V('VCDS: základní nastavení (ověřit)', 'VCDS: basic settings (verify)'),
     'mb-cl500-c216': V('XENTRY: kalibrace (ověřit)', 'XENTRY: calibration (verify)'),
     'volvo-xc60-b4': V('VIDA: kalibrace světel (ověřit)', 'VIDA: headlight calibration (verify)'),
-    'toyota-gr-yaris': V('Techstream: inicializace (ověřit)', 'Techstream: initialisation (verify)')
+    'toyota-gr-yaris': V('Techstream: inicializace (ověřit)', 'Techstream: initialisation (verify)'),
+    'citroen-jumper-22hdi': V('Jumper: bez diagnostiky – ruční kolečko', 'Jumper: no scan tool – manual wheel')
   };
   R('lights.basicSetting', {
     duration: 8, camera: { pos: [6.2, 1.5, 3.4], target: [2.2, 0.5, 0.3], fov: 38 }, shadow: 4, thumbT: 5,
@@ -476,7 +484,12 @@
           var pitch = t < 5.5 ? -0.05 + 0.06 * Math.sin(t * 2.5) * (1 - p) : -0.05;
           Object.keys(f.beams).forEach(function (k) { f.beams[k].low.rotation.z = pitch; f.beams[k].high.visible = false; });
         },
-        captions: [
+        cameraPath: vanCam(ctx, K, [7.4, 2.1, 4.2], [2.6, 0.95, 0.3]),
+        captions: ctx.vehicle === JUMPER ? [
+          { text: V('Jumper: halogeny s ručním kolečkem regulace sklonu (ověřit)', 'Jumper: halogen lamps with a manual range-adjust wheel (verify)') },
+          { text: V('Prázdný vůz = poloha 0, naložený vůz = vyšší číslo', 'Empty van = position 0, loaded van = higher number'), level: 'info', show: [2, 8] },
+          { text: V('Po výměně světla: seřídit na stěně (krok Seřízení)', 'After replacing a lamp: aim it against a wall (aiming step)'), show: [4, 8] }
+        ] : [
           { text: V('Základní nastavení regulace světel', 'Headlight range control basic setting') },
           { text: V('Po výměně světla / senzoru výšky', 'After replacing a lamp / level sensor'), level: 'info', show: [2, 8] }
         ]
@@ -529,7 +542,8 @@
         captions: [
           { text: V('Rovina · tlaky pneu · ½ nádrže · řidič ve voze', 'Level floor · tyre pressures · ½ tank · driver inside') },
           { text: V('Sklon dle štítku na světle (např. 1,0 %)', 'Drop per the lamp label (e.g. 1.0 %)'), show: [2.5, 9], level: 'info' },
-          { text: V('Vzduchový podvozek: normální výška!', 'Air suspension: normal ride height!'), show: ctx.vehicle === 'volvo-xc60-b4' ? [0, 9] : [99, 99], level: 'danger' }
+          { text: V('Vzduchový podvozek: normální výška!', 'Air suspension: normal ride height!'), show: ctx.vehicle === 'volvo-xc60-b4' ? [0, 9] : [99, 99], level: 'danger' },
+          { text: V('Jumper: prázdný vůz, kolečko sklonu na 0', 'Jumper: empty van, range wheel at 0'), show: ctx.vehicle === JUMPER ? [0, 9] : [99, 99], level: 'danger' }
         ]
       };
     }
@@ -643,7 +657,8 @@
         captions: [
           { text: V('Kryt v obložení kufru → stisknout západky → vytáhnout držák', 'Boot trim flap → press latches → pull out the carrier') },
           { text: V('Žárovky: zatlačit + pootočit', 'Bulbs: push in + twist'), show: [4.8, 9], level: 'info' },
-          { text: V('Octavia liftback: část světla je ve víku kufru', 'Octavia liftback: part of the lamp is in the tailgate'), show: ctx.vehicle === 'skoda-octavia-rs-tdi' ? [0, 9] : [99, 99] }
+          { text: V('Octavia liftback: část světla je ve víku kufru', 'Octavia liftback: part of the lamp is in the tailgate'), show: ctx.vehicle === 'skoda-octavia-rs-tdi' ? [0, 9] : [99, 99] },
+          { text: V('Jumper: světlo se obvykle odšroubuje zvenku po otevření zadních dveří (ověřit)', 'Jumper: the lamp usually unscrews from outside with the rear doors open (verify)'), show: ctx.vehicle === JUMPER ? [0, 9] : [99, 99], level: 'info' }
         ]
       };
     }
@@ -702,7 +717,8 @@
         ],
         captions: [
           { text: V('Zevnitř kufru: matice → konektor → světlo ven', 'From inside the boot: nuts → connector → lamp out') },
-          { text: V('Liftback: druhá část světla ve víku kufru má vlastní upevnění', 'Liftback: the tailgate part has its own fixings'), show: ctx.vehicle === 'skoda-octavia-rs-tdi' ? [4.5, 9] : [99, 99], level: 'info' }
+          { text: V('Liftback: druhá část světla ve víku kufru má vlastní upevnění', 'Liftback: the tailgate part has its own fixings'), show: ctx.vehicle === 'skoda-octavia-rs-tdi' ? [4.5, 9] : [99, 99], level: 'info' },
+          { text: V('Jumper: šrouby jsou zvenku v otvoru zadních dveří (ověřit)', 'Jumper: the screws are outside, in the rear door opening (verify)'), show: ctx.vehicle === JUMPER ? [0, 9] : [99, 99], level: 'info' }
         ]
       };
     }
@@ -713,21 +729,22 @@
     build: function (ctx, K) {
       var root = new THREE.Group();
       var c = K.car(ctx.vehicle); root.add(c.group);
-      var suv = K.carSpec(ctx.vehicle).style === 'suv';
-      var red = ['taillightL', 'taillightR'].map(function (n) { return lampGlow(K, c, n, 0xff2020, suv ? [0.12, 0.3] : [0.28, 0.08], 0.035); });
+      var style = K.carSpec(ctx.vehicle).style, van = style === 'van', suv = style === 'suv' || van;
+      var red = ['taillightL', 'taillightR'].map(function (n) { return lampGlow(K, c, n, 0xff2020, van ? [0.1, 0.46] : (suv ? [0.12, 0.3] : [0.28, 0.08]), 0.035); });
       var amber = ['taillightL', 'taillightR'].map(function (n) {
         var src = c.body.getObjectByName(n);
         var m = new THREE.MeshBasicMaterial({ color: 0xff9a00, transparent: true, opacity: 0, toneMapped: false });
-        var p = K.mesh(K.G.box(0.02, suv ? 0.06 : 0.03, suv ? 0.1 : 0.08), m); p.position.set(0.045, suv ? 0.1 : 0.03, suv ? 0 : (n === 'taillightL' ? 0.08 : -0.08)); src.add(p); return m;
+        var p = K.mesh(K.G.box(0.02, suv ? 0.06 : 0.03, suv ? 0.1 : 0.08), m); p.position.set(0.045, van ? 0.16 : (suv ? 0.1 : 0.03), suv ? 0 : (n === 'taillightL' ? 0.08 : -0.08)); src.add(p); return m;
       });
       var white = ['taillightL', 'taillightR'].map(function (n) {
         var src = c.body.getObjectByName(n);
         var m = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false });
-        var p = K.mesh(K.G.box(0.02, suv ? 0.05 : 0.025, suv ? 0.1 : 0.07), m); p.position.set(0.045, suv ? -0.1 : -0.03, suv ? 0 : (n === 'taillightL' ? -0.07 : 0.07)); src.add(p); return m;
+        var p = K.mesh(K.G.box(0.02, suv ? 0.05 : 0.025, suv ? 0.1 : 0.07), m); p.position.set(0.045, van ? -0.16 : (suv ? -0.1 : -0.03), suv ? 0 : (n === 'taillightL' ? -0.07 : 0.07)); src.add(p); return m;
       });
       var d = c.dims;
       var third = K.mesh(K.G.box(0.02, 0.025, 0.4), new THREE.MeshBasicMaterial({ color: 0xff2020, transparent: true, opacity: 0, toneMapped: false }));
-      third.position.set(d.rear + 0.62, d.H - 0.03, 0); root.add(third);
+      if (van) third.position.set(d.rear - 0.012, d.H - 0.07, 0); else third.position.set(d.rear + 0.62, d.H - 0.03, 0);
+      root.add(third);
       var helper = new THREE.Group();
       var bodyM = K.M.clone('toolBlue', { roughness: 0.9 });
       helper.add(K.at(K.mesh(K.G.cyl(0.17, 0.75, 20), bodyM), 0, 1.0, 0));
@@ -746,6 +763,7 @@
           white.forEach(function (m) { m.opacity = rev ? 1 : 0; });
         },
         labels: [{ text: V('Pomocník za vozem', 'Helper behind the car'), at: [d.rear - 1.9, 1.75, -0.6] }],
+        cameraPath: vanCam(ctx, K, [-7.6, 2.3, 3.6], [-2.4, 1.15, 0]),
         captions: [
           { text: V('Brzda (+ 3. brzdové)', 'Brake (+ 3rd brake light)'), show: [0, 2] },
           { text: V('Blinkr vlevo', 'Left indicator'), show: [2, 4] },

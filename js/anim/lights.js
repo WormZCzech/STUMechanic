@@ -322,7 +322,8 @@
         'skoda-octavia-rs-tdi': { cs: 'VCDS: základní nastavení (ověřit)', en: 'VCDS: basic settings (verify)' },
         'mb-cl500-c216': { cs: 'XENTRY: kalibrace (ověřit)', en: 'XENTRY: calibration (verify)' },
         'volvo-xc60-b4': { cs: 'VIDA: kalibrace světel (ověřit)', en: 'VIDA: headlight calibration (verify)' },
-        'toyota-gr-yaris': { cs: 'Techstream: inicializace (ověřit)', en: 'Techstream: initialisation (verify)' }
+        'toyota-gr-yaris': { cs: 'Techstream: inicializace (ověřit)', en: 'Techstream: initialisation (verify)' },
+        'citroen-jumper-22hdi': { cs: 'Jumper: ruční kolečko sklonu (ověřit)', en: 'Jumper: manual range wheel (verify)' }
       }[ctx.vehicle] || { cs: 'Diagnostika', en: 'Scan tool' };
       var s = L.ground(262) +
         '<path class="k-glass s-dark" stroke-width="1.5" d="M110,160 L170,166 L172,196 L112,192 Z"/>' +

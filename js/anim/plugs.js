@@ -8,7 +8,8 @@
     'mb-cl500-c216': '≈ 25 Nm',
     'volvo-xc60-b4': { cs: 'dle VIDA', en: 'per VIDA' },
     'skoda-octavia-rs-tdi': '≈ 15 Nm',
-    'toyota-gr-yaris': { cs: 'dle TIS', en: 'per TIS' }
+    'toyota-gr-yaris': { cs: 'dle TIS', en: 'per TIS' },
+    'citroen-jumper-22hdi': { cs: 'dle příručky (ověřit)', en: 'per manual (verify)' }
   };
   var GAP = {
     'generic': { cs: 'dle příručky', en: 'per manual' },
@@ -16,7 +17,7 @@
     'volvo-xc60-b4': { cs: 'dle VIDA', en: 'per VIDA' },
     'toyota-gr-yaris': { cs: 'z výroby – neupravovat', en: 'pre-gapped – do not adjust' }
   };
-  function isGlow(ctx) { return ctx.vehicle === 'skoda-octavia-rs-tdi'; }
+  function isGlow(ctx) { return ctx.vehicle === 'skoda-octavia-rs-tdi' || ctx.vehicle === 'citroen-jumper-22hdi'; }
 
   A.css('plugs', [
     /* cover off 6 s */

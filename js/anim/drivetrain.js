@@ -86,6 +86,9 @@
           '<line class="s-dark" stroke-width="5" x1="106" y1="78" x2="106" y2="222"/>' +
           hl(314, 140, 26) + hl(283, 168, 20) + hl(106, 165, 28);
         labels = [[314, 96, { cs: '6MT + přední dif.', en: '6MT + front diff' }], [254, 208, { cs: 'Rozdělovací převodovka', en: 'Transfer case' }], [106, 210, { cs: 'Zadní dif. + spojka', en: 'Rear diff + coupling' }]];
+      } else if (v === 'citroen-jumper-22hdi') {
+        s += unit(350, 104, 46, 80, 'k-metal') + unit(312, 112, 38, 70) + '<line class="s-dark" stroke-width="5" x1="331" y1="78" x2="331" y2="222"/>' + hl(331, 147, 30);
+        labels = [[322, 208, { cs: '6st. manuál + dif. (jeden olej)', en: '6-speed manual + diff (one oil)' }], [372, 96, { cs: 'Motor 2.2 HDi', en: '2.2 HDi engine' }], [150, 150, { cs: 'Zadní náprava bez oleje (FWD)', en: 'Rear axle – no oil (FWD)' }]];
       } else {
         s += unit(330, 104, 50, 80, 'k-metal') + unit(290, 112, 40, 70) + '<line class="s-dark" stroke-width="5" x1="310" y1="78" x2="310" y2="222"/>' + hl(310, 147, 32);
         labels = [[300, 208, { cs: 'Převodovka + diferenciál', en: 'Gearbox + differential' }], [355, 96, { cs: 'Motor', en: 'Engine' }]];

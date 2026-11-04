@@ -2,7 +2,7 @@
 (function (S) {
   'use strict';
   var L = S.animLib, A = S.anim;
-  var CHAIN = { 'mb-cl500-c216': true, 'toyota-gr-yaris': true };
+  var CHAIN = { 'mb-cl500-c216': true, 'toyota-gr-yaris': true, 'citroen-jumper-22hdi': true };
   var CRANK_T = 2.4; // seconds per crankshaft revolution in running animations
 
   function f(n) { return (+n).toFixed(1); }
@@ -503,7 +503,7 @@
     var trl = off(s0, 11, 0.2, 0.8);      // tensioner rail (slack side, left)
     var mx = (s0.p1[0] + s0.p2[0]) / 2, my = (s0.p1[1] + s0.p2[1]) / 2;
     var hx = mx + Math.cos(s0.n) * 34, hy = my + Math.sin(s0.n) * 34, ang = s0.n * 180 / Math.PI;
-    var codes = ctx.vehicle === 'mb-cl500-c216' ? 'P0016–P0019' : 'P0016 / P0017';
+    var codes = ctx.vehicle === 'mb-cl500-c216' ? 'P0016–P0019' : ctx.vehicle === 'citroen-jumper-22hdi' ? 'P0016 (?)' : 'P0016 / P0017';
     var s = '<rect class="k-line" x="96" y="14" width="300" height="276" rx="26" opacity=".2"/>' +
       '<g class="timing-rattle"><path class="k-none s-dark" stroke-width="11" stroke-linejoin="round" d="' + bp.d + '"/>' +
       '<path class="k-none s-metal" stroke-width="5" stroke-dasharray="6 3" d="' + bp.d + '"/></g>' +
@@ -531,7 +531,7 @@
   /* ------------------------------------------------------------ diagnostics */
   A.register('timing.diag', {
     render: function (ctx) {
-      var tool = ctx.vehicle === 'mb-cl500-c216' ? 'XENTRY / DAS' : ctx.vehicle === 'toyota-gr-yaris' ? 'Techstream / OBD' : ctx.vehicle === 'volvo-xc60-b4' ? 'VIDA' : ctx.vehicle === 'skoda-octavia-rs-tdi' ? 'VCDS / ODIS' : 'OBD';
+      var tool = ctx.vehicle === 'mb-cl500-c216' ? 'XENTRY / DAS' : ctx.vehicle === 'toyota-gr-yaris' ? 'Techstream / OBD' : ctx.vehicle === 'volvo-xc60-b4' ? 'VIDA' : ctx.vehicle === 'skoda-octavia-rs-tdi' ? 'VCDS / ODIS' : ctx.vehicle === 'citroen-jumper-22hdi' ? 'Diagbox / Lexia' : 'OBD';
       var s = '<g transform="translate(-50,0)"><rect class="k-dark" x="110" y="34" width="250" height="250" rx="22"/>' +
         '<rect class="k-ground s-line" stroke-width="2" x="128" y="52" width="214" height="160" rx="8"/>' +
         L.label(235, 74, ctx.t({ cs: 'Vačka vs. klika (°)', en: 'Cam vs. crank (°)' }), { size: 12 }) +

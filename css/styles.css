@@ -334,3 +334,32 @@ main { max-width: 1060px; margin: 0 auto; padding: 20px 16px 48px; }
 .thumb3d { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s; }
 .thumb3d.ok { opacity: 1; }
 @media (max-width: 640px) { .l3d { font-size: 11px; padding: 2px 7px; } .c3d { font-size: 12px; } }
+
+/* ---------- symptom guide ---------- */
+.symcta { display: flex; gap: 14px; align-items: center; text-decoration: none; color: var(--text); margin: 4px 0 14px; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--card)); }
+.symcta:hover { border-color: var(--accent); transform: translateY(-1px); }
+.symcta-ico { width: 44px; height: 44px; border-radius: 12px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; flex: 0 0 auto; }
+.symcta-ico svg { width: 28px; height: 28px; }
+.symjump { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px; }
+.symjump a { text-decoration: none; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-weight: 700; font-size: .9rem; }
+.symjump a:hover { border-color: var(--accent); }
+.symcard { text-decoration: none; color: var(--text); display: flex; flex-direction: column; gap: 6px; border-left-width: 5px; }
+.symcard h3 { margin: 0; font-size: 1.02rem; }
+.symcard p { margin: 0; color: var(--muted); font-size: .93rem; }
+.symcard:hover { transform: translateY(-2px); }
+.sev-b-stop { border-left-color: var(--danger); } .sev-b-soon { border-left-color: var(--warning); } .sev-b-watch { border-left-color: var(--info); }
+.pill.sev-stop { color: #fff; background: var(--danger); border-color: var(--danger); }
+.pill.sev-soon { color: var(--warning); border-color: var(--warning); }
+.pill.sev-watch { color: var(--info); border-color: var(--info); }
+.pill.like { color: var(--text); }
+.causes { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; counter-reset: c; }
+.cause { border-left-width: 5px; }
+.cause h3 { margin: 0 0 6px; }
+.cause .checkbox { background: var(--card2); border: 1px dashed var(--line); border-radius: 10px; padding: 8px 12px; margin: 8px 0; }
+.cause .checkbox p:last-child { margin-bottom: 0; }
+.tutlinks { display: grid; gap: 6px; margin-top: 8px; }
+.tutlink { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); background: var(--card2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-weight: 700; }
+.tutlink:hover { border-color: var(--accent); }
+.tutlink .go { margin-left: auto; color: var(--accent); }
+.tutlink .pill { flex: 0 0 auto; }
+@media (max-width: 640px) { .bottomnav a { padding: 6px 6px; } }

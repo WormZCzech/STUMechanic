@@ -27,6 +27,20 @@ window.STU = (function () {
     S.vehicleMap[v.id] = v;
   };
 
+  /* ---------- symptom guide ("what's wrong?" roadmap) ----------
+   * Group:   { id, icon, title, intro }
+   * Symptom: { id, group, title, desc, ask: [question…] (optional), severity: 'stop'|'soon'|'watch',
+   *            causes: [{ title, explain, likelihood: 'common'|'possible'|'rare', severity, check,
+   *                       tutorials: [tutorialId…], vehicles: { <vehicleId>: localized note } }] } */
+  S.symptomGroups = [];
+  S.symptoms = [];
+  S.symptomMap = {};
+  S.registerSymptomGroup = function (g) { S.symptomGroups.push(g); };
+  S.registerSymptom = function (s) {
+    if (S.symptomMap[s.id]) throw new Error('Duplicate symptom ' + s.id);
+    S.symptoms.push(s); S.symptomMap[s.id] = s;
+  };
+
   /* ---------- animations ---------- */
   var injectedCss = {};
   S.anim = {

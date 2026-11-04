@@ -130,4 +130,34 @@
       { level: 'info', text: { cs: 'Při závodním / okruhovém provozu výrazně zkraťte intervaly oleje, brzdové kapaliny a olejů diferenciálů.', en: 'With track use, shorten the intervals for oil, brake fluid and differential oils considerably.' } }
     ]
   });
+
+  S.registerVehicle({
+    id: 'citroen-jumper-22hdi',
+    name: { cs: 'Citroën Jumper 2.2 HDi 2007 (furgon)', en: 'Citroën Jumper 2.2 HDi 2007 (panel van)' },
+    short: { cs: 'Jumper', en: 'Jumper' },
+    sub: { cs: 'Furgon · 2.2 HDi diesel · 6st. manuál · přední náhon', en: 'Panel van · 2.2 HDi diesel · 6-speed manual · FWD' },
+    color: '#2f5fa8',
+    facts: [
+      { label: { cs: 'Generace', en: 'Generation' }, value: { cs: 'Jumper III (X250, od 2006) – technicky shodný s Fiat Ducato / Peugeot Boxer', en: 'Jumper III (X250, from 2006) – technically identical to Fiat Ducato / Peugeot Boxer' } },
+      { label: { cs: 'Karoserie', en: 'Body' }, value: { cs: 'Furgon; délka/výška (L1–L4 / H1–H3) neuvedena – 3D model je L2H2', en: 'Panel van; length/height (L1–L4 / H1–H3) not specified – 3D model is L2H2' }, verify: true },
+      { label: { cs: 'Motor', en: 'Engine' }, value: { cs: '2.2 HDi (rodina Ford Duratorq „Puma“), 74 kW (100 k) nebo 88 kW (120 k) – zjistěte z ORV', en: '2.2 HDi (Ford Duratorq "Puma" family), 74 kW (100 hp) or 88 kW (120 hp) – check your registration papers' }, verify: true },
+      { label: { cs: 'Převodovka', en: 'Transmission' }, value: { cs: '6st. manuál', en: '6-speed manual' } },
+      { label: { cs: 'Pohon', en: 'Drive' }, value: { cs: 'Přední kola (FWD)', en: 'Front-wheel drive (FWD)' } },
+      { label: { cs: 'Filtr pevných částic', en: 'Particulate filter' }, value: { cs: 'Neznámo – podle verze s FAP/DPF nebo bez (zkontrolujte výfuk / ORV)', en: 'Unknown – with or without FAP/DPF depending on version (check exhaust / papers)' }, verify: true },
+      { label: { cs: 'Motorový olej', en: 'Engine oil' }, value: { cs: 'S DPF: low-SAPS (např. PSA B71 2290, 5W-30); bez DPF dle příručky (např. PSA B71 2296) – ověřit', en: 'With DPF: low-SAPS (e.g. PSA B71 2290, 5W-30); without DPF per manual (e.g. PSA B71 2296) – verify' }, verify: true },
+      { label: { cs: 'Množství oleje (s filtrem)', en: 'Oil capacity (with filter)' }, value: { cs: 'cca 5,5–6 l', en: 'approx. 5.5–6 L' }, verify: true },
+      { label: { cs: 'Rozvody', en: 'Timing drive' }, value: { cs: 'Řetěz (bez pravidelného intervalu výměny)', en: 'Chain (no scheduled replacement interval)' }, verify: true },
+      { label: { cs: 'Brzdy', en: 'Brakes' }, value: { cs: 'Kotoučové vpředu i vzadu; parkovací brzda mechanická (páka)', en: 'Discs front and rear; mechanical parking brake (lever)' }, verify: true },
+      { label: { cs: 'Šrouby kol', en: 'Wheel bolts' }, value: { cs: 'cca 160–180 Nm dle verze (30/33/35/40 Heavy)', en: 'approx. 160–180 Nm depending on version (30/33/35/40 Heavy)' }, verify: true },
+      { label: { cs: 'Celková hmotnost', en: 'Gross weight' }, value: { cs: '3,0–4,0 t dle verze (štítek ve dveřích / ORV)', en: '3.0–4.0 t depending on version (door-pillar plate / papers)' } },
+      { label: { cs: 'Světlomety', en: 'Headlights' }, value: { cs: 'Halogenové žárovky', en: 'Halogen bulbs' }, verify: true }
+    ],
+    quirks: [
+      { level: 'danger', text: { cs: '**Těžké vozidlo (až 4 t):** Hever i stojany musí mít nosnost min. 3 t každý. Před zvedáním vyložte náklad. Nikdy nepoužívejte zvedák z osobního auta.', en: '**Heavy vehicle (up to 4 t):** The jack and each stand must be rated at least 3 t. Unload the cargo before lifting. Never use a car jack.' } },
+      { level: 'warning', text: { cs: '**Výška a těžiště:** Vysoká dodávka je na stojanech méně stabilní do boku. Zvedejte jen tolik, kolik je nutné, a pracujte na zcela rovném betonu.', en: '**Height and centre of gravity:** A tall van is less stable sideways on stands. Lift only as much as needed and work on perfectly level concrete.' } },
+      { level: 'warning', text: { cs: '**Common Rail diesel:** vysokotlaký systém paliva – nikdy neotevírejte vedení za chodu nebo hned po vypnutí.', en: '**Common Rail diesel:** high-pressure fuel system – never open lines with the engine running or right after switching off.' } },
+      { level: 'info', text: { cs: 'Výkon (100/120 k) a přítomnost DPF zatím neznáme – hodnoty, které na tom závisí, jsou označené OVĚŘIT. Zjistíte je z ORV (kW) a pohledem na výfuk (velké pouzdro DPF za katalyzátorem).', en: 'We do not know the power (100/120 hp) and whether a DPF is fitted yet – values that depend on it are marked VERIFY. Check the registration papers (kW) and the exhaust (a large DPF canister after the catalyst).' } },
+      { level: 'caution', text: { cs: 'Dodávky X250 trpí korozí podvozku, prahů a lemů blatníků – před zvedáním zkontrolujte, že zvedací body nejsou prorezlé.', en: 'X250 vans suffer from corrosion of the underbody, sills and wheel-arch lips – check the jacking points are not rusted through before lifting.' }, verify: true }
+    ]
+  });
 })(window.STU);

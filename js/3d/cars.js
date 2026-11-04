@@ -30,6 +30,11 @@
     'toyota-gr-yaris': {
       L: 3.995, W: 1.805, H: 1.455, wb: 2.56, rOH: 0.63, wr: 0.32, tw: 0.225, clr: 0.13, belt: 0.93, hoodF: 0.82, deckR: 1.02,
       ws0: 2.58, rf: 1.98, rr: 0.62, rg0: 0.16, paint: 0xb5262c, style: 'hothatch', rim: 'rimDark'
+    },
+    // Citroën Jumper X250 panel van, modelled as L2H2 (length/height not confirmed by the owner)
+    'citroen-jumper-22hdi': {
+      L: 5.413, W: 2.05, H: 2.52, wb: 3.45, rOH: 1.0, wr: 0.345, tw: 0.215, clr: 0.19, belt: 1.3, hoodF: 1.13, deckR: 2.44,
+      ws0: 4.66, rf: 3.98, rr: 0.05, rg0: 3.33, paint: 0x24508f, style: 'van', rim: 'plasticGrey'
     }
   };
   K.carSpec = function (id) { return SPEC[id] || SPEC.generic; };
@@ -92,7 +97,16 @@
     return 1 - amt * k * k * (3 - 2 * k) ;
   }
 
+  /** plan-view rounding length of the front / rear end */
+  function endE(s, x) {
+    if (s.style === 'van') return x < s.L / 2 ? 0.1 : 0.36;
+    return s.style === 'suv' ? 0.3 : 0.42;
+  }
   function lowerTop(s) {
+    if (s.style === 'van') {
+      return lineFn([[0, s.H - 0.12], [0.03, s.H - 0.03], [0.1, s.H], [s.rg0 - 0.07, s.H], [s.rg0 - 0.02, s.H - 0.08], [s.rg0 + 0.03, s.belt],
+        [s.ws0, s.belt], [s.ws0 + 0.1, s.belt - 0.04], [s.L - 0.32, s.hoodF + 0.05], [s.L - 0.12, s.hoodF - 0.02], [s.L - 0.04, s.hoodF - 0.16], [s.L, s.hoodF - 0.32]]);
+    }
     var p = [[0, s.deckR - 0.16], [0.04, s.deckR - 0.05], [0.14, s.deckR]];
     if (s.style === 'coupe' || s.style === 'liftback') p.push([s.rg0 - 0.12, s.belt + 0.03]);
     p.push([s.rg0, s.belt], [s.ws0, s.belt], [s.ws0 + 0.12, s.belt - 0.015],
@@ -114,6 +128,9 @@
   }
   function roofTop(s) {
     var H = s.H, p = [[s.rg0, s.belt - 0.005]];
+    if (s.style === 'van') {
+      return lineFn([[s.rg0, s.belt - 0.005], [s.rg0 + 0.02, H - 0.04], [s.rg0 + 0.08, H], [s.rf - 0.1, H], [s.rf + 0.06, H - 0.07], [s.ws0, s.belt - 0.005]]);
+    }
     if (s.style === 'suv') p.push([s.rr - 0.03, H - 0.08], [s.rr + 0.08, H - 0.01]);
     else if (s.style === 'hothatch') p.push([s.rr - 0.1, H - 0.13], [s.rr + 0.12, H - 0.015]);
     else if (s.style === 'hatch') p.push([s.rr - 0.06, H - 0.08], [s.rr + 0.1, H - 0.01]);
@@ -139,22 +156,22 @@
     var root = new THREE.Group(); root.name = 'car';
     var body = new THREE.Group(); body.name = 'body';
     root.add(body);
-    var W = s.W, cx = s.L / 2;
+    var W = s.W, cx = s.L / 2, van = s.style === 'van';
 
     // ---- lower body (lofted shell)
     var topF = lowerTop(s), botF = lowerBot(s);
     var lower = loft({
       xs: xSamples(s, 0, s.L, 90), nt: 64, top: topF, bot: botF, nTop: 5, nBot: 10, nSide: 4.5,
-      half: function (x, y) { return W / 2 * endRound(x, s.L, s.style === 'suv' ? 0.3 : 0.42) * tumble(y, s, 0.05) * (y < s.clr + 0.12 ? 0.97 : 1); }
+      half: function (x, y) { return W / 2 * endRound(x, s.L, endE(s, x)) * tumble(y, s, van ? 0.025 : 0.05) * (y < s.clr + 0.12 ? 0.97 : 1); }
     });
     lower.translate(-cx, 0, 0);
     var lowerM = mesh(lower, paint); body.add(lowerM);
 
     // ---- greenhouse (glass) + painted roof skin
-    var gw = W * (s.style === 'suv' ? 0.9 : 0.87);
+    var gw = W * (van ? 0.95 : (s.style === 'suv' ? 0.9 : 0.87));
     var rt = roofTop(s);
     var ghBot = function () { return s.belt - 0.04; };
-    var ghHalf = function (x, y) { return gw / 2 * endRound(x - s.rg0, s.ws0 - s.rg0, 0.12) * tumble(y, s, 0.24); };
+    var ghHalf = function (x, y) { return gw / 2 * endRound(x - s.rg0, s.ws0 - s.rg0, van ? 0.04 : 0.12) * tumble(y, s, van ? 0.09 : 0.24); };
     var gh = loft({ x0: s.rg0 + 0.005, x1: s.ws0 - 0.005, nx: 60, nt: 48, top: rt, bot: ghBot, nTop: 3.2, nBot: 8, nSide: 3, half: ghHalf });
     gh.translate(-cx, 0, 0);
     body.add(mesh(gh, 'glass'));
@@ -165,8 +182,7 @@
     var roofMesh = mesh(roofG, roofMat); roofMesh.material.side = THREE.FrontSide; body.add(roofMesh);
 
     // ---- surface helpers (so details sit exactly on the shell)
-    var endE = s.style === 'suv' ? 0.3 : 0.42;
-    function halfAt(x, y) { return W / 2 * endRound(x, s.L, endE) * tumble(y, s, 0.05); }
+    function halfAt(x, y) { return W / 2 * endRound(x, s.L, endE(s, x)) * tumble(y, s, van ? 0.025 : 0.05); }
     /** x (car coords, centred) where the front (+1) or rear (-1) surface is at lateral offset z, height y */
     function endX(z, y, dir) {
       var lo = 0, hi = 0.8;
@@ -200,17 +216,29 @@
       body.add(mesh(G.tube(apts, 0.022, false, 30, 8), paint));
       // B pillar (black)
       var bx = (s.rf + s.rr) / 2 + (s.style === 'coupe' ? 0.25 : 0.05);
-      if (s.style !== 'coupe') {
+      if (s.style !== 'coupe' && !van) {
         var bpts = [];
         for (var bi = 0; bi <= 8; bi++) bpts.push(ghPoint(bx, 0.02 + bi / 8 * 0.62, side));
         body.add(mesh(G.tube(bpts, 0.03, false, 20, 8), 'blackGloss'));
       }
       // C pillar (painted sail) for coupé / liftback / hatches
       var cpts = [];
+      if (van) {
+        // van: cab door shut line, sliding door (right side = -Z), rear door seam, rubbing strip
+        var seam = function (x, y0, y1) {
+          var sm = mesh(G.box(0.008, y1 - y0, 0.004), 'blackOxide');
+          sm.position.set(x - cx, (y0 + y1) / 2, side * (halfAt(x, (y0 + y1) / 2) + 0.002)); body.add(sm);
+        };
+        seam(s.rg0 - 0.03, s.clr + 0.25, s.H - 0.12);
+        if (side < 0) { seam(s.rg0 - 1.3, s.clr + 0.25, s.H - 0.25); var rail = mesh(G.box(1.3, 0.025, 0.012), 'plasticBlack'); rail.position.set(s.rg0 - 0.7 - cx, s.H - 0.62, side * (halfAt(s.rg0 - 0.7, s.H - 0.62) + 0.006)); body.add(rail); }
+        var sl = s.wb - 2 * s.wr - 0.25;
+        var strip = mesh(G.rbox(sl, 0.07, 0.03, 0.012), 'plasticTex');
+        strip.position.set(s.rOH + s.wb / 2 - cx, 0.62, side * (halfAt(s.rOH + s.wb / 2, 0.62) + 0.008)); body.add(strip);
+      }
       var cx0 = s.rg0 + 0.05, cx1 = s.rr + (s.style === 'suv' ? 0.06 : 0.14);
       for (var ci = 0; ci <= 10; ci++) cpts.push(ghPoint(cx0 + (cx1 - cx0) * ci / 10, 0.04 + ci / 10 * 0.45, side));
       var cR = s.style === 'suv' ? 0.04 : (s.style === 'coupe' ? 0.055 : 0.045);
-      body.add(mesh(G.tube(cpts, cR, false, 30, 8), s.style === 'hothatch' ? 'blackGloss' : paint));
+      if (!van) body.add(mesh(G.tube(cpts, cR, false, 30, 8), s.style === 'hothatch' ? 'blackGloss' : paint));
       // window line trim
       var tpts = [];
       for (var ti = 0; ti <= 10; ti++) { var tx = s.rg0 + 0.1 + (s.ws0 - s.rg0 - 0.2) * ti / 10; tpts.push(new THREE.Vector3(tx - cx, s.belt - 0.025, side * (W / 2 * endRound(tx, s.L, 0.42) * tumble(s.belt - 0.025, s, 0.05) + 0.002))); }
@@ -218,18 +246,24 @@
       body.add(trim);
       // mirror
       var mir = new THREE.Group();
-      var mh = mesh(G.rbox(0.09, 0.08, 0.16, 0.025), s.style === 'hothatch' ? 'blackGloss' : paint); mh.position.z = side * 0.08; mir.add(mh);
-      var mg = mesh(G.box(0.005, 0.06, 0.13), 'chrome'); mg.position.set(-0.047, 0, side * 0.08); mir.add(mg);
+      if (van) {
+        var arm = mesh(G.box(0.03, 0.03, 0.16), 'plasticBlack'); arm.position.z = side * 0.08; mir.add(arm);
+        var mhv = mesh(G.rbox(0.08, 0.3, 0.14, 0.03), 'plasticBlack'); mhv.position.set(0, 0.1, side * 0.2); mir.add(mhv);
+        var mgv = mesh(G.box(0.005, 0.26, 0.12), 'chrome'); mgv.position.set(-0.042, 0.1, side * 0.2); mir.add(mgv);
+      } else {
+        var mh = mesh(G.rbox(0.09, 0.08, 0.16, 0.025), s.style === 'hothatch' ? 'blackGloss' : paint); mh.position.z = side * 0.08; mir.add(mh);
+        var mg = mesh(G.box(0.005, 0.06, 0.13), 'chrome'); mg.position.set(-0.047, 0, side * 0.08); mir.add(mg);
+      }
       var mp = ghPoint(s.ws0 - 0.14, 0.12, side); mir.position.set(mp.x, mp.y, mp.z + side * 0.015);
       body.add(mir);
       // door handles + shut lines
-      var doorX = s.style === 'coupe' ? [(s.ws0 + s.rf) / 2 - 0.55] : [(s.ws0 + s.rf) / 2 - 0.35, (s.rf + s.rr) / 2 - 0.3];
+      var doorX = van ? (side < 0 ? [s.rg0 + 0.12, s.rg0 - 0.2] : [s.rg0 + 0.12]) : (s.style === 'coupe' ? [(s.ws0 + s.rf) / 2 - 0.55] : [(s.ws0 + s.rf) / 2 - 0.35, (s.rf + s.rr) / 2 - 0.3]);
       doorX.forEach(function (dx) {
-        var hdl = mesh(G.rbox(0.13, 0.025, 0.02, 0.008), s.style === 'coupe' ? 'chrome' : paint);
-        hdl.position.set(dx - cx, s.belt - 0.08, side * (W / 2 - 0.035)); body.add(hdl);
+        var hdl = mesh(G.rbox(0.13, 0.025, 0.02, 0.008), s.style === 'coupe' ? 'chrome' : (van ? 'plasticBlack' : paint));
+        hdl.position.set(dx - cx, s.belt - 0.08, side * (van ? halfAt(dx, s.belt - 0.08) + 0.008 : W / 2 - 0.035)); body.add(hdl);
       });
       // side sill / cladding
-      var sillMat = s.style === 'suv' ? 'plasticTex' : (s.style === 'hothatch' ? 'blackGloss' : paint);
+      var sillMat = s.style === 'suv' || van ? 'plasticTex' : (s.style === 'hothatch' ? 'blackGloss' : paint);
       var sill = mesh(G.rbox(s.wb - 2 * (s.wr + 0.06), 0.09, 0.05, 0.02), sillMat);
       sill.position.set(s.rOH + s.wb / 2 - cx, s.clr + 0.07, side * (W / 2 - 0.045)); body.add(sill);
       if (s.style === 'suv') {
@@ -250,7 +284,7 @@
     var frontX = s.L / 2;
     [-1, 1].forEach(function (side) {
       var hl = new THREE.Group();
-      var hlw = s.style === 'suv' ? 0.3 : (s.style === 'hothatch' ? 0.28 : 0.34), hlh = s.style === 'coupe' ? 0.11 : 0.085;
+      var hlw = van ? 0.36 : (s.style === 'suv' ? 0.3 : (s.style === 'hothatch' ? 0.28 : 0.34)), hlh = van ? 0.2 : (s.style === 'coupe' ? 0.11 : 0.085);
       var housing = mesh(G.rbox(0.12, hlh, hlw, 0.025), 'blackGloss'); hl.add(housing);
       var lens = mesh(G.rbox(0.125, hlh * 0.94, hlw * 0.97, 0.025), 'lens'); hl.add(lens);
       var proj = mesh(G.cylX(0.026, 0.03, 24), 'reflector'); proj.position.set(0.045, 0, -side * hlw * 0.18); hl.add(proj);
@@ -261,19 +295,19 @@
       } else {
         var drl = mesh(G.box(0.012, 0.008, hlw * 0.75), 'lightWhite'); drl.position.set(0.058, -hlh * 0.36, 0); hl.add(drl);
       }
-      onEnd(hl, side * (W / 2 - hlw / 2 - 0.09), s.hoodF - 0.1, 1, 0.035);
+      onEnd(hl, side * (W / 2 - hlw / 2 - (van ? 0.04 : 0.09)), s.hoodF - (van ? 0.12 : 0.1), 1, 0.035);
       hl.name = side > 0 ? 'headlightL' : 'headlightR';
       body.add(hl);
       var tl = new THREE.Group();
-      var tlh = s.style === 'suv' ? 0.32 : 0.1, tlw = s.style === 'suv' ? 0.14 : 0.3;
+      var tlh = van ? 0.5 : (s.style === 'suv' ? 0.32 : 0.1), tlw = van ? 0.12 : (s.style === 'suv' ? 0.14 : 0.3);
       var tlm = mesh(G.rbox(0.06, tlh, tlw, 0.02), 'lightRed'); tl.add(tlm);
       var tlg = mesh(G.rbox(0.064, tlh * 0.92, tlw * 0.96, 0.02), 'lens'); tl.add(tlg);
-      onEnd(tl, side * (W / 2 - tlw / 2 - 0.07), s.style === 'suv' ? s.deckR - 0.2 : s.deckR - 0.13, -1, 0.02);
+      onEnd(tl, side * (W / 2 - tlw / 2 - (van ? 0.03 : 0.07)), van ? 0.95 : (s.style === 'suv' ? s.deckR - 0.2 : s.deckR - 0.13), -1, 0.02);
       tl.name = side > 0 ? 'taillightL' : 'taillightR';
       body.add(tl);
     });
-    var grilleW = s.style === 'suv' ? 0.6 : (s.style === 'hothatch' ? 0.66 : 0.5);
-    var gH = s.style === 'hothatch' ? 0.18 : 0.15, gY = s.hoodF - (s.style === 'hothatch' ? 0.33 : 0.17);
+    var grilleW = van ? 0.9 : (s.style === 'suv' ? 0.6 : (s.style === 'hothatch' ? 0.66 : 0.5));
+    var gH = van ? 0.24 : (s.style === 'hothatch' ? 0.18 : 0.15), gY = s.hoodF - (van ? 0.3 : (s.style === 'hothatch' ? 0.33 : 0.17));
     var grille = mesh(G.rbox(0.05, gH, grilleW, 0.03), 'blackGloss');
     grille.position.set(endX(grilleW / 2, gY, 1) - 0.012, gY, 0); body.add(grille);
     if (vid === 'mb-cl500-c216') {
@@ -283,10 +317,10 @@
     var intake = mesh(G.rbox(0.05, 0.09, iW, 0.03), 'plasticTex'); intake.position.set(endX(iW / 2, iY, 1) - 0.014, iY, 0); body.add(intake);
     var pY = s.clr + 0.29;
     var plateF = mesh(G.box(0.006, 0.11, 0.52), 'plasticWhite'); plateF.position.set(endX(0.26, pY, 1) + 0.001, pY, 0); body.add(plateF);
-    var prY = s.deckR - 0.33;
+    var prY = van ? s.clr + 0.42 : s.deckR - 0.33;
     var plateR = mesh(G.box(0.006, 0.11, 0.52), 'plasticWhite'); plateR.position.set(endX(0.26, prY, -1) - 0.001, prY, 0); body.add(plateR);
-    var dY = s.clr + 0.11, dW = s.W * 0.6;
-    var diff = mesh(G.rbox(0.06, 0.08, dW, 0.025), 'plasticTex'); diff.position.set(endX(dW / 2, dY, -1) + 0.02, dY, 0); body.add(diff);
+    var dY = van ? s.clr + 0.2 : s.clr + 0.11, dW = van ? s.W * 0.92 : s.W * 0.6;
+    var diff = mesh(G.rbox(0.06, van ? 0.22 : 0.08, dW, 0.025), 'plasticTex'); diff.position.set(endX(dW / 2, dY, -1) + 0.02, dY, 0); body.add(diff);
     // exhaust tips
     var tips = vid === 'mb-cl500-c216' || vid === 'toyota-gr-yaris' ? [-1, 1] : (vid === 'skoda-octavia-rs-tdi' ? [-1] : []);
     tips.forEach(function (sd) {
@@ -298,6 +332,14 @@
       var spoiler = mesh(G.rbox(0.2, 0.025, gw * 0.85, 0.01), 'blackGloss'); spoiler.position.set(s.rr - 0.02 - cx, rt(s.rr) + 0.01, 0); spoiler.rotation.z = -0.25; body.add(spoiler);
       var hx = s.L - 0.6;
       var scoop = mesh(G.rbox(0.24, 0.035, 0.38, 0.015), 'blackGloss'); scoop.position.set(hx - cx, topF(hx) + 0.012, 0); body.add(scoop);
+    }
+    if (van) {
+      var bumperF = mesh(G.rbox(0.08, 0.3, W * 0.94, 0.04), 'plasticTex');
+      bumperF.position.set(endX(W * 0.47, s.clr + 0.24, 1) - 0.01, s.clr + 0.24, 0); body.add(bumperF);
+      plateF.position.x = bumperF.position.x + 0.042; plateF.position.y = s.clr + 0.26;
+      var rearSeam = mesh(G.box(0.004, s.H - s.clr - 0.5, 0.008), 'blackOxide');
+      rearSeam.position.set(endX(0.004, 1.4, -1) - 0.002, (s.H + s.clr + 0.35) / 2, 0); body.add(rearSeam);
+      [-0.32, 0.32].forEach(function (hz) { var rh = mesh(G.rbox(0.02, 0.03, 0.12, 0.008), 'plasticBlack'); rh.position.set(endX(Math.abs(hz), 1.25, -1) - 0.01, 1.25, hz * 0.1); body.add(rh); });
     }
     if (s.style === 'suv') {
       [-1, 1].forEach(function (sd) {
@@ -319,7 +361,7 @@
       [-1, 1].forEach(function (side) {
         var pivot = new THREE.Group();
         pivot.position.set(ax[1], s.wr, side * tz);
-        var w = P.wheel({ r: s.wr, w: s.tw, rim: s.wr * (vid === 'volvo-xc60-b4' ? 0.66 : 0.7), rimMat: s.rim || 'rimSilver', spokes: vid === 'toyota-gr-yaris' ? 10 : 5 });
+        var w = P.wheel({ r: s.wr, w: s.tw, rim: s.wr * (vid === 'volvo-xc60-b4' ? 0.66 : (van ? 0.64 : 0.7)), rimMat: s.rim || 'rimSilver', spokes: vid === 'toyota-gr-yaris' ? 10 : (van ? 8 : 5) });
         if (side < 0) w.rotation.y = PI; // outer face always outwards
         pivot.add(w);
         // brake disc + caliper visible through spokes

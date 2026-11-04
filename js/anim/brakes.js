@@ -64,7 +64,7 @@
       '<path class="k-filler" d="' + seg(DC[0], DC[1], 94, 130, -22, 22) + '" opacity=".35"/></g>';
   }
   function caliperFront(withHose) {
-    var g1 = pt(DC[0], DC[1], 134, -36), g2 = pt(DC[0], DC[1], 134, 36);
+    var g1 = pt(DC[0], DC[1], 134, -27), g2 = pt(DC[0], DC[1], 134, 27);
     var h0 = pt(DC[0], DC[1], 140, -12);
     var s = '<path class="k-paint s-dark" stroke-width="2" d="' + seg(DC[0], DC[1], 88, 146, -32, 32) + '"/>' +
       '<path class="k-none s-dark" stroke-width="1" opacity=".5" d="' + seg(DC[0], DC[1], 100, 136, -24, 24) + '"/>';
@@ -215,7 +215,7 @@
       // labels
       s += L.label(231, 58, ctx.t(fixed ? { cs: 'Pevný třmen (4 písty)', en: 'Fixed caliper (4 pistons)' } : { cs: 'Plovoucí třmen', en: 'Floating caliper' }), { bg: true });
       s += L.label(90, 160, ctx.t({ cs: 'Brzdová kapalina', en: 'Brake fluid' }), { bg: true, size: 12 });
-      s += L.label(170, 128, ctx.t({ cs: 'Píst', en: 'Piston' }), { bg: true, size: 12, anchor: 'end' });
+      s += L.label(100, 236, ctx.t({ cs: 'Píst', en: 'Piston' }), { bg: true, size: 12 }) + L.arrow(118, 230, 182, 200, 'accent', 2);
       s += L.label(330, 140, ctx.t({ cs: 'Destičky', en: 'Pads' }), { bg: true, size: 12, anchor: 'start' });
       s += L.arrow(326, 140, 272, 150, 'accent', 2);
       s += L.label(330, 280, ctx.t({ cs: 'Kotouč', en: 'Disc' }), { bg: true, size: 12, anchor: 'start' });
@@ -234,7 +234,8 @@
         // reservoir
         '<rect class="k-glass s-dark" stroke-width="2" x="160" y="90" width="160" height="150" rx="12" opacity=".55"/>' +
         '<g class="brake-resdrop"><rect class="k-oil" x="164" y="112" width="152" height="124" rx="8" opacity=".85"/></g>' +
-        '<rect class="k-dark" x="210" y="70" width="60" height="22" rx="4"/>' +
+        '<rect class="k-glass s-dark" stroke-width="2" x="214" y="72" width="52" height="20" opacity=".55"/>' +
+        '<g transform="translate(400,230)"><rect class="k-dark" x="-30" y="-12" width="60" height="22" rx="4"/></g>' + L.label(400, 206, ctx.t({ cs: 'víčko', en: 'cap' }), { size: 11 }) +
         '<line class="s-dark" stroke-width="2" x1="320" y1="112" x2="340" y2="112"/><line class="s-dark" stroke-width="2" x1="320" y1="200" x2="340" y2="200"/>' +
         L.label(346, 112, 'MAX', { anchor: 'start', size: 13 }) + L.label(346, 200, 'MIN', { anchor: 'start', size: 13 }) +
         // syringe
@@ -251,18 +252,17 @@
 
   /* ---------------------------------------------------- 3. caliper off / on */
   function caliperScene(ctx, on) {
-    var g1 = pt(DC[0], DC[1], 134, -36), g2 = pt(DC[0], DC[1], 134, 36);
+    var g1 = pt(DC[0], DC[1], 134, -27), g2 = pt(DC[0], DC[1], 134, 27);
     var s = discFront(DC[0], DC[1], DR) + carrierFront() + padFront() +
       '<g class="brake-cal">' + caliperFront(true) + '</g>' +
       boltAt(g1[0], g1[1], 7, 'brake-boltout') + boltAt(g2[0], g2[1], 7, 'brake-boltout') +
       '<g class="brake-hook"><path class="k-none s-text" stroke-width="3" stroke-linecap="round" d="M392,0 L392,22 Q392,34 382,34 Q374,34 374,26"/>' +
-      L.check(440, 120) + '</g>';
+      L.check(440, 120) + L.label(410, 165, ctx.t({ cs: 'Drát / háček', en: 'Wire / hook' }), { bg: true, size: 12 }) + '</g>';
     var wrap = '<g class="' + (on ? 'brake-rev' : '') + '">' + s + '</g>';
     wrap += on
       ? title(ctx, 'Nasadit třmen, vodicí šrouby momentem', 'Fit caliper, torque the guide bolts')
       : title(ctx, 'Povolit 2 vodicí šrouby (vnitřní strana)', 'Undo the 2 guide bolts (inner side)');
     wrap += L.cross(30, 268) + L.label(52, 272, ctx.t({ cs: 'Nikdy nevěšet za brzdovou hadici!', en: 'Never hang it by the brake hose!' }), { anchor: 'start', bg: true, cls: 'k-danger' });
-    wrap += L.label(410, 165, ctx.t({ cs: 'Drát / háček', en: 'Wire / hook' }), { bg: true, size: 12 });
     return L.svg(wrap, ctx.t(on ? { cs: 'Montáž třmenu', en: 'Refitting the caliper' } : { cs: 'Demontáž a zavěšení třmenu', en: 'Removing and hanging the caliper' }));
   }
   A.register('brake.caliperOff', { render: function (ctx) { return caliperScene(ctx, false); } });
@@ -317,7 +317,7 @@
       s += timed(title(ctx, '2. Vyšroubovat pojistný šroubek kotouče', '2. Remove the disc retaining screw'), 10, 36, 52);
       s += timed(title(ctx, '3. Stáhnout kotouč z náboje', '3. Pull the disc off the hub'), 10, 54, 76);
       s += timed(title(ctx, 'Náboj je zrezivělý → očistit!', 'Hub is rusty → clean it!'), 10, 76, 93);
-      s += L.label(400, 284, ctx.t({ cs: 'Přikipělý? Gumová palice mezi šrouby', en: 'Stuck? Rubber mallet between the studs' }), { bg: true, size: 12 });
+      s += L.label(472, 288, ctx.t({ cs: 'Přikipělý? Gumová palice mezi šrouby', en: 'Stuck? Rubber mallet between the studs' }), { bg: true, size: 11, anchor: 'end' });
       return L.svg(s, ctx.t({ cs: 'Demontáž držáku třmenu a kotouče', en: 'Removing the caliper carrier and disc' }));
     }
   });
@@ -507,14 +507,12 @@
         '<g class="brake-pedal">' +
         '<path class="k-none s-dark" stroke-width="10" stroke-linecap="round" d="M250,40 Q250,150 214,210"/>' +
         '<rect class="k-metal2 s-dark" stroke-width="2" x="186" y="200" width="56" height="22" rx="5" transform="rotate(-30 214 211)"/>' +
-        // shoe
-        '<path class="k-body s-dark" stroke-width="2" d="M232,218 Q262,206 300,214 L392,222 Q412,226 410,246 L404,256 L250,252 Q232,250 228,236 Z"/>' +
-        '<path class="k-dark" d="M246,252 L404,256 L402,262 L248,258 Z"/>' +
+        L.arrow(330, 178, 244, 214, 'accent', 6) +
         '</g>' +
         '<circle class="k-dark" cx="250" cy="40" r="10"/>' +
         title(ctx, 'Sešlapávat, dokud pedál není vysoko a tvrdý', 'Pump until the pedal is high and firm') +
-        L.label(130, 120, ctx.t({ cs: 'nejdřív propadá', en: 'first sinks' }), { bg: true, size: 12 }) +
-        L.label(330, 160, ctx.t({ cs: 'pak tvrdý', en: 'then firm' }), { bg: true, size: 12 }) +
+        L.label(380, 120, ctx.t({ cs: '1. nejdřív propadá', en: '1. first sinks' }), { bg: true, size: 12 }) +
+        L.label(380, 148, ctx.t({ cs: '2. pak je vysoko a tvrdý', en: '2. then high and firm' }), { bg: true, size: 12 }) +
         L.warnIcon(30, 276) + L.label(52, 280, ctx.t({ cs: 'PŘED prvním rozjezdem!', en: 'BEFORE moving the car!' }), { anchor: 'start', bg: true, cls: 'k-danger' });
       return L.svg(s, ctx.t({ cs: 'Napumpování brzdového pedálu', en: 'Pumping up the brake pedal' }));
     }
@@ -524,11 +522,11 @@
   A.register('brake.bedding', {
     render: function (ctx) {
       var dashes = '';
-      for (var i = 0; i < 10; i++) dashes += '<rect class="k-white" x="' + (i * 60) + '" y="276" width="30" height="4" opacity=".7"/>';
-      var s = '<rect class="k-dark" x="0" y="240" width="480" height="60" opacity=".85"/>' +
+      for (var i = 0; i < 10; i++) dashes += '<rect class="k-white" x="' + (i * 60) + '" y="282" width="30" height="4" opacity=".7"/>';
+      var s = '<rect class="k-dark" x="0" y="259" width="480" height="41" opacity=".85"/>' +
         '<g class="brake-road">' + dashes + '</g>' +
         '<g transform="translate(70,24) scale(.95)">' + L.car(0, 230, { spinCls: 'spin-cw' }) + '</g>' +
-        '<circle class="k-danger brake-hot" cx="303" cy="243" r="22"/><circle class="k-danger brake-hot" cx="127" cy="243" r="22"/>' +
+        '<circle class="k-danger brake-hot" cx="304" cy="231" r="22"/><circle class="k-danger brake-hot" cx="127" cy="231" r="22"/>' +
         // speed bar
         '<rect class="k-labelbg s-line" stroke-width="1" x="300" y="56" width="164" height="54" rx="8"/>' +
         '<rect class="k-ok brake-speedbar" x="312" y="86" width="140" height="12" rx="6"/>' +

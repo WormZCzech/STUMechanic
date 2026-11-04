@@ -216,6 +216,33 @@
         steps: {
           torque: { specs: [{ label: V('Utahovací moment', 'Torque'), value: '103 Nm', verify: true }] }
         }
+      },
+      /* -------------------------------------------------- Citroën Jumper (van) */
+      'citroen-jumper-22hdi': {
+        status: 'caution',
+        specs: [
+          { label: V('Celková hmotnost', 'Gross weight'), value: V('3,0–4,0 t dle verze (štítek na B-sloupku / ORV)', '3.0–4.0 t depending on version (B-pillar plate / registration papers)') },
+          { label: V('Šrouby kol', 'Wheel bolts'), value: V('hlavice 17 nebo 19 mm – ověřte na voze', '17 or 19 mm socket – check on the van'), verify: true },
+          { label: V('Utahovací moment kol', 'Wheel torque'), value: V('cca 160–180 Nm dle verze', 'approx. 160–180 Nm depending on version'), verify: true },
+          { label: V('Zvedací technika', 'Lifting equipment'), value: V('Hever i každý stojan s nosností min. 3 t', 'Jack and each stand rated at least 3 t') }
+        ],
+        notes: [
+          { level: 'danger', text: V('**Těžká dodávka (až 4 t):** hever i každý stojan musí mít nosnost **min. 3 t**. Nikdy nepoužívejte zvedák z osobního auta ani nouzový hever pro práci pod vozem.', '**Heavy van (up to 4 t):** the jack and every stand must be rated **at least 3 t**. Never use a car jack or the emergency jack for work under the vehicle.') },
+          { level: 'warning', text: V('Před zvedáním **vyložte náklad**. Vysoká dodávka je na stojanech do boku méně stabilní – zvedejte jen tolik, kolik je nutné, a jen na zcela rovném betonu.', '**Unload the cargo** before lifting. A tall van is less stable sideways on stands – lift only as much as needed and only on perfectly level concrete.') },
+          { level: 'caution', text: V('Dodávky X250 rezaví na prazích a podvozku. Zvedací body před zvedáním zkontrolujte – prorezlý práh nebo nosník vůz neudrží.', 'X250 vans rust on the sills and underbody. Check the jacking points before lifting – a rusted-through sill or member will not hold the van.'), verify: true },
+          { level: 'info', text: V('Moment šroubů kol se liší podle nosnosti (30/33/35/40 Heavy) a velikosti kol. Přesnou hodnotu ověřte v příručce nebo v servisu podle VIN.', 'Wheel torque differs by payload class (30/33/35/40 Heavy) and wheel size. Verify the exact value in the manual or with a dealer by VIN.') }
+        ],
+        tools: [
+          V('Pojízdný hever s nosností min. 3 t a dostatečným zdvihem', 'Trolley jack rated at least 3 t with enough lift height'),
+          V('Podpěrné stojany min. 3 t každý', 'Axle stands rated at least 3 t each'),
+          V('Prodloužená páka – šrouby kol bývají utažené vysokým momentem', 'Breaker bar – wheel bolts are tightened to a high torque')
+        ],
+        steps: {
+          park: { notes: [{ level: 'warning', text: V('Vyložte náklad, zavřete posuvné i zadní dveře. Klíny dejte z obou stran kola – těžký vůz se na mírném sklonu snadno rozjede.', 'Unload the cargo, close the sliding and rear doors. Chock both sides of the wheel – a heavy vehicle rolls easily on a slight slope.') }] },
+          points: { body: V('Jumper (X250) se zvedá za zesílené body na spodním lemu prahu za předním a před zadním kolem. Přesná místa (a případný adaptér na misku heveru) ověřte v uživatelské příručce. Nikdy nezvedejte za podlahu nákladového prostoru – plech se promáčkne.', 'The Jumper (X250) is lifted at reinforced points on the lower sill seam behind the front and in front of the rear wheel. Verify the exact locations (and any jack adapter) in the owner\'s manual. Never lift by the cargo floor – the panel dents.'), notes: [{ level: 'caution', text: V('Umístění zvedacích bodů u dodávky ověřte – liší se podle délky (L1–L4).', 'Verify the jacking point locations on the van – they differ by length (L1–L4).'), verify: true }] },
+          jack: { notes: [{ level: 'warning', text: V('Zvedejte jen tak vysoko, aby bylo kolo ~3 cm nad zemí. Čím výš, tím je vysoká dodávka méně stabilní.', 'Lift only until the wheel is ~3 cm off the ground. The higher you go, the less stable the tall van becomes.') }] },
+          torque: { specs: [{ label: V('Utahovací moment', 'Torque'), value: V('cca 160–180 Nm dle verze', 'approx. 160–180 Nm depending on version'), verify: true }] }
+        }
       }
     }
   });

@@ -8,14 +8,16 @@
     'mb-cl500-c216': { cs: '≈ 8,0 l', en: '≈ 8.0 L' },
     'volvo-xc60-b4': { cs: '≈ 5,2–5,9 l', en: '≈ 5.2–5.9 L' },
     'skoda-octavia-rs-tdi': { cs: '≈ 4,3 l', en: '≈ 4.3 L' },
-    'toyota-gr-yaris': { cs: '≈ 4,5 l', en: '≈ 4.5 L' }
+    'toyota-gr-yaris': { cs: '≈ 4,5 l', en: '≈ 4.5 L' },
+    'citroen-jumper-22hdi': { cs: '≈ 5,5–6 l (ověřit)', en: '≈ 5.5–6 L (verify)' }
   };
   var PLUG = {
     'generic': { cs: 'dle příručky', en: 'per manual' },
     'mb-cl500-c216': '30 Nm',
     'volvo-xc60-b4': { cs: 'dle VIDA', en: 'per VIDA' },
     'skoda-octavia-rs-tdi': '30 Nm',
-    'toyota-gr-yaris': { cs: 'dle TIS', en: 'per TIS' }
+    'toyota-gr-yaris': { cs: 'dle TIS', en: 'per TIS' },
+    'citroen-jumper-22hdi': { cs: 'dle příručky', en: 'per manual' }
   };
 
   A.css('oil', [
@@ -281,7 +283,8 @@
         'mb-cl500-c216': { cs: 'ASSYST PLUS – menu přístrojovky', en: 'ASSYST PLUS – cluster menu' },
         'volvo-xc60-b4': { cs: 'Diagnostika (VIDA / kompatibilní)', en: 'Scan tool (VIDA / compatible)' },
         'skoda-octavia-rs-tdi': { cs: 'Tlačítko 0.0/SET nebo VCDS', en: '0.0/SET button or VCDS' },
-        'toyota-gr-yaris': { cs: 'Menu MID – údržba', en: 'MID menu – maintenance' }
+        'toyota-gr-yaris': { cs: 'Menu MID – údržba', en: 'MID menu – maintenance' },
+        'citroen-jumper-22hdi': { cs: 'Přístrojovka / Diagbox (ověřit)', en: 'Cluster menu / Diagbox (verify)' }
       }[ctx.vehicle] || { cs: 'Menu', en: 'Menu' };
       var s = '<rect class="k-dark" x="80" y="50" width="320" height="170" rx="18"/><rect class="k-ground" x="96" y="66" width="288" height="138" rx="10"/>' +
         L.label(240, 96, ctx.t({ cs: 'Servis: výměna oleje', en: 'Service: oil change' }), { size: 16 }) +

@@ -244,6 +244,29 @@
           fill: { specs: [{ label: V('Množství', 'Capacity'), value: V('cca 4,5 l', 'approx. 4.5 L'), verify: true }] },
           reset: { body: V('Upomínku údržby vynulujte v menu přístrojové desky (MID) – postup dle uživatelské příručky.', 'Reset the maintenance reminder in the instrument cluster menu (MID) – procedure per the owner\'s manual.'), verify: true }
         }
+      },
+      /* -------------------------------------------------- Citroën Jumper (van) */
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('Norma oleje', 'Oil spec'), value: V('S DPF/FAP: jen low-SAPS (např. PSA B71 2290, 5W-30). Bez DPF: dle příručky (např. PSA B71 2296).', 'With DPF/FAP: low-SAPS only (e.g. PSA B71 2290, 5W-30). Without DPF: per manual (e.g. PSA B71 2296).'), verify: true },
+          { label: V('Množství s filtrem', 'Capacity incl. filter'), value: V('cca 5,5–6 l', 'approx. 5.5–6 L'), verify: true },
+          { label: V('Filtr', 'Filter'), value: V('Typ (vložka / našroubovací) ověřte podle VIN – nehádáme', 'Type (cartridge / spin-on) – verify by VIN, we do not guess'), verify: true },
+          { label: V('Moment vypouštěcího šroubu', 'Drain plug torque'), value: V('dle příručky', 'per manual'), verify: true },
+          { label: V('Reset servisu', 'Service reset'), value: V('Menu přístrojové desky nebo diagnostika (Diagbox / kompatibilní)', 'Instrument cluster menu or scan tool (Diagbox / compatible)'), verify: true }
+        ],
+        notes: [
+          { level: 'warning', text: V('**Zatím nevíme, zda má váš Jumper filtr pevných částic (DPF/FAP).** Než koupíte olej, zjistěte to (ORV / servisní záznamy / pod vozem velké pouzdro za katalyzátorem). S DPF smí být **jen low-SAPS olej** – jiný olej filtr ucpe.', '**We do not know yet whether your Jumper has a particulate filter (DPF/FAP).** Find out before buying oil (papers / service records / a large canister after the catalyst under the van). With a DPF use **low-SAPS oil only** – other oil clogs the filter.') },
+          { level: 'info', text: V('Dodávka často jezdí v těžkém provozu (náklad, město, krátké trasy). Zvažte kratší interval výměny, např. 15 000 km / 1 rok – ověřte doporučení výrobce.', 'Vans often work in severe conditions (load, city, short trips). Consider a shorter interval, e.g. 15,000 km / 1 year – verify the manufacturer\'s recommendation.'), verify: true }
+        ],
+        tools: [V('Nájezdy nebo stojany s nosností min. 3 t', 'Ramps or stands rated at least 3 t')],
+        steps: {
+          prep: { body: V('Olej vybírejte podle toho, **zda máte DPF** (viz upozornění nahoře), filtr podle VIN. Hladinu zkontrolujte měrkou.', 'Choose the oil according to **whether you have a DPF** (see the warning above) and the filter by VIN. Check the level with the dipstick.') },
+          lift: { body: V('Dodávka má větší světlou výšku – k vypouštěcímu šroubu se často dostanete i bez zvedání. Pokud musíte pod vůz, **jen na nájezdech / stojanech s nosností min. 3 t** a s vyloženým nákladem.', 'The van has more ground clearance – you can often reach the drain plug without lifting. If you must get under it, **only on ramps / stands rated at least 3 t** and with the cargo unloaded.') },
+          filter: { notes: [{ level: 'info', text: V('Typ a umístění olejového filtru ověřte podle VIN a postupujte podle odstavce, který odpovídá vašemu filtru.', 'Verify the oil filter type and location by VIN and follow the paragraph that matches your filter.'), verify: true }] },
+          fill: { specs: [{ label: V('Množství', 'Capacity'), value: V('cca 5,5–6 l', 'approx. 5.5–6 L'), verify: true }] },
+          reset: { body: V('Servisní interval vynulujte v menu přístrojové desky nebo diagnostikou (PSA Diagbox / kompatibilní tester). Přesný postup ověřte v uživatelské příručce.', 'Reset the service interval in the instrument cluster menu or with a scan tool (PSA Diagbox / compatible tester). Verify the exact procedure in the owner\'s manual.') }
+        }
       }
     }
   });

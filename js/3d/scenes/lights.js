@@ -475,7 +475,8 @@
       var sc = S.d3.scanner(K, function (x, W, H, st) {
         S.d3.ui(x, W, H, { title: tool, rows: [{ t: S.t(V('Regulace sklonu', 'Range control')) }], progress: st.p, big: st.p >= 1 ? S.t(V('Hotovo ✔', 'Done ✔')) : '', bigSize: 10 });
       }, { cable: false, state: { p: 0 } });
-      sc.group.scale.setScalar(2.2); sc.group.position.set(f.car.dims.front + 0.4, 0.95, 1.5); sc.group.rotation.y = 0.9; root.add(sc.group);
+      sc.group.scale.setScalar(2.2); sc.group.position.set(f.car.dims.front + 0.4, 0.95, 1.5); sc.group.rotation.y = 0.9;
+      if (ctx.vehicle !== JUMPER) root.add(sc.group); // Jumper: manual range wheel, no scan tool
       return {
         root: root,
         update: function (t) {

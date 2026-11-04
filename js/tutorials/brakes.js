@@ -497,6 +497,52 @@
           V('Parkovací brzda drží ve svahu, zadní kola se po uvolnění volně otáčejí', 'Parking brake holds on a slope, rear wheels turn freely when released'),
           V('Kontrolka opotřebení / parkovací brzdy nesvítí', 'Wear / parking brake warnings are off')
         ]
+      },
+      /* -------------------------------------------------- Citroën Jumper (van) */
+      'citroen-jumper-22hdi': {
+        status: 'caution',
+        specs: [
+          { label: V('Přední brzdy', 'Front brakes'), value: V('Ventilované kotouče, plovoucí třmen – rozměr dle verze (30/33/35/40 Heavy)', 'Vented discs, floating caliper – size depends on version (30/33/35/40 Heavy)'), verify: true },
+          { label: V('Zadní brzdy', 'Rear brakes'), value: V('Kotouče; typ parkovací brzdy ověřte na voze (integrovaná v třmenu × bubínek v kotouči)', 'Discs; check the parking brake type on the van (integrated in caliper vs drum-in-hat)'), verify: true },
+          { label: V('Brzdová kapalina', 'Brake fluid'), value: 'DOT 4', verify: true },
+          { label: V('Šrouby kol', 'Wheel bolts'), value: V('cca 160–180 Nm dle verze', 'approx. 160–180 Nm depending on version'), verify: true }
+        ],
+        notes: [
+          { level: 'warning', text: V('Brzdové díly objednávejte **podle VIN** – velikost brzd se liší podle nosnosti (30/33/35/40 Heavy). Nekupujte „od oka“.', 'Order brake parts **by VIN** – brake size differs by payload class (30/33/35/40 Heavy). Do not buy by eye.') },
+          { level: 'warning', text: V('Kotouče a třmeny dodávky jsou těžké – rukavice, pevné boty, pozor na prsty.', 'Van discs and calipers are heavy – gloves, safety shoes, mind your fingers.') },
+          { level: 'info', text: V('Než začnete se zadní nápravou, podívejte se, kam vede lanko parkovací brzdy: **na páčku přímo na třmenu** = integrovaná ruční brzda (píst se zašroubovává). **Dovnitř za kotouč** = bubínková brzda v kotouči. Podle toho kupte nářadí a díly.', 'Before working on the rear axle, look where the parking brake cable goes: **to a lever on the caliper** = integrated handbrake (piston winds back). **Inside behind the disc** = drum-in-hat. Buy tools and parts accordingly.'), verify: true }
+        ],
+        tools: [
+          V('Hever a stojany s nosností min. 3 t', 'Jack and stands rated at least 3 t'),
+          V('Rotační stlačovák pístů (jen pokud má zadní třmen integrovanou ruční brzdu)', 'Wind-back piston tool (only if the rear caliper has an integrated handbrake)')
+        ],
+        steps: {
+          inspect: { notes: [{ level: 'caution', text: V('Minimální tloušťku kotouče čtěte přímo na kotouči (MIN TH). Těžká dodávka opotřebovává brzdy rychleji.', 'Read the minimum disc thickness on the disc itself (MIN TH). A heavy van wears brakes faster.') }] },
+          caliper: { notes: [{ level: 'warning', text: V('Zadní náprava: povolte parkovací brzdu a zakliňte přední kola z obou stran.', 'Rear axle: release the parking brake and chock the front wheels on both sides.') }] },
+          piston: { body: V('Přední třmeny: píst se jen zatlačí. **Zadní** třmeny: nejdřív zjistěte typ parkovací brzdy – viz následující krok.', 'Front calipers: the piston is simply pushed back. **Rear** calipers: first find out the parking brake type – see the next step.') },
+          wheels: { specs: [{ label: V('Šrouby kol', 'Wheel bolts'), value: V('cca 160–180 Nm dle verze', 'approx. 160–180 Nm depending on version'), verify: true }] }
+        },
+        extraSteps: [
+          {
+            after: 'piston',
+            step: {
+              id: 'jmpRear', anim: 'brake.pistonWind',
+              title: V('Zadní třmen: zjistěte typ ruční brzdy', 'Rear caliper: check the handbrake type'),
+              body: V(
+                '**A) Lanko vede na páčku přímo na třmenu (integrovaná ruční brzda):** píst se **nesmí jen zatlačit** – zašroubujte ho rotačním stlačovákem (otáčet a tlačit zároveň), parkovací brzda uvolněná.\n\n**B) Lanko vede dovnitř za kotouč (bubínek v kotouči):** píst zadního třmenu se zatlačí jako vpředu. Před sundáním kotouče povolte čelisti ruční brzdy stavěcím kolečkem.\n\nNejste si jistí? Vyfoťte si třmen a ověřte typ v dílenské příručce podle VIN, než budete pokračovat.',
+                '**A) The cable goes to a lever on the caliper (integrated handbrake):** the piston **must not just be pushed** – wind it back with a wind-back tool (turn and push at the same time), parking brake released.\n\n**B) The cable goes inside behind the disc (drum-in-hat):** the rear piston is pushed back like at the front. Before removing the disc, back off the handbrake shoes with the star adjuster.\n\nNot sure? Photograph the caliper and verify the type in the workshop manual by VIN before you continue.'
+              ),
+              notes: [
+                { level: 'warning', text: V('Píst s integrovanou ruční brzdou **nikdy netlačte svěrkou** – zničíte mechanismus a ruční brzda přestane brzdit.', '**Never push** a piston with an integrated handbrake with a clamp – you destroy the mechanism and the handbrake stops working.') },
+                { level: 'caution', text: V('Typ mechanismu u X250 závisí na verzi – proto ho nehádáme.', 'The mechanism type on the X250 depends on the version – that is why we do not guess.'), verify: true }
+              ]
+            }
+          }
+        ],
+        finalChecks: [
+          V('Parkovací brzda udrží (naloženou) dodávku ve svahu', 'The parking brake holds the (loaded) van on a slope'),
+          V('Po 50 km znovu dotáhnout šrouby kol', 'Re-torque the wheel bolts after 50 km')
+        ]
       }
     }
   });

@@ -91,7 +91,8 @@
       'skoda-octavia-rs-tdi': { cs: 'DPF', en: 'DPF' },
       'volvo-xc60-b4': { cs: 'GPF', en: 'GPF' },
       'toyota-gr-yaris': { cs: 'GPF', en: 'GPF' },
-      'mb-cl500-c216': { cs: 'kat. 2', en: 'cat 2' }
+      'mb-cl500-c216': { cs: 'kat. 2', en: 'cat 2' },
+      'citroen-jumper-22hdi': { cs: 'DPF?', en: 'DPF?' }
     }[v] || { cs: 'DPF/GPF', en: 'DPF/GPF' };
   }
 

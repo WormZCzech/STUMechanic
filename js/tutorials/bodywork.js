@@ -335,6 +335,23 @@
           assess: { notes: [{ level: 'info', text: V('Test magnetem: na kapotě, dveřích a víku kufru magnet nedrží (hliník), na střeše nedrží (kompozit), na blatnících drží (ocel).', 'Magnet test: on the bonnet, doors and tailgate the magnet does not stick (aluminium), on the roof it does not stick (composite), on the wings it sticks (steel).'), verify: true }] },
           epoxy: { notes: [{ level: 'warning', text: V('Na hliník použijte reaktivní nebo epoxidový základ pro hliník ihned po vybroušení – holý hliník rychle oxiduje.', 'On aluminium apply an etch or epoxy primer for aluminium immediately after sanding – bare aluminium oxidises quickly.') }] }
         }
+      },
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('Materiál karoserie', 'Body material'), value: V('Ocel (částečně pozinkovaná)', 'Steel (partly galvanised)'), verify: true },
+          { label: V('Typická koroze', 'Typical rust spots'), value: V('Lemy blatníků, prahy, spodky zadních dveří, kolejnice posuvných dveří', 'Wheel-arch lips, sills, bottoms of the rear doors, sliding-door rail'), verify: true },
+          { label: V('Kód barvy', 'Paint code'), value: V('Štítek ve dveřích / v motorovém prostoru (ověřit)', 'Label in the door frame / engine bay (verify)'), verify: true }
+        ],
+        notes: [
+          { level: 'warning', text: V('**Velké rovné plechy** (boky, dveře) se při ohřevu nebo natažení snadno „vyboulí“ (oil-canning) a pak pruží. Nepoužívejte teplo, rovnejte jemnými údery a tmel nanášejte tence.', '**Large flat panels** (sides, doors) easily "oil-can" when heated or stretched and then flex. Do not use heat, straighten with light taps and apply filler thinly.') },
+          { level: 'caution', text: V('Koroze u kolejnice posuvných dveří a prahů může zasahovat do nosných částí – při prorezavění jen karosárna (svařování).', 'Rust at the sliding-door rail and sills can reach load-bearing parts – rust-through means a body shop (welding).'), verify: true },
+          { level: 'info', text: V('U velkých ploch počítejte s více materiálem a stříkáním celého dílu do ztracena – menší opravy jsou na rovné ploše vidět víc.', 'On large surfaces expect more material and blending the whole panel – small repairs show more on a flat surface.') }
+        ],
+        steps: {
+          assess: { notes: [{ level: 'info', text: V('Jumper: zkontrolujte i spodní hrany zadních a posuvných dveří a kolejnici posuvných dveří – tam rez začíná nejčastěji.', 'Jumper: also check the lower edges of the rear and sliding doors and the sliding-door rail – rust most often starts there.'), verify: true }] },
+          dent: { notes: [{ level: 'warning', text: V('Na velkém rovném plechu nepoužívejte teplo – plech se zvlní a bude „pruzit“.', 'Do not use heat on a large flat panel – it warps and starts to "oil-can".') }] }
+        }
       }
     }
   });

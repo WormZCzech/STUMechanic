@@ -125,8 +125,10 @@
         return { text: { cs: (i + 1) + '. ' + names[i].cs, en: (i + 1) + '. ' + names[i].en }, at: function () { return r.ring.position.clone().add(new THREE.Vector3(0, 0.2, 0)); }, show: [0.6 + i * 1.8, 9], level: 'accent' };
       });
       labels.push({ text: V('hlavní válec', 'master cylinder'), at: function () { return mc.clone().add(new THREE.Vector3(0, 0.12, 0)); }, level: 'ok' });
+      var big = Math.max(1, c.dims.L / 4.6, c.dims.H / 1.6 * 0.85);   // pull back for vans / large vehicles
       return {
         root: root,
+        cameraPath: big > 1.01 ? function () { return { pos: [-0.5 * big, 6.2 * big, 1.3 * big], target: [0, c.dims.H * 0.25, 0] }; } : null,
         update: function (t) {
           rings.forEach(function (r, i) {
             var on = t > 0.6 + i * 1.8;
@@ -447,8 +449,10 @@
         var tb = Math.min(t, 7.5) - 4.5, a = v / 3;
         return x45 + v * tb - 0.5 * a * tb * tb;
       }
+      var big = Math.max(1, car.dims.H / 1.6 * 0.9);   // vans: pull back and follow the vehicle
       return {
         root: root,
+        cameraPath: big > 1.01 ? function (t) { var x = xAt(Math.min(t, 8.6)); return { pos: [x + 0.6, 1.6 * big, 8.0 * big], target: [x + 0.2, 0.5 * big, 0] }; } : null,
         update: function (t) {
           var x = xAt(Math.min(t, 8.6));
           car.group.position.x = x;

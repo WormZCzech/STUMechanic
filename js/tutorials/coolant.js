@@ -236,6 +236,23 @@
           type: { body: V('GR Yaris: použijte Toyota SLLC (předmíchanou) – žádné ředění.', 'GR Yaris: use Toyota SLLC (pre-mixed) – no dilution.') },
           lift: { body: V('Vůz je nízký – nízkoprofilový hever, zvedací body z boku. Spodní aerodynamický kryt bývá nutné sundat.', 'The car is low – low-profile jack, jacking points from the side. The underbody aero cover usually has to be removed.') }
         }
+      },
+      /* -------------------------------------------------- Citroën Jumper (van) */
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('Typ kapaliny', 'Coolant type'), value: V('dle příručky / štítku na nádržce – různé typy nemíchat', 'per manual / label on the tank – do not mix types'), verify: true },
+          { label: V('Objem', 'Capacity'), value: V('ověřte v příručce (záleží na verzi a případném přídavném topení)', 'verify in the manual (depends on version and any auxiliary heater)'), verify: true },
+          { label: V('Odvzdušnění', 'Bleeding'), value: V('dle dílenské příručky', 'per workshop manual'), verify: true }
+        ],
+        notes: [
+          { level: 'warning', text: V('Nemíchejte různé typy chladicí kapaliny. Pokud nevíte, co je ve voze, udělejte úplnou výměnu s propláchnutím.', 'Do not mix coolant types. If you do not know what is in the van, do a complete change with a flush.') },
+          { level: 'info', text: V('Některé dodávky mají přídavné topení nebo topení pro zadní prostor – delší okruh znamená víc vzduchu a delší odvzdušňování.', 'Some vans have an auxiliary heater or a rear heater – a longer circuit means more air and longer bleeding.'), verify: true }
+        ],
+        steps: {
+          lift: { body: V('K vypouštění se u dodávky často dostanete bez zvedání. Pokud musíte pod vůz, jen na stojanech s nosností min. 3 t.', 'On the van you can often reach the drain without lifting. If you must get under it, only on stands rated at least 3 t.') },
+          bleed: { notes: [{ level: 'caution', text: V('Umístění odvzdušňovacích šroubů (jsou-li) ověřte v dílenské příručce.', 'Verify the location of any bleed screws in the workshop manual.'), verify: true }] }
+        }
       }
     }
   });

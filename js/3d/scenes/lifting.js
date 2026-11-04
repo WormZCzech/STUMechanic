@@ -6,7 +6,8 @@
   var V = function (cs, en) { return { cs: cs, en: en }; };
   var TORQUE = {
     'generic': V('dle příručky', 'per manual'), 'mb-cl500-c216': '150 Nm', 'volvo-xc60-b4': '140 Nm',
-    'skoda-octavia-rs-tdi': '120 Nm', 'toyota-gr-yaris': '103 Nm'
+    'skoda-octavia-rs-tdi': '120 Nm', 'toyota-gr-yaris': '103 Nm',
+    'citroen-jumper-22hdi': V('160–180 Nm (ověřit)', '160–180 Nm (verify)')
   };
 
   /** Lifting rig: car that rolls about its far-side wheels, trolley jack under the front-left
@@ -163,6 +164,7 @@
       var hint = ctx.vehicle === 'toyota-gr-yaris' ? V('Nízký vůz: hever zasouvat z boku', 'Low car: slide the jack in from the side')
         : ctx.vehicle === 'mb-cl500-c216' ? V('Zvedací body pod krytkami v prahu', 'Jacking points under covers in the sill')
           : ctx.vehicle === 'volvo-xc60-b4' ? V('Nejdřív vypnout regulaci vzduchového podvozku!', 'First switch off air suspension level control!')
+          : ctx.vehicle === 'citroen-jumper-22hdi' ? V('Těžká dodávka: hever i stojany min. 3 t, vyložit náklad', 'Heavy van: jack and stands min. 3 t, unload cargo')
             : V('Zesílený lem prahu (zářezy / značky)', 'Reinforced sill seam (notches / marks)');
       return {
         root: root,
@@ -176,7 +178,8 @@
           { text: V('Zvedací bod', 'Jacking point'), at: function () { return marks[1].position.clone().add(new THREE.Vector3(0, -0.05, 0.1)); }, level: 'accent' },
           { text: V('✖ Ne pod nárazník / olejovou vanu', '✖ Not under bumper / oil pan'), at: no, level: 'danger', show: [1.5, 6] }
         ],
-        captions: [{ text: hint, level: ctx.vehicle === 'volvo-xc60-b4' ? 'danger' : null }]
+        cameraPath: c.dims.H > 2 ? function () { return { pos: [0.4, 0.6, 5.6], target: [0.0, 0.42, 0.6] }; } : null,
+        captions: [{ text: hint, level: ctx.vehicle === 'volvo-xc60-b4' || ctx.vehicle === 'citroen-jumper-22hdi' ? 'danger' : null }]
       };
     }
   });

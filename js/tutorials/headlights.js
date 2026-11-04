@@ -265,6 +265,34 @@
           basic: { specs: [{ label: V('Nástroj', 'Tool'), value: 'Techstream', verify: true }] }
         },
         extraSteps: [{ after: 'access', step: LED_STEP }]
+      },
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('Typ světel', 'Lamp type'), value: V('Halogenové žárovky (typ dle VIN / katalogu, např. H7 + H1 nebo H4)', 'Halogen bulbs (type per VIN / catalogue, e.g. H7 + H1 or H4)'), verify: true },
+          { label: V('Přístup k žárovkám', 'Bulb access'), value: V('Zezadu světla z motorového prostoru (krytka)', 'From behind the lamp in the engine bay (cover)'), verify: true },
+          { label: V('Regulace sklonu', 'Beam-height control'), value: V('Ruční kolečko na palubní desce (0 = prázdný vůz)', 'Manual wheel on the dashboard (0 = empty van)'), verify: true },
+          { label: V('Výměna celého světla', 'Whole-unit replacement'), value: V('Pravděpodobně nutná demontáž masky / nárazníku', 'Probably requires removing the grille / bumper'), verify: true }
+        ],
+        notes: [
+          { level: 'warning', text: V('**Typ žárovky nehádejte** – u Jumperu X250 se liší podle výbavy. Ověřte na staré žárovce nebo v katalogu dílů podle VIN.', '**Do not guess the bulb type** – it differs by equipment on the X250 Jumper. Check the old bulb or the parts catalogue by VIN.'), verify: true },
+          { level: 'info', text: V('Dodávka má ruční kolečko regulace sklonu světel. Při seřizování musí být vůz **prázdný a kolečko na 0**. Při jízdě s nákladem kolečko nastavte podle zatížení – jinak oslňujete.', 'The van has a manual headlight range wheel. When aiming, the van must be **empty with the wheel at 0**. When driving loaded, set the wheel for the load – otherwise you dazzle others.'), verify: true },
+          { level: 'tip', text: V('Užitkový vůz svítí hodně hodin – žárovky měňte vždy v páru a pár náhradních vozte ve voze.', 'A commercial van runs its lights for many hours – always replace bulbs in pairs and keep a spare pair in the van.') }
+        ],
+        tools: [V('Šroubováky / Torx na krytky, masku a nárazník (ověřit typy)', 'Screwdrivers / Torx for covers, grille and bumper (verify sizes)')],
+        steps: {
+          bulb: {
+            body: V('Krytku zezadu světla sejměte z motorového prostoru, odpojte konektor, uvolněte pružinový držák a žárovku vyjměte. Prostor u baterie / vzduchového filtru bývá těsný – přesný postup ověřte.', 'Remove the cover behind the lamp from the engine bay, unplug the connector, release the spring clip and take the bulb out. Space near the battery / air filter can be tight – verify the exact procedure.'),
+            notes: [{ level: 'caution', text: V('Pokud k žárovce nedosáhnete, nelámejte plastové díly – u některých verzí je nutné uvolnit další díly (ověřit).', 'If you cannot reach the bulb, do not break plastic parts – some versions require removing extra parts (verify).'), verify: true }]
+          },
+          unitOut: { notes: [{ level: 'info', text: V('Jumper: světlomet je pravděpodobně přišroubován za maskou / nárazníkem – postup ověřte v dílenské příručce.', 'Jumper: the headlight is probably bolted behind the grille / bumper – verify the procedure in the workshop manual.'), verify: true }] },
+          basic: {
+            title: V('Regulace sklonu: ruční kolečko', 'Range control: manual wheel'),
+            body: V('Jumper s halogeny nemá automatickou regulaci, kterou by bylo nutné nastavovat diagnostikou. Kolečko na palubní desce dejte na **0** (prázdný vůz) a pokračujte seřízením na stěně.', 'A Jumper with halogen lamps has no automatic range control that needs a scan tool. Set the dashboard wheel to **0** (empty van) and continue with aiming against a wall.'),
+            notes: [{ level: 'info', text: V('Pokud má váš vůz jinou výbavu (např. xenony s automatikou), postup se liší – ověřte.', 'If your van has different equipment (e.g. xenons with auto levelling), the procedure differs – verify.'), verify: true }]
+          },
+          aimPrep: { notes: [{ level: 'warning', text: V('Vůz **vyložený**, kolečko sklonu na 0, tlaky v pneumatikách podle štítku ve dveřích (zadní bývá vyšší).', 'Van **unloaded**, range wheel at 0, tyre pressures per the door-pillar label (rear is often higher).'), verify: true }] }
+        }
       }
     }
   });

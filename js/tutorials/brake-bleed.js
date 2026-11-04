@@ -268,6 +268,41 @@
           abs: { body: V('Odvzdušnění akčního členu ABS/VSC se dělá přes **Techstream** nebo kompatibilní diagnostiku Toyota.', 'Bleeding the ABS/VSC actuator is done with **Techstream** or a compatible Toyota scan tool.') }
         },
         finalChecks: [V('Spojka vypíná normálně (pokud se odvzdušňovala)', 'Clutch disengages normally (if it was bled)')]
+      },
+      /* -------------------------------------------------- Citroën Jumper (van) */
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('Brzdová kapalina', 'Brake fluid'), value: 'DOT 4', verify: true },
+          { label: V('Pořadí odvzdušnění', 'Bleeding order'), value: V('dle dílenské příručky (vůz s ABS)', 'per workshop manual (ABS vehicle)'), verify: true },
+          { label: V('Spojka', 'Clutch'), value: V('Hydraulická – obvykle sdílí nádržku s brzdami', 'Hydraulic – usually shares the reservoir with the brakes'), verify: true }
+        ],
+        notes: [
+          { level: 'info', text: V('Dlouhá vedení k zadní nápravě dodávky = víc kapaliny. Mějte připraveno cca 1–1,5 l.', 'Long lines to the rear axle of a van = more fluid. Have approx. 1–1.5 L ready.'), verify: true },
+          { level: 'warning', text: V('Manuální převodovka: spojka obvykle sdílí nádržku s brzdami. Po výměně brzdové kapaliny vyměňte i kapalinu ve spojce (viz krok níže).', 'Manual gearbox: the clutch usually shares the reservoir with the brakes. After replacing the brake fluid, replace the clutch fluid too (see the step below).'), verify: true }
+        ],
+        steps: {
+          lift: { notes: [{ level: 'danger', text: V('Dodávka: hever a stojany s nosností min. 3 t, náklad vyložený.', 'Van: jack and stands rated at least 3 t, cargo unloaded.') }] },
+          order: { notes: [{ level: 'info', text: V('Pořadí kol a případný postup pro jednotku ABS ověřte v dílenské příručce podle VIN.', 'Verify the wheel order and any ABS unit procedure in the workshop manual by VIN.'), verify: true }] }
+        },
+        extraSteps: [
+          {
+            after: 'clean',
+            step: {
+              id: 'jmpClutch', anim: 'bleed.nipple',
+              title: V('Spojka: vyměňte kapalinu i v ní', 'Clutch: replace the fluid there too'),
+              body: V(
+                '1. Najděte odvzdušňovací šroubek spojky (u převodovky – přesné místo ověřte v příručce).\n2. Hadička do lahve, šroubek povolit, pomocník pomalu šlape spojku.\n3. Vypouštějte, dokud nevytéká čistá kapalina bez bublin. Hladina v nádržce nesmí klesnout pod MIN.\n4. Šroubek dotáhnout, pedál spojky musí mít plný chod a vracet se.',
+                '1. Find the clutch bleed nipple (on the gearbox – verify the exact location in the manual).\n2. Tube into a bottle, open the nipple, the helper presses the clutch slowly.\n3. Bleed until clean fluid without bubbles comes out. The reservoir level must not drop below MIN.\n4. Close the nipple; the clutch pedal must have full travel and return.'
+              ),
+              notes: [
+                { level: 'caution', text: V('Přístup k odvzdušňovacímu šroubku spojky je u dodávky stísněný – místo ověřte v dílenské příručce.', 'Access to the clutch bleed nipple on the van is tight – verify its location in the workshop manual.'), verify: true },
+                { level: 'warning', text: V('Pokud pedál spojky zůstane u podlahy, nejezděte – systém je zavzdušněný.', 'If the clutch pedal stays on the floor, do not drive – the system has air in it.') }
+              ]
+            }
+          }
+        ],
+        finalChecks: [V('Pedál spojky se vrací a spojka čistě vypíná', 'The clutch pedal returns and the clutch disengages cleanly')]
       }
     }
   });

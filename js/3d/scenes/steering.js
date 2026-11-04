@@ -9,15 +9,18 @@
     'mb-cl500-c216': V('čekat dle WIS (raději ≥ 10 min)', 'wait per WIS (ideally ≥ 10 min)'),
     'volvo-xc60-b4': V('čekat dle VIDA (raději ≥ 10 min)', 'wait per VIDA (ideally ≥ 10 min)'),
     'skoda-octavia-rs-tdi': V('čekat dle ELSA (raději ≥ 10 min)', 'wait per ELSA (ideally ≥ 10 min)'),
-    'toyota-gr-yaris': V('min. 90 s dle TIS (raději ≥ 10 min)', 'min. 90 s per TIS (ideally ≥ 10 min)')
+    'toyota-gr-yaris': V('min. 90 s dle TIS (raději ≥ 10 min)', 'min. 90 s per TIS (ideally ≥ 10 min)'),
+    'citroen-jumper-22hdi': V('čekat dle příručky Citroën (raději ≥ 10 min)', 'wait per Citroën manual (ideally ≥ 10 min)')
   };
   var TORQ = {
     'skoda-octavia-rs-tdi': V('nový šroub · 30 Nm + 90°', 'new bolt · 30 Nm + 90°'),
     'mb-cl500-c216': V('moment dle WIS', 'torque per WIS'),
     'volvo-xc60-b4': V('moment dle VIDA', 'torque per VIDA'),
-    'toyota-gr-yaris': V('moment dle TIS', 'torque per TIS')
+    'toyota-gr-yaris': V('moment dle TIS', 'torque per TIS'),
+    'citroen-jumper-22hdi': V('moment dle dílenské příručky (ověřit)', 'torque per workshop manual (verify)')
   };
-  var TOOL = { 'skoda-octavia-rs-tdi': 'VCDS / ODIS', 'mb-cl500-c216': 'XENTRY', 'volvo-xc60-b4': 'VIDA', 'toyota-gr-yaris': 'Techstream' };
+  var JUMPER = 'citroen-jumper-22hdi';
+  var TOOL = { 'skoda-octavia-rs-tdi': 'VCDS / ODIS', 'mb-cl500-c216': 'XENTRY', 'volvo-xc60-b4': 'VIDA', 'toyota-gr-yaris': 'Techstream', 'citroen-jumper-22hdi': 'Diagbox (ověřit / verify)' };
   var TORX = { 'mb-cl500-c216': 1, 'toyota-gr-yaris': 1 };
 
   var C = new THREE.Vector3(0, 1.0, 0);     // wheel centre
@@ -182,7 +185,8 @@
           { text: V('2. Počkat – kondenzátor airbagu se vybije', '2. Wait – the airbag capacitor discharges'), show: [4, 10] },
           { text: V('Nespěchat! Airbag může vystřelit.', 'Do not rush! The airbag can deploy.'), level: 'danger', show: [5, 10] },
           ctx.vehicle === 'mb-cl500-c216' ? { text: V('CL 500: sloupek nejdřív elektricky nastavit · baterie v kufru', 'CL 500: set the electric column first · battery in the boot'), level: 'info', show: [0, 4] }
-            : ctx.vehicle === 'volvo-xc60-b4' ? { text: V('XC60: 12V dle VIDA (48V se netýká – nezkratovat)', 'XC60: 12 V per VIDA (48 V not involved – no shorts)'), level: 'info', show: [0, 4] } : { text: V('Vypnout zapalování, klíč mimo vůz', 'Ignition off, key out of the car'), level: 'info', show: [0, 4] }
+            : ctx.vehicle === 'volvo-xc60-b4' ? { text: V('XC60: 12V dle VIDA (48V se netýká – nezkratovat)', 'XC60: 12 V per VIDA (48 V not involved – no shorts)'), level: 'info', show: [0, 4] }
+            : ctx.vehicle === JUMPER ? { text: V('Jumper: umístění baterie ověřte (pod podlahou kabiny / v motorovém prostoru)', 'Jumper: verify the battery location (under the cab floor / in the engine bay)'), level: 'info', show: [0, 4] } : { text: V('Vypnout zapalování, klíč mimo vůz', 'Ignition off, key out of the car'), level: 'info', show: [0, 4] }
         ]
       };
     }
@@ -224,7 +228,8 @@
         captions: [
           { text: torx ? V('Torx šrouby zezadu volantu vyšroubovat', 'Undo the Torx screws on the back of the wheel') : V('Šroubovákem otvory vzadu uvolnit pružinové spony', 'Release the spring clips with a screwdriver through the rear holes') },
           { text: torx ? V('Šrouby bývají zajištěné v pouzdře – nevypadnou', 'Screws are often captive – they stay in the housing') : V('Pootáčet volantem o 90° k dalšímu otvoru', 'Turn the wheel 90° to reach the next hole'), level: 'info', show: [2.5, 10] },
-          { text: V('Baterie odpojená a čekací doba uplynula?', 'Battery disconnected and wait time over?'), level: 'danger', show: [6, 10] }
+          { text: V('Baterie odpojená a čekací doba uplynula?', 'Battery disconnected and wait time over?'), level: 'danger', show: [6, 10] },
+          { text: V('Jumper: způsob uchycení airbagu (šrouby zezadu / spony) ověřte v příručce – nehádat!', 'Jumper: verify how the airbag is held (rear screws / clips) in the manual – do not guess!'), level: 'info', show: ctx.vehicle === JUMPER ? [0, 10] : [99, 99] }
         ]
       };
     }

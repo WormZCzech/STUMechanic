@@ -8,7 +8,8 @@
     'mb-cl500-c216': { cs: 'čekat dle WIS (raději ≥ 10 min)', en: 'wait per WIS (ideally ≥ 10 min)' },
     'volvo-xc60-b4': { cs: 'čekat dle VIDA (raději ≥ 10 min)', en: 'wait per VIDA (ideally ≥ 10 min)' },
     'skoda-octavia-rs-tdi': { cs: 'čekat dle ELSA (raději ≥ 10 min)', en: 'wait per ELSA (ideally ≥ 10 min)' },
-    'toyota-gr-yaris': { cs: 'min. 90 s dle TIS (raději ≥ 10 min)', en: 'min. 90 s per TIS (ideally ≥ 10 min)' }
+    'toyota-gr-yaris': { cs: 'min. 90 s dle TIS (raději ≥ 10 min)', en: 'min. 90 s per TIS (ideally ≥ 10 min)' },
+    'citroen-jumper-22hdi': { cs: 'čekat dle příručky Citroën (raději ≥ 10 min)', en: 'wait per Citroën manual (ideally ≥ 10 min)' }
   };
   var TORX_CARS = { 'mb-cl500-c216': 1, 'toyota-gr-yaris': 1 };
 
@@ -214,7 +215,8 @@
         'skoda-octavia-rs-tdi': { cs: 'nový šroub · 30 Nm + 90°', en: 'new bolt · 30 Nm + 90°' },
         'mb-cl500-c216': { cs: 'moment dle WIS', en: 'torque per WIS' },
         'volvo-xc60-b4': { cs: 'moment dle VIDA', en: 'torque per VIDA' },
-        'toyota-gr-yaris': { cs: 'moment dle TIS', en: 'torque per TIS' }
+        'toyota-gr-yaris': { cs: 'moment dle TIS', en: 'torque per TIS' },
+        'citroen-jumper-22hdi': { cs: 'moment dle příručky (ověřit)', en: 'torque per manual (verify)' }
       }[ctx.vehicle] || { cs: 'moment dle příručky', en: 'torque per manual' };
       var s = '<rect class="k-metal2" x="226" y="170" width="28" height="120"/>';
       for (var i = 0; i < 6; i++) s += '<line class="s-dark" stroke-width="2" x1="' + (230 + i * 4) + '" y1="170" x2="' + (230 + i * 4) + '" y2="210"/>';
@@ -243,7 +245,7 @@
   A.register('steer.calibrate', {
     render: function (ctx) {
       var tool = {
-        'skoda-octavia-rs-tdi': 'VCDS / ODIS', 'mb-cl500-c216': 'XENTRY', 'volvo-xc60-b4': 'VIDA', 'toyota-gr-yaris': 'Techstream'
+        'skoda-octavia-rs-tdi': 'VCDS / ODIS', 'mb-cl500-c216': 'XENTRY', 'volvo-xc60-b4': 'VIDA', 'toyota-gr-yaris': 'Techstream', 'citroen-jumper-22hdi': 'Diagbox'
       }[ctx.vehicle] || ctx.t({ cs: 'Diagnostika', en: 'Scan tool' });
       var s = '<rect class="k-dark" x="100" y="40" width="280" height="190" rx="16"/><rect class="k-ground" x="114" y="54" width="252" height="162" rx="8"/>' +
         L.label(240, 80, tool, { size: 15 }) +

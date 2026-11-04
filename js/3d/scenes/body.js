@@ -177,7 +177,8 @@
         captions: [
           { text: V('Odraz rovných čar odhalí promáčklinu', 'Reflected straight lines reveal the dent'), show: [0, 4] },
           { text: V('Test magnetem: ocel × hliník / plast', 'Magnet test: steel vs aluminium / plastic'), show: [4, 9] },
-          { text: V('Prorezavělé / strukturální díly → karosárna', 'Rust-through / structural parts → body shop'), level: 'info', show: [6, 9] }
+          { text: V('Prorezavělé / strukturální díly → karosárna', 'Rust-through / structural parts → body shop'), level: 'info', show: [6, 9] },
+          { text: V('Jumper: velké rovné plechy – při ohřevu / natažení se „vyboulí“ (oil-canning)', 'Jumper: large flat panels – heat or stretching makes them "oil-can"'), level: 'info', show: ctx.vehicle === 'citroen-jumper-22hdi' ? [0, 4] : [99, 99] }
         ]
       };
     }

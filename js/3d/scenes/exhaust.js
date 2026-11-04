@@ -10,8 +10,15 @@
       'skoda-octavia-rs-tdi': V('DPF (filtr pevných částic)', 'DPF (particulate filter)'),
       'volvo-xc60-b4': V('GPF (filtr částic benzín)', 'GPF (petrol particulate filter)'),
       'toyota-gr-yaris': V('GPF (filtr částic benzín)', 'GPF (petrol particulate filter)'),
-      'mb-cl500-c216': V('katalyzátor 2', 'catalyst 2')
+      'mb-cl500-c216': V('katalyzátor 2', 'catalyst 2'),
+      'citroen-jumper-22hdi': V('DPF/FAP – je-li (ověřit)', 'DPF/FAP – if fitted (verify)')
     }[v] || V('DPF / GPF', 'DPF / GPF');
+  }
+  var JUMPER = 'citroen-jumper-22hdi';
+  /** Whole-vehicle framing for the big Jumper van (other cars keep the scene camera). */
+  function vanCam(ctx, K, pos, target) {
+    if (K.carSpec(ctx.vehicle).style !== 'van') return null;
+    return function () { return { pos: K.v3(pos), target: K.v3(target) }; };
   }
 
   /** One exhaust line in car coordinates. Returns parts for highlighting / animation. */
@@ -116,6 +123,8 @@
       case 'toyota-gr-yaris': return [{ z: 0.05, zRear: 0.0, rearZ: 0, rearW: 0.7, tips: [-0.18, 0.18], valve: true }];
       case 'volvo-xc60-b4': return [{ z: 0.05, zRear: -0.25, rearZ: -0.2, rearW: 0.55, tips: [-0.4], hiddenTip: true }];
       case 'skoda-octavia-rs-tdi': return [{ z: 0.05, zRear: -0.3, rearZ: -0.25, rearW: 0.5, tips: [-0.55], pfMat: 'steelDark' }];
+      // Jumper X250: single line, turned-down tailpipe ahead of the rear bumper (exit position – verify)
+      case 'citroen-jumper-22hdi': return [{ z: 0.1, zRear: -0.35, rearZ: -0.35, rearW: 0.5, tips: [-0.6], hiddenTip: true, pfMat: 'steelDark' }];
       default: return [{ z: 0.05, zRear: -0.25, rearZ: -0.2, rearW: 0.5, tips: [-0.5] }];
     }
   }
@@ -169,6 +178,7 @@
           flow.forEach(function (b, i) { b.position.copy(path.getPointAt(((t * 0.18) + i / flow.length) % 1)); });
           glows.forEach(function (gf, i) { gf(T.pulse(t, 1 + i * 2, 2.6 + i * 2)); });
         },
+        cameraPath: vanCam(ctx, K, [0.9, 0.85, 6.4], [0, 0.55, 0]),
         labels: [
           { text: V('motor', 'engine'), at: function () { return wpos(p.comps.front, [0.05, 0.25, 0]); } },
           { text: V('lambda sondy', 'lambda sensors'), at: function () { return wpos(p.sensors[0], [0, 0.12, 0]); }, level: 'accent' },
@@ -180,7 +190,8 @@
         ],
         captions: [
           { text: V('Směr výfukových plynů: od motoru k zádi', 'Gas flow: from the engine to the tail') },
-          { text: ctx.vehicle === 'mb-cl500-c216' ? V('V8: dvě samostatné větve, 4 lambda sondy', 'V8: two separate branches, 4 lambda sensors') : V('Filtr částic a katalyzátor musí zůstat!', 'Particulate filter and catalyst must stay!'), level: ctx.vehicle === 'mb-cl500-c216' ? 'info' : 'danger', show: [3, 10] }
+          { text: ctx.vehicle === 'mb-cl500-c216' ? V('V8: dvě samostatné větve, 4 lambda sondy', 'V8: two separate branches, 4 lambda sensors') : V('Filtr částic a katalyzátor musí zůstat!', 'Particulate filter and catalyst must stay!'), level: ctx.vehicle === 'mb-cl500-c216' ? 'info' : 'danger', show: [3, 10] },
+          { text: V('Jumper: zkontrolujte, zda má DPF/FAP – pokud ano, musí zůstat', 'Jumper: check whether a DPF/FAP is fitted – if so, it must stay'), level: 'info', show: ctx.vehicle === JUMPER ? [5, 10] : [99, 99] }
         ]
       };
     }
@@ -429,6 +440,7 @@
           arrows.visible = t > 2.4;
           flexG.visible = t > 4 && Math.sin(t * 6) > -0.3;
         },
+        cameraPath: vanCam(ctx, K, [-3.5, 0.16, -1.75], [-2.3, 0.2, -0.6]),
         labels: [
           { text: V('koncovka uprostřed, nikde se nedotýká', 'tip centred, touching nothing'), at: function () { return wpos(tip, [-0.05, 0.2, 0]); }, show: [2.4, 7], level: 'ok' }
         ],
@@ -449,6 +461,7 @@
       return {
         root: rig.root,
         update: function (t) { glows.forEach(function (g, i) { g(T.seg(t, 0.8 + i * 1.6, 1.4 + i * 1.6)); }); },
+        cameraPath: vanCam(ctx, K, [0.4, 0.08, 4.1], [0, 0.65, 0]),
         labels: joints.slice(0, 3).map(function (j, i) {
           return { text: String(i + 1), at: function () { return wpos(j, [0, -0.08, 0]); }, show: [0.8 + i * 1.6, 9], level: 'accent' };
         }),
@@ -473,7 +486,8 @@
         root: rig.root,
         update: function (t) { vapor.update(t, true); leak.update(t * 1.5, t > 3); soot.visible = t > 3; },
         cameraPath: function (t) {
-          var a = { pos: new THREE.Vector3(-4.0, 1.1, 2.6), target: new THREE.Vector3(-1.6, 0.5, 0) };
+          var van = K.carSpec(ctx.vehicle).style === 'van';
+          var a = van ? { pos: new THREE.Vector3(-5.0, 1.4, 3.1), target: new THREE.Vector3(-2.2, 0.65, 0) } : { pos: new THREE.Vector3(-4.0, 1.1, 2.6), target: new THREE.Vector3(-1.6, 0.5, 0) };
           if (t > 3) { var b = underCam(rig, f, [-0.38, 0, 0.05])(); var k = T.seg(t, 3, 4); a.pos.lerp(b.pos, k); a.target.lerp(b.target, k); }
           return a;
         },
@@ -581,6 +595,7 @@
           { text: V('Downpipe = díl + kalibrace + homologace + zápis', 'Downpipe = part + calibration + approval + registration') },
           octavia ? { text: V('2.0 TDI: katalyzátor + DPF jsou jeden celek – ponechat originál!', '2.0 TDI: catalyst + DPF are one unit – keep it original!'), level: 'danger', show: [1.5, 9] }
             : v === 'volvo-xc60-b4' ? { text: V('XC60: úprava se nedoporučuje (GPF, záruka)', 'XC60: modification not recommended (GPF, warranty)'), level: 'danger', show: [1.5, 9] }
+              : v === JUMPER ? { text: V('Jumper (užitkový vůz): sportovní úpravy nedávají smysl – výfuk jen originál / homologovaná náhrada', 'Jumper (commercial van): sport mods make no sense – OE or approved replacement exhaust only'), level: 'danger', show: [1.5, 9] }
               : { text: V('Žádné „rovné trubky“ – bez katalyzátoru nelegální', 'No "straight pipes" – illegal without a catalyst'), level: 'danger', show: [1.5, 9] },
           { text: V('Doporučeno pro specializovanou dílnu', 'Recommended for a specialist workshop'), level: 'info', show: [5, 9] }
         ]

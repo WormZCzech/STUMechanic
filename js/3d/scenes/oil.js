@@ -7,18 +7,21 @@
 
   var CAP = {
     'generic': V('dle příručky', 'per manual'), 'mb-cl500-c216': V('≈ 8,0 l', '≈ 8.0 L'), 'volvo-xc60-b4': V('≈ 5,2–5,9 l', '≈ 5.2–5.9 L'),
-    'skoda-octavia-rs-tdi': V('≈ 4,3 l', '≈ 4.3 L'), 'toyota-gr-yaris': V('≈ 4,5 l', '≈ 4.5 L')
+    'skoda-octavia-rs-tdi': V('≈ 4,3 l', '≈ 4.3 L'), 'toyota-gr-yaris': V('≈ 4,5 l', '≈ 4.5 L'),
+    'citroen-jumper-22hdi': V('≈ 5,5–6 l (ověřit)', '≈ 5.5–6 L (verify)')
   };
   var PLUG = {
     'generic': V('dle příručky', 'per manual'), 'mb-cl500-c216': '30 Nm', 'volvo-xc60-b4': V('dle VIDA', 'per VIDA'),
-    'skoda-octavia-rs-tdi': '30 Nm', 'toyota-gr-yaris': V('dle TIS', 'per TIS')
+    'skoda-octavia-rs-tdi': '30 Nm', 'toyota-gr-yaris': V('dle TIS', 'per TIS'),
+    'citroen-jumper-22hdi': V('dle příručky', 'per manual')
   };
   var RESET = {
     'generic': V('Menu palubního počítače / diagnostika', 'Trip computer menu / scan tool'),
     'mb-cl500-c216': V('ASSYST PLUS – menu přístrojovky', 'ASSYST PLUS – cluster menu'),
     'volvo-xc60-b4': V('Diagnostika (VIDA / kompatibilní)', 'Scan tool (VIDA / compatible)'),
     'skoda-octavia-rs-tdi': V('Tlačítko 0.0/SET nebo VCDS', '0.0/SET button or VCDS'),
-    'toyota-gr-yaris': V('Menu MID – údržba', 'MID menu – maintenance')
+    'toyota-gr-yaris': V('Menu MID – údržba', 'MID menu – maintenance'),
+    'citroen-jumper-22hdi': V('Přístrojovka / Diagbox (ověřit)', 'Cluster menu / Diagbox (verify)')
   };
   var E = 0.36; // engine height on the trestles (≈ installed height, car on stands)
 

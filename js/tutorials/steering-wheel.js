@@ -278,6 +278,28 @@
           release: { body: V('Na zadní straně volantu povolte šrouby Torx (po stranách) a airbag opatrně vyklopte.', 'On the back of the wheel undo the Torx screws (on the sides) and tilt the airbag out carefully.') },
           calibrate: { body: V('Po montáži proveďte v Techstream kalibraci nulového bodu snímače úhlu natočení / VSC (vůz na rovině, kola rovně).', 'After fitting, run the steering angle sensor / VSC zero-point calibration in Techstream (car level, wheels straight).') }
         }
+      },
+      'citroen-jumper-22hdi': {
+        status: 'caution',
+        specs: [
+          { label: V('Airbag řidiče', 'Driver airbag'), value: V('Ano (dle výbavy)', 'Yes (per equipment)'), verify: true },
+          { label: V('Uvolnění airbagu', 'Airbag release'), value: V('Šrouby zezadu nebo spony – ověřit v příručce', 'Screws from behind or clips – verify in the manual'), verify: true },
+          { label: V('Čekací doba po odpojení baterie', 'Wait time after battery disconnect'), value: V('dle příručky Citroën (raději ≥ 10 min)', 'per Citroën manual (ideally ≥ 10 min)'), verify: true },
+          { label: V('Šroub volantu', 'Wheel bolt'), value: V('Moment a výměna šroubu dle dílenské příručky', 'Torque and bolt replacement per workshop manual'), verify: true },
+          { label: V('Kalibrace snímače úhlu', 'Angle sensor calibration'), value: V('Je-li vůz s ESP – diagnostika (např. Diagbox)', 'If the van has ESP – scan tool (e.g. Diagbox)'), verify: true }
+        ],
+        notes: [
+          { level: 'warning', text: V('**Způsob uchycení airbagu nehádejte.** U vozů PSA bývají Torx šrouby zezadu volantu, jinde pružinové spony – ověřte v dílenské příručce pro váš VIN, než začnete páčit.', '**Do not guess how the airbag is held.** PSA vehicles often use Torx screws behind the wheel, others spring clips – verify in the workshop manual for your VIN before prying.'), verify: true },
+          { level: 'info', text: V('Umístění baterie ověřte (u X250 bývá pod podlahou kabiny u řidiče nebo v motorovém prostoru). Odpojte minus pól a izolujte ho.', 'Verify where the battery is (on the X250 often under the cab floor at the driver\'s seat or in the engine bay). Disconnect the negative terminal and insulate it.'), verify: true },
+          { level: 'caution', text: V('Sportovní / závodní volant bez airbagu nedává u užitkového vozu smysl a na silnici je nelegální.', 'A sport / racing wheel without an airbag makes no sense on a commercial van and is illegal on the road.') }
+        ],
+        tools: [V('Sada Torx (pro případné šrouby airbagu – ověřit velikost)', 'Torx set (for possible airbag screws – verify size)')],
+        steps: {
+          release: { notes: [{ level: 'warning', text: V('Jumper: nejprve ověřte, zda jsou na zadní straně volantu šrouby nebo otvory pro spony. Nepoužívejte sílu.', 'Jumper: first check whether the back of the wheel has screws or clip holes. Do not use force.'), verify: true }] },
+          bolt: { specs: [{ label: V('Šroub volantu', 'Wheel bolt'), value: V('moment dle příručky', 'torque per manual'), verify: true }] },
+          calibrate: { body: V('Má-li váš Jumper ESP, po montáži proveďte kalibraci snímače úhlu natočení volantu diagnostikou (např. Diagbox). Bez ESP se kalibrace obvykle neprovádí – ověřte.', 'If your Jumper has ESP, calibrate the steering angle sensor with a scan tool (e.g. Diagbox) after fitting. Without ESP calibration is usually not needed – verify.'), verify: true },
+          aftermarket: { notes: [{ level: 'info', text: V('Pro užitkový Jumper tento krok přeskočte – sportovní volant bez airbagu se nedoporučuje.', 'Skip this step for the Jumper commercial van – an aftermarket wheel without an airbag is not recommended.') }] }
+        }
       }
     }
   });

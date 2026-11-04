@@ -11,7 +11,8 @@
     'mb-cl500-c216': { r: 0.18, t: 0.032, mat: 'caliperBlack' },
     'volvo-xc60-b4': { r: 0.172, t: 0.03, mat: 'caliperBlack' },
     'skoda-octavia-rs-tdi': { r: 0.156, t: 0.025, mat: 'caliperRed' },
-    'toyota-gr-yaris': { r: 0.178, t: 0.032, mat: 'caliperRed', fixed: true }
+    'toyota-gr-yaris': { r: 0.178, t: 0.032, mat: 'caliperRed', fixed: true },
+    'citroen-jumper-22hdi': { r: 0.15, t: 0.028, mat: 'caliperBlack' }
   };
   function spec(vid) { return DISC[vid] || DISC.generic; }
   var ANG = PI * 0.97;          // caliper sits at ~9 o'clock (seen from outboard)

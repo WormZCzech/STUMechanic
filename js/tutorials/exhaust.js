@@ -286,6 +286,26 @@
           mods: { notes: [{ level: 'info', text: V('Sériová klapka je řízená motorovou jednotkou. Při výměně za neoriginální systém ověřte, jak výrobce řeší konektor klapky (záslepka / adaptér), aby nesvítila kontrolka.', 'The stock valve is controlled by the engine ECU. When fitting an aftermarket system, check how the maker handles the valve connector (plug / adapter) so no warning light comes on.'), verify: true }] },
           downpipe: { notes: [{ level: 'warning', text: V('Downpipe na G16E vyžaduje kalibraci a homologovaný katalyzátor – jinak nelegální a riziko poškození motoru.', 'A downpipe on the G16E requires a calibration and a homologated catalyst – otherwise illegal and a risk of engine damage.') }] }
         }
+      },
+      'citroen-jumper-22hdi': {
+        status: 'caution',
+        specs: [
+          { label: V('Motor', 'Engine'), value: V('2.2 HDi Common Rail diesel', '2.2 HDi Common Rail diesel') },
+          { label: V('Filtr pevných částic', 'Particulate filter'), value: V('Neznámo – zkontrolujte (FAP/DPF ano / ne)', 'Unknown – check (FAP/DPF yes / no)'), verify: true },
+          { label: V('Katalyzátor', 'Catalyst'), value: V('Oxidační katalyzátor u motoru', 'Oxidation catalyst near the engine'), verify: true },
+          { label: V('Koncovka', 'Tailpipe'), value: V('Jedna, ohnutá dolů před zadním nárazníkem', 'Single, turned down ahead of the rear bumper'), verify: true }
+        ],
+        notes: [
+          { level: 'danger', text: V('**Zjistěte, zda má váš Jumper filtr pevných částic (FAP/DPF).** Poznáte ho jako velké pouzdro za katalyzátorem, s trubičkami snímače tlaku a čidly teploty. Pokud ho má, **musí zůstat** – odstranění je nelegální a vůz neprojde STK.', '**Find out whether your Jumper has a particulate filter (FAP/DPF).** It is a large canister after the catalyst, with pressure-sensor pipes and temperature sensors. If fitted, it **must stay** – removing it is illegal and the van fails the STK inspection.'), verify: true },
+          { level: 'warning', text: V('Užitkový vůz = silně zkorodované objímky a šrouby. Počítejte s uříznutím a novým spojovacím materiálem; flexem nikdy u palivového potrubí a nádrže.', 'Commercial van = heavily corroded clamps and bolts. Expect to cut them and fit new hardware; never use a grinder near fuel lines or the tank.') },
+          { level: 'info', text: V('Dodávka má vyšší světlou výšku – k výfuku se dostanete snáz, ale **vždy na stojanech** s nosností pro vůz až 4 t.', 'The van sits higher – the exhaust is easier to reach, but **always on stands** rated for a vehicle of up to 4 t.') }
+        ],
+        tools: [V('Stojany s nosností min. 3 t každý', 'Axle stands rated at least 3 t each')],
+        steps: {
+          sensors: { notes: [{ level: 'warning', text: V('Má-li vůz DPF: hadičky diferenčního snímače tlaku a čidla teploty před demontáží označte a odpojte – snadno se zlomí.', 'If a DPF is fitted: label and disconnect the differential-pressure pipes and temperature sensors before removal – they break easily.'), verify: true }] },
+          mods: { body: V('U užitkového Jumperu sportovní úpravy výfuku nedávají smysl. Používejte jen originální nebo homologované náhradní díly.', 'Sport exhaust mods make no sense on a Jumper commercial van. Use only OE or homologated replacement parts.') },
+          downpipe: { body: V('Jumper 2.2 HDi: katalyzátor (a DPF, je-li) ponechte originální. Žádné „downpipe“ úpravy – jen homologovaná náhrada při poruše.', 'Jumper 2.2 HDi: keep the catalyst (and DPF, if fitted) original. No "downpipe" mods – only a homologated replacement when faulty.'), notes: [{ level: 'danger', text: V('Odstranění katalyzátoru / DPF / EGR je nelegální.', 'Removing the catalyst / DPF / EGR is illegal.') }] }
+        }
       }
     }
   });

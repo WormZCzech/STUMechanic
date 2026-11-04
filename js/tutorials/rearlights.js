@@ -214,6 +214,26 @@
         parts: [V('Nové LED zadní světlo (správná strana a verze dle VIN)', 'New LED rear lamp (correct side and version per VIN)')],
         steps: { bulb: { skip: true } },
         extraSteps: [{ after: 'access', step: LED_REAR }]
+      },
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('Zadní světla', 'Rear lamps'), value: V('Vysoké svislé sdružené svítilny v rozích karoserie', 'Tall vertical combination lamps in the rear body corners') },
+          { label: V('Demontáž', 'Removal'), value: V('Obvykle zvenku po otevření zadních dveří (šrouby)', 'Usually from outside with the rear doors open (screws)'), verify: true },
+          { label: V('Žárovky', 'Bulbs'), value: V('Typy dle katalogu (např. P21/5W, PY21W, P21W)', 'Types per catalogue (e.g. P21/5W, PY21W, P21W)'), verify: true },
+          { label: V('3. brzdové světlo', '3rd brake light'), value: V('Nahoře nad zadními dveřmi', 'At the top above the rear doors'), verify: true },
+          { label: V('Osvětlení SPZ', 'Plate lights'), value: V('V zadním nárazníku / nad SPZ', 'In the rear bumper / above the plate'), verify: true }
+        ],
+        notes: [
+          { level: 'info', text: V('U furgonu Jumper se zadní světla obvykle nevyndávají zevnitř z nákladového prostoru, ale **zvenku**: otevřete zadní dveře, povolte šrouby ve sloupku a světlo vytáhněte. Ověřte na voze.', 'On the Jumper panel van the rear lamps are usually removed **from outside**, not from the cargo area: open the rear doors, undo the screws in the pillar and pull the lamp out. Verify on the van.'), verify: true },
+          { level: 'warning', text: V('3. brzdové světlo je vysoko nad dveřmi – použijte stabilní štafle, ne bednu nebo nárazník.', 'The 3rd brake light is high above the doors – use a stable step ladder, not a crate or the bumper.') },
+          { level: 'caution', text: V('Těsnění světel a průchodky kabelů u dodávek často propouští vodu – zkontrolujte, zda v nákladovém prostoru / sloupku není vlhko.', 'Lamp seals and cable grommets on vans often leak – check the cargo area / pillar for moisture.') }
+        ],
+        tools: [V('Štafle (pro 3. brzdové světlo)', 'Step ladder (for the 3rd brake light)')],
+        steps: {
+          find: { body: V('Otevřete zadní dveře – ve sloupku vedle světla najdete šrouby, které světlo drží (ověřte počet a typ).', 'Open the rear doors – in the pillar next to the lamp you will find the screws holding it (verify number and type).'), notes: [{ level: 'info', text: V('Zadní dveře zajistěte, aby se při práci nezavřely (vítr).', 'Secure the rear doors so they cannot close while you work (wind).') }] },
+          access: { body: V('Povolte šrouby, světlo opatrně vytáhněte dozadu a odpojte konektor. Držák žárovek se pak vyndá ze zadní strany světla.', 'Undo the screws, pull the lamp carefully backwards and unplug the connector. The bulb carrier then comes out from the back of the lamp.'), notes: [{ level: 'caution', text: V('Šrouby nepřetahujte – plastové světlo praskne a dovnitř zatéká.', 'Do not overtighten the screws – the plastic lamp cracks and water gets in.') }] }
+        }
       }
     }
   });

@@ -12,7 +12,8 @@
     'mb-cl500-c216': '150 Nm',
     'volvo-xc60-b4': '140 Nm',
     'skoda-octavia-rs-tdi': '120 Nm',
-    'toyota-gr-yaris': '103 Nm'
+    'toyota-gr-yaris': '103 Nm',
+    'citroen-jumper-22hdi': { cs: '160–180 Nm (ověřit)', en: '160–180 Nm (verify)' }
   };
   S.liftTorque = TORQUE;
 
@@ -148,6 +149,8 @@
         ? { cs: 'Hever zasouvejte z boku – nízký vůz se spoilery', en: 'Slide the jack in from the side – low car with spoilers' }
         : ctx.vehicle === 'mb-cl500-c216'
           ? { cs: 'Zvedací body pod krytkami v prahu (ABC!)', en: 'Jacking points under covers in the sill (ABC!)' }
+          : ctx.vehicle === 'citroen-jumper-22hdi'
+          ? { cs: 'Těžká dodávka: hever i stojany min. 3 t, vyložit náklad', en: 'Heavy van: jack and stands min. 3 t, unload cargo' }
           : { cs: 'Zvedací body na prahu (značky / zesílený lem)', en: 'Jacking points on the sill (marks / reinforced seam)' };
       s += L.label(16, 24, ctx.t(hint), { anchor: 'start', bg: true });
       s += L.label(244, 292, ctx.t({ cs: 'Zvedací body', en: 'Jacking points' }), { bg: true });

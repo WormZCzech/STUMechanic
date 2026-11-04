@@ -54,8 +54,7 @@
     duration: 8, camera: { pos: [0.35, 0.55, 1.75], target: [0, 0.33, 0.5], fov: 36 }, shadow: 1.4, thumbT: 3,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
-      var axle = K.mesh(K.G.cylZ(0.045, 1.6, 24), 'blackOxide'); axle.position.set(0, 0.33, 0); root.add(axle);
-      var hub = K.mesh(K.G.cylZ(0.09, 0.08, 32), 'castIron'); hub.position.set(0, 0.33, 0.8); root.add(hub);
+      var axle = K.mesh(K.G.cylZ(0.045, 1.2, 24), 'blackOxide'); axle.position.set(0, 0.25, -0.05); root.add(axle);
       var leaves = new THREE.Group();
       var crackLeaf = null;
       for (var i = 0; i < 3; i++) {

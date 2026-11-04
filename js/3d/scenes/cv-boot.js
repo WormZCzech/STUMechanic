@@ -276,7 +276,7 @@
 
   /* --------------------------------------------------------------- cutaway */
   R('cv-boot.cutaway', {
-    duration: 8, camera: { pos: [0.12, 0.1, 0.22], target: [0, 0.0, 0], fov: 34 }, shadow: 0.3, ground: false, thumbT: 2,
+    duration: 8, camera: { pos: [0.14, 0.09, 0.27], target: [0, -0.005, 0], fov: 34 }, shadow: 0.3, ground: false, thumbT: 2,
     build: function (ctx, K) {
       var root = new THREE.Group();
       var bellPts = [[0.012, -0.05], [0.04, -0.05], [0.046, -0.03], [0.046, 0.0], [0.03, 0.02], [0.016, 0.03], [0.014, 0.08], [0, 0.08]];
@@ -302,7 +302,7 @@
         labels: [
           { text: V('klec', 'cage'), at: [0, 0.045, 0.02] },
           { text: V('kuličky v drahách', 'balls in the tracks'), at: [0.0, -0.04, 0.03] },
-          { text: V('důlky / vůle = nový kloub', 'pitting / play = new joint'), at: [0, 0.055, 0.01], show: [4, 8], level: 'danger' }
+          { text: V('důlky / vůle = nový kloub', 'pitting / play = new joint'), at: [0.05, 0.0, 0.03], show: [4, 8], level: 'danger' }
         ],
         captions: [
           { text: V('Řez homokinetickým kloubem – kloub přenáší moment i v rejdu', 'CV joint cut-away – it transmits torque even on lock') },

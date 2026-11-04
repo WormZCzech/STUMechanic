@@ -22,7 +22,7 @@
   def('chrome', { color: 0xeef1f4, metalness: 1, roughness: 0.06 });
   def('zinc', { color: 0xd4cba2, metalness: 0.8, roughness: 0.38 });
   def('blackOxide', { color: 0x2a2c30, metalness: 0.8, roughness: 0.45 });
-  def('castIron', { color: 0x55585e, metalness: 0.65, roughness: 0.78 });
+  def('castIron', { color: 0x6c7077, metalness: 0.6, roughness: 0.74 });
   def('discFace', { color: 0xb6bbc1, metalness: 0.55, roughness: 0.34 });
   def('alu', { color: 0xcdd2d8, metalness: 0.8, roughness: 0.32 });
   def('aluCast', { color: 0xa7abb1, metalness: 0.85, roughness: 0.58 });

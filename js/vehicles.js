@@ -80,10 +80,11 @@
     id: 'skoda-octavia-rs-tdi',
     name: { cs: 'Škoda Octavia RS 2.0 TDI 2011', en: 'Škoda Octavia RS 2.0 TDI 2011' },
     short: { cs: 'Octavia RS', en: 'Octavia RS' },
-    sub: { cs: '2.0 TDI CR 125 kW · 6st. manuál · přední náhon', en: '2.0 TDI CR 125 kW · 6-speed manual · FWD' },
+    sub: { cs: 'Liftback · 2.0 TDI CR 125 kW · 6st. manuál · přední náhon', en: 'Liftback · 2.0 TDI CR 125 kW · 6-speed manual · FWD' },
     color: '#4ba82e',
     facts: [
-      { label: { cs: 'Generace', en: 'Generation' }, value: { cs: 'Octavia II facelift (1Z), 2009–2013', en: 'Octavia II facelift (1Z), 2009–2013' } },
+      { label: { cs: 'Generace / karoserie', en: 'Generation / body' }, value: { cs: 'Octavia II facelift (1Z), 2009–2013 · liftback', en: 'Octavia II facelift (1Z), 2009–2013 · liftback' } },
+      { label: { cs: 'Světlomety', en: 'Headlights' }, value: { cs: 'Bi-xenon s AFS (natáčecí)', en: 'Bi-xenon with AFS (cornering)' } },
       { label: { cs: 'Motor', en: 'Engine' }, value: { cs: '2.0 TDI Common Rail, kód CEGA, 125 kW (170 k), 350 Nm, DPF', en: '2.0 TDI Common Rail, code CEGA, 125 kW (170 hp), 350 Nm, DPF' }, verify: true },
       { label: { cs: 'Převodovka', en: 'Transmission' }, value: { cs: '6st. manuál (02Q), dvouhmotový setrvačník', en: '6-speed manual (02Q), dual-mass flywheel' } },
       { label: { cs: 'Pohon', en: 'Drive' }, value: { cs: 'Přední kola (FWD)', en: 'Front-wheel drive (FWD)' } },

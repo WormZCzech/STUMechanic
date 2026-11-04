@@ -363,3 +363,6 @@ main { max-width: 1060px; margin: 0 auto; padding: 20px 16px 48px; }
 .tutlink .go { margin-left: auto; color: var(--accent); }
 .tutlink .pill { flex: 0 0 auto; }
 @media (max-width: 640px) { .bottomnav a { padding: 6px 6px; } }
+.symchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.symchip { text-decoration: none; color: var(--text); background: var(--card2); border: 1px solid var(--line); border-left-width: 4px; border-radius: 10px; padding: 6px 12px; font-weight: 600; font-size: .92rem; }
+.symchip:hover { border-color: var(--accent); }

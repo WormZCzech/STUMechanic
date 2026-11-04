@@ -342,6 +342,14 @@
       checklist(r.tools, 'tools.' + tid + '.' + vid) + '</div>' +
       '<div class="card"><h2>📦 ' + esc(ui('partsNeeded')) + '</h2><p class="small muted">' + esc(ui('checklistHint')) + '</p>' + checklist(r.parts, 'parts.' + tid + '.' + vid) + '</div></section>';
 
+    // symptoms that point to this tutorial (reverse links of the symptom guide)
+    var rel = S.symptoms.filter(function (sm) { return (sm.causes || []).some(function (c) { return (c.tutorials || []).indexOf(tid) >= 0; }); });
+    if (rel.length) {
+      h += '<section class="section card"><h2>🩺 ' + esc(ui('relatedSymptoms')) + '</h2><div class="symchips">' + rel.map(function (sm) {
+        return '<a class="symchip sev-b-' + (sm.severity || 'watch') + '" href="#/s/' + encodeURIComponent(sm.id) + '">' + esc(t(sm.title)) + '</a>';
+      }).join('') + '</div></section>';
+    }
+
     // steps list
     h += '<section class="section card"><h2>' + esc(ui('stepsList')) + '</h2><p class="small muted">' + esc(ui('clickToJump')) + '</p><ol class="steplist">' +
       r.steps.map(function (s, i) {

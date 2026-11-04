@@ -13,6 +13,7 @@ safety warnings, built for beginners. It's an installable web app (PWA) that wor
   - **Basics:** safe lifting & wheel removal, OBD diagnostics, oil & filter change, brake pads & discs, coolant change, spark plugs (glow plugs on diesel), headlights (bulbs, units, xenon, aiming), rear lights
   - **Intermediate:** brake fluid change & bleeding, gearbox & differential oils, exhaust replacement + legal modifications, steering wheel (airbag), timing belt (výměna rozvodů)
   - **Advanced:** clutch + dual-mass flywheel, bodywork – dent & rust repair, filler, primer, paint (klempířské práce)
+- **Symptom guide (roadmap):** start from what you notice (a noise, vibration, pedal feel, warning light, smoke, leak…). It lists possible causes from most common, with explanations, how to check, how urgent it is, notes for your car, and links to the right tutorials. Tutorials link back to the symptoms they fix.
 - **Search** on the home page, plus a per-vehicle list of all tutorials with difficulty status.
 - **Interactive 3D scene for each step** (WebGL, three.js): realistic materials, reflections and shadows. Drag to rotate, scroll or pinch to zoom, labels anchored to parts, plus pause, slow-motion, replay and view reset.
   Your car is shown with its own body shape and proportions when you select it.

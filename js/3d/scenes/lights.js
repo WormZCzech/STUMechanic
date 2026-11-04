@@ -278,7 +278,7 @@
   });
 
   R('lights.bulbSwap', {
-    duration: 12, camera: { pos: [-0.5, 0.26, 0.16], target: [-0.18, 0.12, -0.09], fov: 38 }, shadow: 0.8, thumbT: 7,
+    duration: 12, camera: { pos: [-0.62, 0.32, 0.26], target: [-0.16, 0.11, -0.07], fov: 38 }, shadow: 0.8, thumbT: 7,
     build: function (ctx, K) {
       var T = K.T, root = benchRoot(K);
       var type = lampType(ctx.vehicle) === 'xenon' ? 'xenon' : 'halogen';
@@ -713,16 +713,17 @@
     build: function (ctx, K) {
       var root = new THREE.Group();
       var c = K.car(ctx.vehicle); root.add(c.group);
-      var red = ['taillightL', 'taillightR'].map(function (n) { return lampGlow(K, c, n, 0xff2020, [0.28, 0.08], 0.035); });
+      var suv = K.carSpec(ctx.vehicle).style === 'suv';
+      var red = ['taillightL', 'taillightR'].map(function (n) { return lampGlow(K, c, n, 0xff2020, suv ? [0.12, 0.3] : [0.28, 0.08], 0.035); });
       var amber = ['taillightL', 'taillightR'].map(function (n) {
         var src = c.body.getObjectByName(n);
         var m = new THREE.MeshBasicMaterial({ color: 0xff9a00, transparent: true, opacity: 0, toneMapped: false });
-        var p = K.mesh(K.G.box(0.02, 0.03, 0.08), m); p.position.set(0.04, 0.03, n === 'taillightL' ? 0.08 : -0.08); src.add(p); return m;
+        var p = K.mesh(K.G.box(0.02, suv ? 0.06 : 0.03, suv ? 0.1 : 0.08), m); p.position.set(0.045, suv ? 0.1 : 0.03, suv ? 0 : (n === 'taillightL' ? 0.08 : -0.08)); src.add(p); return m;
       });
       var white = ['taillightL', 'taillightR'].map(function (n) {
         var src = c.body.getObjectByName(n);
         var m = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, toneMapped: false });
-        var p = K.mesh(K.G.box(0.02, 0.025, 0.07), m); p.position.set(0.04, -0.03, n === 'taillightL' ? -0.07 : 0.07); src.add(p); return m;
+        var p = K.mesh(K.G.box(0.02, suv ? 0.05 : 0.025, suv ? 0.1 : 0.07), m); p.position.set(0.045, suv ? -0.1 : -0.03, suv ? 0 : (n === 'taillightL' ? -0.07 : 0.07)); src.add(p); return m;
       });
       var d = c.dims;
       var third = K.mesh(K.G.box(0.02, 0.025, 0.4), new THREE.MeshBasicMaterial({ color: 0xff2020, transparent: true, opacity: 0, toneMapped: false }));
@@ -732,7 +733,7 @@
       helper.add(K.at(K.mesh(K.G.cyl(0.17, 0.75, 20), bodyM), 0, 1.0, 0));
       helper.add(K.at(K.mesh(K.G.sphere(0.12, 20), K.M.clone('leather', { color: 0xc89b7b })), 0, 1.5, 0));
       [-0.08, 0.08].forEach(function (z) { helper.add(K.at(K.mesh(K.G.cyl(0.06, 0.65, 12), 'fabric'), 0, 0.32, z)); });
-      helper.position.set(d.rear - 2.4, 0, -1.2); root.add(helper);
+      helper.position.set(d.rear - 1.9, 0, -0.6); root.add(helper);
       return {
         root: root,
         update: function (t) {
@@ -744,7 +745,7 @@
           amber[1].opacity = (ri || haz) && blink ? 1 : 0;
           white.forEach(function (m) { m.opacity = rev ? 1 : 0; });
         },
-        labels: [{ text: V('Pomocník za vozem', 'Helper behind the car'), at: [d.rear - 2.4, 1.8, -1.2] }],
+        labels: [{ text: V('Pomocník za vozem', 'Helper behind the car'), at: [d.rear - 1.9, 1.75, -0.6] }],
         captions: [
           { text: V('Brzda (+ 3. brzdové)', 'Brake (+ 3rd brake light)'), show: [0, 2] },
           { text: V('Blinkr vlevo', 'Left indicator'), show: [2, 4] },

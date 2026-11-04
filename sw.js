@@ -1,11 +1,13 @@
 /* STUMechanic service worker – offline cache. Bump VERSION when files change. */
-var VERSION = 'stu-v4';
+var VERSION = 'stu-v5';
 var FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/styles.css', 'assets/icon.svg', 'assets/icon-192.png', 'assets/icon-512.png',
   'js/core.js', 'js/i18n.js', 'js/vehicles.js', 'js/app.js',
   'js/anim/lib.js', 'js/anim/lifting.js', 'js/anim/oil.js', 'js/anim/brakes.js', 'js/anim/timing.js', 'js/anim/body.js',
   'js/anim/bleed.js', 'js/anim/coolant.js', 'js/anim/plugs.js', 'js/anim/diag.js', 'js/anim/clutch.js', 'js/anim/drivetrain.js',
   'js/anim/lights.js', 'js/anim/exhaust.js', 'js/anim/steering.js',
+  'js/vendor/three.min.js', 'js/3d/engine.js', 'js/3d/parts.js', 'js/3d/cars.js',
+  'js/3d/scenes/lifting.js', 'js/3d/scenes/oil.js', 'js/3d/scenes/brakes.js', 'js/3d/scenes/timing.js', 'js/3d/scenes/body.js', 'js/3d/scenes/bleed.js', 'js/3d/scenes/coolant.js', 'js/3d/scenes/plugs.js', 'js/3d/scenes/diag.js', 'js/3d/scenes/clutch.js', 'js/3d/scenes/drivetrain.js', 'js/3d/scenes/lights.js', 'js/3d/scenes/exhaust.js', 'js/3d/scenes/steering.js',
   'js/tutorials/lifting.js', 'js/tutorials/oil-change.js', 'js/tutorials/brakes.js', 'js/tutorials/timing-belt.js', 'js/tutorials/bodywork.js',
   'js/tutorials/brake-bleed.js', 'js/tutorials/coolant.js', 'js/tutorials/spark-plugs.js', 'js/tutorials/diagnostics.js',
   'js/tutorials/clutch.js', 'js/tutorials/drivetrain-oils.js', 'js/tutorials/headlights.js', 'js/tutorials/rearlights.js',

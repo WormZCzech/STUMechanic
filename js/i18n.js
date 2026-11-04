@@ -85,6 +85,9 @@
     checklistHint: { cs: 'Odškrtávejte si, co máte připravené. Stav se ukládá v zařízení.', en: 'Tick off what you have ready. State is saved on this device.' },
     finalChecks: { cs: 'Závěrečná kontrola', en: 'Final checks' },
     comingSoon: { cs: 'Připravujeme', en: 'Coming soon' },
+    drag3d: { cs: '☝ Táhněte pro otočení · kolečko / dva prsty = zoom', en: '☝ Drag to rotate · wheel / pinch = zoom' },
+    resetView: { cs: 'Pohled', en: 'View' },
+    modeSwitch: { cs: '2D / 3D', en: '2D / 3D' },
     search: { cs: 'Hledat návod (např. brzdy, olej, světla…)', en: 'Search tutorials (e.g. brakes, oil, lights…)' }
   };
 })(window.STU);

@@ -122,34 +122,65 @@
   /* -------------------------------------------------------- animation box */
   function animBox(animId, opts) {
     opts = opts || {};
-    return '<figure class="anim-box' + (opts.cls ? ' ' + opts.cls : '') + '" data-anim="' + esc(animId || '') + '">' +
+    return '<figure class="anim-box' + (opts.cls ? ' ' + opts.cls : '') + '" data-anim="' + esc(animId || '') + '"' + (opts.controls === false ? ' data-nocontrols="1"' : '') + '>' +
       '<div class="stage"></div>' +
       (opts.controls === false ? '' :
         '<div class="controls"><span class="lbl">▶ ' + esc(ui('animation')) + '</span>' +
         '<button class="btn small" data-act="toggle">⏸ ' + esc(ui('pause')) + '</button>' +
         '<button class="btn small" data-act="slow">🐢 ' + esc(ui('slow')) + '</button>' +
-        '<button class="btn small" data-act="replay">↺ ' + esc(ui('replay')) + '</button></div>') +
+        '<button class="btn small" data-act="replay">↺ ' + esc(ui('replay')) + '</button>' +
+        '<button class="btn small only3d" data-act="view">⟲ ' + esc(ui('resetView')) + '</button>' +
+        '<button class="btn small" data-act="mode">' + esc(ui('modeSwitch')) + '</button></div>') +
       '</figure>';
+  }
+
+  var use3d = function () { return !!(S.three && S.three.enabled && S.three.enabled()); };
+
+  function drawSvg(box, id, stage) {
+    var def = S.anims[id];
+    if (!def) return false;
+    try {
+      stage.innerHTML = def.render({ t: t, vehicle: vehicleId(), uid: 'a' + (++uidCounter), lang: S.lang });
+      return true;
+    } catch (e) {
+      console.error('Animation ' + id + ' failed', e);
+      return false;
+    }
   }
 
   function drawAnim(box) {
     var id = box.getAttribute('data-anim');
     var stage = box.querySelector('.stage');
-    var def = S.anims[id];
-    if (!def) {
+    var is3d = use3d() && S.scenes && S.scenes[id];
+    if (box._viewer) { box._viewer.destroy(); box._viewer = null; }
+    box._paused = false;
+    box._slow = false;
+    box.classList.toggle('is3d', !!is3d);
+    stage.classList.remove('stage3d');
+    if (is3d && box.classList.contains('thumbbox')) {
+      // still image for cards: show the 2D version instantly, swap to the 3D render when ready
+      drawSvg(box, id, stage);
+      var img = document.createElement('img');
+      img.className = 'thumb3d'; img.alt = '';
+      img.onload = function () { img.classList.add('ok'); };
+      stage.appendChild(img);
+      S.three.thumb(img, id, vehicleId());
+      return;
+    }
+    if (is3d) {
+      try {
+        box._viewer = S.three.mount(box, id, vehicleId(), { noHint: box.hasAttribute('data-nocontrols') });
+        return;
+      } catch (e) {
+        console.error('3D scene ' + id + ' failed, falling back to 2D', e);
+        box.classList.remove('is3d');
+      }
+    }
+    if (!drawSvg(box, id, stage)) {
       stage.innerHTML = '<div class="noanim">' + esc(ui('noAnim')) + '</div>';
       var c = box.querySelector('.controls');
       if (c) c.style.display = 'none';
-      return;
     }
-    try {
-      stage.innerHTML = def.render({ t: t, vehicle: vehicleId(), uid: 'a' + (++uidCounter), lang: S.lang });
-    } catch (e) {
-      console.error('Animation ' + id + ' failed', e);
-      stage.innerHTML = '<div class="noanim">' + esc(ui('noAnim')) + '</div>';
-    }
-    box._paused = false;
-    box._slow = false;
   }
 
   function animsOf(box) {
@@ -165,20 +196,31 @@
         var b = ev.target.closest('button[data-act]');
         if (!b) return;
         var act = b.getAttribute('data-act');
-        if (act === 'replay') {
+        var v = box._viewer;
+        var tb = box.querySelector('[data-act=toggle]'), sb = box.querySelector('[data-act=slow]');
+        if (act === 'mode') {
+          S.store.set('mode3d', !use3d());
           drawAnim(box);
-          var tb = box.querySelector('[data-act=toggle]');
           tb.innerHTML = '⏸ ' + esc(ui('pause'));
-          box.querySelector('[data-act=slow]').innerHTML = '🐢 ' + esc(ui('slow'));
+          sb.innerHTML = '🐢 ' + esc(ui('slow'));
+          return;
+        }
+        if (act === 'view') { if (v) v.resetView(); return; }
+        if (act === 'replay') {
+          if (v) v.replay(); else drawAnim(box);
+          box._paused = false; box._slow = false;
+          if (v && v.rate !== 1) v.toggleSlow();
+          tb.innerHTML = '⏸ ' + esc(ui('pause'));
+          sb.innerHTML = '🐢 ' + esc(ui('slow'));
           box.classList.add('force-motion');
         } else if (act === 'toggle') {
-          box._paused = !box._paused;
+          box._paused = v ? v.togglePause() : !box._paused;
           box.classList.add('force-motion');
-          animsOf(box).forEach(function (a) { if (box._paused) a.pause(); else a.play(); });
+          if (!v) animsOf(box).forEach(function (a) { if (box._paused) a.pause(); else a.play(); });
           b.innerHTML = box._paused ? '▶ ' + esc(ui('play')) : '⏸ ' + esc(ui('pause'));
         } else if (act === 'slow') {
-          box._slow = !box._slow;
-          animsOf(box).forEach(function (a) { a.playbackRate = box._slow ? 0.4 : 1; });
+          box._slow = v ? v.toggleSlow() : !box._slow;
+          if (!v) animsOf(box).forEach(function (a) { a.playbackRate = box._slow ? 0.4 : 1; });
           b.innerHTML = box._slow ? '🐇 ' + esc(ui('normalSpeed')) : '🐢 ' + esc(ui('slow'));
         }
       });
@@ -418,6 +460,7 @@
       default: html = viewNotFound();
     }
     document.getElementById('chrome').innerHTML = header(navKey);
+    if (S.three && S.three.destroyAll) { S.three.destroyAll(); S.three.clearThumbQueue(); }
     app.innerHTML = html;
     mountAnims(app);
     var key = location.hash;

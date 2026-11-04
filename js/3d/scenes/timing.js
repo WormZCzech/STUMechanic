@@ -4,7 +4,7 @@
   if (!window.THREE || !S.scene3d) return;
   var THREE = window.THREE, R = S.scene3d.register, PI = Math.PI;
   var V = function (cs, en) { return { cs: cs, en: en }; };
-  var CHAIN = { 'mb-cl500-c216': true, 'toyota-gr-yaris': true };
+  var CHAIN = { 'mb-cl500-c216': true, 'toyota-gr-yaris': true, 'citroen-jumper-22hdi': true };
   var SC = 0.0016, Y0 = 0.12;           // layout px → metres
   var CRANK_T = 2.4;                    // s per crank revolution when running
 
@@ -34,7 +34,7 @@
     c.fillText(title, W / 2, H * 0.08);
   };
   F3.coolantMat = function (K, vid) {
-    return { 'skoda-octavia-rs-tdi': 'coolantViolet', 'toyota-gr-yaris': 'coolantPink', 'volvo-xc60-b4': 'coolantBlue', 'mb-cl500-c216': 'coolantBlue' }[vid] || 'coolantBlue';
+    return { 'skoda-octavia-rs-tdi': 'coolantViolet', 'toyota-gr-yaris': 'coolantPink', 'volvo-xc60-b4': 'coolantBlue', 'mb-cl500-c216': 'coolantBlue', 'citroen-jumper-22hdi': 'coolantBlue' }[vid] || 'coolantBlue';
   };
   /** Find a mesh in a drain pan and give it another liquid material. */
   F3.panLiquid = function (pan, K, matName) {
@@ -251,7 +251,7 @@
       }
       plates.instanceMatrix.needsUpdate = true; rollers.instanceMatrix.needsUpdate = true;
     }
-    var codes = ctx.vehicle === 'mb-cl500-c216' ? 'P0016–P0019' : 'P0016 / P0017';
+    var codes = ctx.vehicle === 'mb-cl500-c216' ? 'P0016–P0019' : ctx.vehicle === 'citroen-jumper-22hdi' ? 'P0016 (?)' : 'P0016 / P0017';
     if (opts.locks) {
       var pins = [1, 2].map(function (i) {
         var p = new THREE.Group();
@@ -795,7 +795,7 @@
       var T = K.T, root = new THREE.Group();
       var title = S.t(V('Vačka vs. klika (°)', 'Cam vs. crank (°)'));
       var okT = S.t(V('V toleranci – OK', 'Within limits – OK')), badT = S.t(V('Mimo toleranci → servis', 'Out of limits → workshop'));
-      var tool = ctx.vehicle === 'mb-cl500-c216' ? 'XENTRY' : ctx.vehicle === 'toyota-gr-yaris' ? 'Techstream' : S.t(V('Diagnostika', 'Scan tool'));
+      var tool = ctx.vehicle === 'mb-cl500-c216' ? 'XENTRY' : ctx.vehicle === 'toyota-gr-yaris' ? 'Techstream' : ctx.vehicle === 'citroen-jumper-22hdi' ? 'Diagbox' : S.t(V('Diagnostika', 'Scan tool'));
       var dev = F3.scanTool(K, function (c, W, H, st) {
         st = st || { v: 0 };
         F3.screenBase(c, W, H, tool);

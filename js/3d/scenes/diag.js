@@ -139,7 +139,8 @@
 
   var TOOL = {
     'generic': 'VCDS · XENTRY · VIDA…', 'mb-cl500-c216': 'XENTRY / DAS', 'volvo-xc60-b4': 'VIDA',
-    'skoda-octavia-rs-tdi': 'VCDS / OBDeleven', 'toyota-gr-yaris': 'Techstream / GTS'
+    'skoda-octavia-rs-tdi': 'VCDS / OBDeleven', 'toyota-gr-yaris': 'Techstream / GTS',
+    'citroen-jumper-22hdi': 'Diagbox / Lexia (PP2000)'
   };
   D.toolName = function (vid) { return TOOL[vid] || TOOL.generic; };
   var PORT = {
@@ -147,7 +148,8 @@
     'mb-cl500-c216': V('pod palubní deskou vlevo (za krytkou)', 'under the dash, left (behind a cover)'),
     'volvo-xc60-b4': V('pod palubní deskou u řidiče', 'under the dash, driver side'),
     'skoda-octavia-rs-tdi': V('pod palubní deskou vlevo od volantu', 'under the dash, left of the steering column'),
-    'toyota-gr-yaris': V('pod palubní deskou u řidiče', 'under the dash, driver side')
+    'toyota-gr-yaris': V('pod palubní deskou u řidiče', 'under the dash, driver side'),
+    'citroen-jumper-22hdi': V('pod palubní deskou u řidiče, za krytkou (ověřit)', 'under the dash, driver side, behind a cover (verify)')
   };
 
   /* ================================================================ scenes */
@@ -531,8 +533,11 @@
       }, { px: 600, state: 0 });
       tab.add(panel);
       tab.position.set(0.9, 1.75, 1.3); tab.rotation.y = 0.5; tab.scale.setScalar(1.35); root.add(tab);
+      var isVan = ctx.vehicle === 'citroen-jumper-22hdi';
+      if (isVan) tab.position.set(0.9, 2.95, 1.5);
       return {
         root: root,
+        cameraPath: isVan ? function () { return { pos: [4.4, 2.7, 7.6], target: [0.1, 1.35, 0] }; } : null,
         update: function (t) {
           var drive = t < 8.5;
           stripes.position.x = -((t * 6) % 2.5);

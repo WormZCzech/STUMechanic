@@ -203,6 +203,20 @@
           { level: 'caution', text: V('Velké rozdíly korekcí vstřikovačů mezi válci ukazují na vadný vstřikovač – před výměnou nechte změřit přepad / ověřit v servisu.', 'Large injector correction differences between cylinders point to a faulty injector – have the leak-off measured / checked before replacing.'), verify: true }
         ]
       },
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('OBD zásuvka', 'OBD port'), value: V('pod palubní deskou u řidiče, za krytkou', 'under the dash, driver side, behind a cover'), verify: true },
+          { label: V('Doporučená diagnostika', 'Recommended tool'), value: V('Diagbox / Lexia (PP2000) pro PSA; pro základ ELM327 / OBD tester', 'Diagbox / Lexia (PP2000) for PSA; for basics an ELM327 / OBD tester') },
+          { label: V('Filtr pevných částic', 'Particulate filter'), value: V('neznámo – ověřte (s DPF / bez DPF)', 'unknown – verify (with / without DPF)'), verify: true }
+        ],
+        notes: [
+          { level: 'info', text: V('Typické závady 2.2 HDi (ověřte kódy v diagnostice): **EGR ventil** (zanesení), **vstřikovače** (korekce / přepad), **žhavení** (svíčky / relé), **regulace turba** (akční člen / podtlak), snímače tlaku paliva a plnicího tlaku.', 'Typical 2.2 HDi faults (verify codes with your tool): **EGR valve** (sooting), **injectors** (corrections / leak-off), **glow system** (plugs / relay), **turbo control** (actuator / vacuum), fuel and boost pressure sensors.'), verify: true },
+          { level: 'warning', text: V('**Regeneraci DPF** spouštějte jen tehdy, pokud váš Jumper DPF opravdu má – a jen podle postupu (motor teplý, dost paliva, venku, mimo hořlavé materiály). Výfuk má přes 600 °C. Bez DPF tato funkce nedává smysl.', 'Only start a **DPF regeneration** if your Jumper actually has a DPF – and only per the procedure (engine warm, enough fuel, outdoors, away from flammables). The exhaust exceeds 600 °C. Without a DPF this function makes no sense.'), verify: true },
+          { level: 'info', text: V('Generický OBD přečte motor. Pro ABS, airbag, karoserii a servisní funkce (reset servisu, kódování vstřikovačů) potřebujete PSA diagnostiku.', 'Generic OBD reads the engine. For ABS, airbag, body and service functions (service reset, injector coding) you need PSA diagnostics.') },
+          { level: 'caution', text: V('Po výměně vstřikovače bývá nutné **zakódovat jeho kód (IMA/C2I)** do řídicí jednotky – ověřte v dokumentaci.', 'After replacing an injector its **code (IMA/C2I)** usually has to be programmed into the ECU – verify in the documentation.'), verify: true }
+        ]
+      },
       'toyota-gr-yaris': {
         status: 'ok',
         specs: [

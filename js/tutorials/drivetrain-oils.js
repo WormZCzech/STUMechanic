@@ -178,6 +178,26 @@
           seal: { specs: [{ label: V('Moment zátek', 'Plug torque'), value: V('dle ELSA (cca 30 Nm)', 'per ELSA (approx. 30 Nm)'), verify: true }] }
         }
       },
+      'citroen-jumper-22hdi': {
+        status: 'ok',
+        specs: [
+          { label: V('Převodovka', 'Gearbox'), value: V('6st. manuál, přední náhon (diferenciál ve skříni, společný olej)', '6-speed manual, FWD (differential in the case, shared oil)') },
+          { label: V('Zadní náprava', 'Rear axle'), value: V('tuhá, bez diferenciálu – bez oleje', 'beam axle, no differential – no oil') },
+          { label: V('Olej', 'Oil'), value: V('dle dílenské dokumentace / štítku (typicky 75W-80 / 75W-90 GL-4 – ověřit)', 'per workshop documentation / label (typically 75W-80 / 75W-90 GL-4 – verify)'), verify: true },
+          { label: V('Množství', 'Capacity'), value: V('cca 2,5–3 l', 'approx. 2.5–3 L'), verify: true },
+          { label: V('Zátky', 'Plugs'), value: V('plnicí na boku skříně, vypouštěcí dole – umístění ověřte', 'fill on the side of the case, drain at the bottom – verify locations'), verify: true }
+        ],
+        notes: [
+          { level: 'warning', text: V('Těžké vozidlo: zvedejte jen heverem a stojany s nosností min. 3 t a vozidlo musí stát **vodorovně** – jinak hladinu změříte špatně.', 'Heavy vehicle: lift only with a jack and stands rated at least 3 t, and the van must stand **level** – otherwise you will measure the level wrong.') },
+          { level: 'info', text: V('Jumper X250 je technicky shodný s Fiat Ducato / Peugeot Boxer – olej a množství ověřte podle kódu převodovky (štítek na skříni / VIN).', 'The Jumper X250 is technically identical to the Fiat Ducato / Peugeot Boxer – verify the oil and capacity by gearbox code (label on the case / VIN).'), verify: true },
+          { level: 'tip', text: V('U dodávky s častými rozjezdy s nákladem se vyplatí olej převodovky měnit preventivně (např. každých 100 000 km), i když výrobce interval neuvádí.', 'For a van with frequent loaded starts it pays to change the gearbox oil preventively (e.g. every 100,000 km), even if the maker gives no interval.') }
+        ],
+        steps: {
+          auto: { skip: true },
+          fill: { specs: [{ label: V('Množství', 'Capacity'), value: V('cca 2,5–3 l', 'approx. 2.5–3 L'), verify: true }] },
+          seal: { specs: [{ label: V('Moment zátek', 'Plug torque'), value: V('dle dílenské dokumentace', 'per workshop documentation'), verify: true }] }
+        }
+      },
       'toyota-gr-yaris': {
         status: 'ok',
         specs: [

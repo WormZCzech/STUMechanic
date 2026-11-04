@@ -393,6 +393,43 @@
           }
         ]
       },
+      'citroen-jumper-22hdi': {
+        status: 'pro',
+        title: V('Výměna spojky a setrvačníku', 'Clutch kit & flywheel replacement'),
+        time: V('8–14 h', '8–14 h'),
+        specs: [
+          { label: V('Převodovka', 'Gearbox'), value: V('6st. manuál, příčně uložená, přední náhon', '6-speed manual, transverse, front-wheel drive') },
+          { label: V('Setrvačník', 'Flywheel'), value: V('dvouhmotový (DMF) nebo jednohmotový – ověřte podle VIN / dílu', 'dual-mass (DMF) or single-mass – verify by VIN / part'), verify: true },
+          { label: V('Ovládání spojky', 'Clutch release'), value: V('hydraulické (pracovní válec / CSC – ověřte)', 'hydraulic (slave cylinder / CSC – verify)'), verify: true },
+          { label: V('Kapalina spojky', 'Clutch fluid'), value: V('DOT 4 – obvykle společná nádržka s brzdami', 'DOT 4 – usually shared reservoir with the brakes'), verify: true },
+          { label: V('Hmotnost převodovky', 'Gearbox weight'), value: V('cca 50–60 kg (víc než u osobního auta)', 'approx. 50–60 kg (more than a car)'), verify: true },
+          { label: V('Utahovací momenty', 'Torques'), value: V('dle dílenské dokumentace PSA / Fiat – nehádat', 'per PSA / Fiat workshop documentation – do not guess'), verify: true }
+        ],
+        notes: [
+          { level: 'danger', text: V('**Těžká převodovka a těžké vozidlo:** zvedák převodovky s nosností pro ~60 kg a zajišťovacím řetězem je povinný. Dodávku zvedejte jen na stojany s nosností min. 3 t každý a vyložte náklad.', '**Heavy gearbox, heavy vehicle:** a transmission jack rated for ~60 kg with a safety chain is mandatory. Lift the van only onto stands rated at least 3 t each and unload the cargo.') },
+          { level: 'warning', text: V('Spojka u dodávky trpí rozjezdy s nákladem a do kopce – opotřebení bývá rychlejší než u osobního auta. Měňte celou sadu (lamela, přítlačný talíř, ložisko / CSC) a zkontrolujte setrvačník.', 'A van clutch suffers from loaded and uphill starts – it often wears faster than in a car. Replace the full kit (disc, pressure plate, bearing / CSC) and check the flywheel.') },
+          { level: 'info', text: V('Jumper X250 je technicky shodný s Fiat Ducato / Peugeot Boxer – dílenská dokumentace a díly se často sdílejí. Díly vybírejte podle VIN.', 'The Jumper X250 is technically identical to the Fiat Ducato / Peugeot Boxer – workshop documentation and parts are often shared. Choose parts by VIN.') }
+        ],
+        tools: [
+          V('Zvedák převodovky s nosností ≥ 60 kg + řetěz', 'Transmission jack rated ≥ 60 kg + chain'),
+          V('Podpěra motoru přes blatníky (pro dodávku dostatečně dlouhá)', 'Engine support bar across the wings (long enough for a van)'),
+          V('Stojany s nosností min. 3 t každý', 'Axle stands rated at least 3 t each')
+        ],
+        parts: [
+          V('Spojková sada dle VIN (lamela, talíř, ložisko / CSC)', 'Clutch kit by VIN (disc, plate, bearing / CSC)'),
+          V('Setrvačník (DMF / SMF) dle VIN – pokud je opotřebený', 'Flywheel (DMF / SMF) by VIN – if worn'),
+          V('Nové šrouby setrvačníku a talíře', 'New flywheel and pressure plate bolts'),
+          V('Brzdová kapalina DOT 4', 'Brake fluid DOT 4'),
+          V('Převodový olej dle specifikace (ověřit)', 'Gear oil to spec (verify)')
+        ],
+        steps: {
+          lift: { notes: [{ level: 'danger', text: V('Dodávka váží až 4 t: hever a stojany min. 3 t, rovný beton, náklad vyložit. Viz návod Bezpečné zvednutí vozu.', 'The van weighs up to 4 t: jack and stands at least 3 t, level concrete, cargo unloaded. See the Safely lifting the car tutorial.') }] },
+          ancillary: { body: V('U Jumperu X250 se typicky demontuje: baterie, vzduchové potrubí, lanka řazení, startér, poloosy z převodovky a uložení převodovky; podle verze i část pomocného rámu / výfuku. Rozsah ověřte v dílenské dokumentaci pro váš VIN.', 'On a Jumper X250 you typically remove: battery, air ducting, shift cables, starter, driveshafts from the gearbox and the gearbox mount; depending on version also part of the subframe / exhaust. Verify the scope in the workshop documentation for your VIN.'), notes: [{ level: 'info', text: V('Přesný rozsah demontáže se liší podle verze – ověřte.', 'The exact removal scope differs by version – verify.'), verify: true }] },
+          gearboxOut: { notes: [{ level: 'danger', text: V('Převodovka je těžší než u osobního auta – nikdy ji nedržte rukama ani nohama pod ní. Jen na zvedáku s řetězem.', 'The gearbox is heavier than in a car – never hold it by hand or with your feet under it. Only on a jack with a chain.') }] },
+          dmf: { notes: [{ level: 'info', text: V('Pokud má váš Jumper jednohmotový setrvačník, kontrolu vůle DMF přeskočte a zkontrolujte jen třecí plochu (rýhy, modré skvrny, praskliny).', 'If your Jumper has a single-mass flywheel, skip the DMF play check and only inspect the friction face (scoring, blue spots, cracks).'), verify: true }] },
+          bleed: { body: V('Po montáži odvzdušněte hydrauliku spojky podle dílenské dokumentace (umístění odvzdušňovacího šroubu ověřte). Pokud je nádržka společná s brzdami, zkontrolujte i brzdový pedál.', 'After fitting, bleed the clutch hydraulics per the workshop documentation (verify the bleed nipple location). If the reservoir is shared with the brakes, check the brake pedal too.'), verify: true }
+        }
+      },
       'toyota-gr-yaris': {
         status: 'pro',
         time: V('12–20 h (AWD – výrazně složitější)', '12–20 h (AWD – much more complex)'),

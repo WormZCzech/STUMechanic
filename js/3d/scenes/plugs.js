@@ -1,4 +1,4 @@
-/* 3D scenes: spark plugs (petrol) and glow plugs (diesel – Octavia RS TDI). */
+/* 3D scenes: spark plugs (petrol) and glow plugs (diesel – Octavia RS TDI, Citroën Jumper 2.2 HDi). */
 (function (S) {
   'use strict';
   if (!window.THREE || !S.scene3d) return;
@@ -6,14 +6,16 @@
   var V = function (cs, en) { return { cs: cs, en: en }; };
   var TQ = {
     'generic': V('dle příručky', 'per manual'), 'mb-cl500-c216': '≈ 25 Nm', 'volvo-xc60-b4': V('dle VIDA', 'per VIDA'),
-    'skoda-octavia-rs-tdi': '≈ 15 Nm', 'toyota-gr-yaris': V('dle TIS', 'per TIS')
+    'skoda-octavia-rs-tdi': '≈ 15 Nm', 'toyota-gr-yaris': V('dle TIS', 'per TIS'),
+    'citroen-jumper-22hdi': V('dle příručky (ověřit)', 'per manual (verify)')
   };
   var GAP = {
     'generic': V('dle příručky', 'per manual'), 'mb-cl500-c216': V('z výroby – neupravovat', 'pre-gapped – do not adjust'),
     'volvo-xc60-b4': V('dle VIDA', 'per VIDA'), 'toyota-gr-yaris': V('z výroby – neupravovat', 'pre-gapped – do not adjust'),
-    'skoda-octavia-rs-tdi': V('dle příručky', 'per manual')
+    'skoda-octavia-rs-tdi': V('dle příručky', 'per manual'),
+    'citroen-jumper-22hdi': V('dle příručky', 'per manual')
   };
-  function isGlow(ctx) { return ctx.vehicle === 'skoda-octavia-rs-tdi'; }
+  function isGlow(ctx) { return ctx.vehicle === 'skoda-octavia-rs-tdi' || ctx.vehicle === 'citroen-jumper-22hdi'; }
   function nCyl(vid) { return vid === 'toyota-gr-yaris' ? 3 : 4; }
   var B = 0.13; // head deck height above the floor in section scenes
 

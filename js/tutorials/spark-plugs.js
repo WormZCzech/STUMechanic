@@ -336,4 +336,38 @@
       }
     }
   });
+
+  /* Citroën Jumper 2.2 HDi – diesel: glow plug variant derived from the Octavia one, engine-specific values changed. */
+  (function () {
+    var t = S.tutorialMap['spark-plugs'];
+    var j = JSON.parse(JSON.stringify(t.vehicles['skoda-octavia-rs-tdi']));
+    j.intro = V(
+      'Váš Jumper 2.2 HDi je **diesel** – nemá zapalovací svíčky. Místo nich má **žhavicí svíčky**, které předehřívají spalovací prostor při studeném startu.\n\nHlavní riziko: žhavicí svíčky v hliníkové hlavě **zatuhnou** a při násilí se **ulomí** (u dodávek s vysokým nájezdem obzvlášť častý problém). Vytahování ulomené svíčky je práce pro specialistu. Proto: **test před výměnou, trpělivost a žádná hrubá síla.**',
+      'Your Jumper 2.2 HDi is a **diesel** – it has no spark plugs. Instead it has **glow plugs**, which preheat the combustion chamber on a cold start.\n\nThe main risk: glow plugs **seize** in the aluminium head and **snap** if forced (especially common on high-mileage vans). Extracting a snapped plug is specialist work. So: **test before replacing, be patient and use no brute force.**');
+    j.specs = [
+      { label: V('Počet žhavicích svíček', 'Number of glow plugs'), value: '4' },
+      { label: V('Typ', 'Type'), value: V('dle katalogu pro kód motoru (100 / 120 k)', 'per catalogue for the engine code (100 / 120 hp)'), verify: true },
+      { label: V('Hlavice', 'Socket'), value: V('dlouhá tenkostěnná – velikost dle svíčky', 'long thin-wall – size per plug'), verify: true },
+      { label: V('Utahovací moment', 'Torque'), value: V('dle příručky (nízký, řádově 10–15 Nm)', 'per manual (low, roughly 10–15 Nm)'), verify: true },
+      { label: V('Odpor dobré svíčky', 'Good plug resistance'), value: V('typicky pod 2 Ω (za studena)', 'typically below 2 Ω (cold)'), verify: true }
+    ];
+    j.notes = [
+      { level: 'danger', text: V('Hned vedle žhavicích svíček jsou **vstřikovače a vysokotlaká vedení Common Rail**. Neotevírejte je a nepoužívejte je jako opěru pro nářadí.', 'Right next to the glow plugs are the **Common Rail injectors and high-pressure lines**. Do not open them or use them to lever tools against.') },
+      { level: 'warning', text: V('Pokud svíčka nejde povolit přiměřenou silou, **přestaňte**. Ulomená svíčka = drahá oprava. Raději nechte vadnou svíčku v motoru a jeďte ke specialistovi.', 'If a plug will not loosen with reasonable force, **stop**. A snapped plug = expensive repair. Better leave the faulty plug in and go to a specialist.') },
+      { level: 'info', text: V('Přístup ke svíčkám (kryty, sání, vedení) se liší podle verze motoru – ověřte v dílenské dokumentaci PSA.', 'Access to the plugs (covers, intake, lines) differs by engine version – verify in the PSA workshop documentation.'), verify: true }
+    ];
+    j.tools = j.tools.map(function (x) {
+      return /VCDS/.test(x.cs) ? V('Diagnostika (Diagbox / Lexia) – volitelně', 'Scan tool (Diagbox / Lexia) – optional') : x;
+    });
+    j.parts = [V('Žhavicí svíčky dle katalogu pro kód motoru (měnit vadné, ideálně všechny 4)', 'Glow plugs per catalogue for the engine code (replace faulty ones, ideally all 4)')];
+    j.extraSteps.forEach(function (x) {
+      var st = x.step;
+      if (st.id === 'gPrep') {
+        st.body = V('Na závity svíček nastříkejte uvolňovač a nechte ho působit přes noc. Před demontáží šachty **vyfoukejte** stlačeným vzduchem.\n\nMnoho mechaniků povoluje žhavicí svíčky na **zahřátém** motoru (ne horkém) – hliník se roztáhne víc než ocel. Ověřte doporučení v dokumentaci PSA.',
+          'Spray penetrating oil on the plug threads and let it soak overnight. **Blow out** the wells with compressed air before removal.\n\nMany mechanics loosen glow plugs on a **warm** (not hot) engine – aluminium expands more than steel. Check the recommendation in the PSA documentation.');
+      }
+      if (st.id === 'gTorque') st.specs = [{ label: V('Utahovací moment', 'Torque'), value: V('dle příručky (nízký)', 'per manual (low)'), verify: true }];
+    });
+    t.vehicles['citroen-jumper-22hdi'] = j;
+  })();
 })(window.STU);

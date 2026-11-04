@@ -75,6 +75,14 @@
         shaft([xf - 0.15, y, 0.12], [xr + 0.2, y, 0.02], 0.03);
         unit(K.G.rbox(0.28, 0.24, 0.3, 0.05), 'aluCast', new THREE.Vector3(xr + 0.05, y, 0), v === 'volvo-xc60-b4' ? V('Zadní RDU + spojka', 'Rear RDU + coupling') : V('Zadní dif. + spojka', 'Rear diff + coupling'));
         shaft([xr, y, -tz], [xr, y, tz]); shaft([xf, y, -tz], [xf, y, tz]);
+      } else if (v === 'citroen-jumper-22hdi') {
+        // transverse 2.2 HDi + 6-speed manual with integrated differential – one oil; rear beam axle has no oil
+        eng(xf + 0.2, -0.1, false);
+        unit(K.G.rbox(0.4, 0.38, 0.45, 0.05), 'aluCast', new THREE.Vector3(xf + 0.08, 0.55, 0.5), V('6st. manuál + diferenciál (jeden olej)', '6-speed manual + diff (one oil)'));
+        shaft([xf, y, -tz], [xf, y, tz]);
+        var beam = K.mesh(K.G.box(0.1, 0.1, tz * 2), 'steelDark'); beam.position.set(xr, y, 0); root.add(beam);
+        labels.push({ text: V('Motor 2.2 HDi', '2.2 HDi engine'), at: [xf + 0.2, 1.05, -0.1] });
+        labels.push({ text: V('Zadní náprava – bez oleje', 'Rear axle – no oil'), at: [xr, y + 0.25, 0] });
       } else {
         eng(xf + 0.12, -0.08, false);
         unit(K.G.rbox(0.36, 0.34, 0.4, 0.05), 'aluCast', new THREE.Vector3(xf + 0.02, 0.45, 0.45), V('Převodovka + diferenciál', 'Gearbox + differential'));
@@ -84,6 +92,7 @@
       units.forEach(function (u) { labels.push({ text: u.label, at: u.m, level: 'accent' }); });
       return {
         root: root,
+        cameraPath: v === 'citroen-jumper-22hdi' ? function () { return { pos: [4.6, 5.0, 4.4], target: [0.3, 0.6, 0] }; } : null,
         update: function (t) { units.forEach(function (u, i) { u.glow(0.35 + 0.35 * Math.sin(t * 3 + i)); }); },
         labels: labels,
         captions: [{ text: V('Každá jednotka = vlastní olej, specifikace a množství', 'Each unit = its own oil, spec and capacity') }]
@@ -345,6 +354,7 @@
       var c = K.car(ctx.vehicle); root.add(c.group);
       return {
         root: root,
+        cameraPath: ctx.vehicle === 'citroen-jumper-22hdi' ? function () { return { pos: [5.6, 2.6, 7.4], target: [0, 1.0, 0] }; } : null,
         update: function (t) {
           var dist = t * 6;
           dashes.position.x = -(dist % 2.6);

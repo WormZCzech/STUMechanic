@@ -101,6 +101,59 @@
     ];
   }
 
+  /** Chain steps for the Citroën Jumper 2.2 HDi (Ford Duratorq "Puma" family). */
+  function jumperChainSteps() {
+    return [
+      { after: 'why', step: {
+        id: 'chain-what', anim: 'timing.chain',
+        title: V('Váš motor má rozvodový řetěz, ne řemen', 'Your engine has a timing chain, not a belt'),
+        body: V('Motor **2.2 HDi** v Jumperu X250 (rodina Ford Duratorq „Puma“) má rozvody poháněné **řetězem** bez předepsaného intervalu výměny. Řetěz je mazán motorovým olejem a hydraulický napínák je olejem napájen – **zanedbané výměny oleje a dlouhé intervaly řetěz natahují.**\n\nU dodávky, která jezdí s nákladem, krátké trasy nebo dlouho na volnoběh, je kvalita oleje ještě důležitější.',
+          'The **2.2 HDi** engine in the Jumper X250 (Ford Duratorq "Puma" family) has a **chain**-driven timing drive with no scheduled replacement interval. The chain is lubricated by engine oil and the hydraulic tensioner is fed by oil – **neglected oil changes and long intervals stretch the chain.**\n\nFor a van that carries loads, does short trips or idles a lot, oil quality matters even more.'),
+        notes: [
+          { level: 'info', text: V('Že má váš motor řetěz (a ne řemen), ověřte podle kódu motoru v ORV / u prodejce dílů – nechceme hádat.', 'Verify that your engine has a chain (not a belt) using the engine code in your papers / with a parts supplier – we do not want to guess.'), verify: true },
+          { level: 'danger', text: V('I motor s řetězem je **kolizní**: přeskočení nebo přetržení řetězu zničí ventily a písty.', 'A chain engine is also an **interference** engine: a jumped or snapped chain destroys valves and pistons.'), verify: true }
+        ]
+      } },
+      { after: 'why', step: {
+        id: 'chain-symptoms', anim: 'timing.chain',
+        title: V('Příznaky nataženého řetězu', 'Symptoms of a stretched chain'),
+        body: V('- **Chrastění z přední části motoru** po studeném startu nebo při uvolnění plynu\n- Kontrolka motoru, chyba nesouladu **vačka/klika** (např. P0016 – ověřte konkrétní kód v diagnostice)\n- Horší startování, nerovnoměrný chod, ztráta výkonu\n- Kovové třísky v oleji při výměně (vážné varování)',
+          '- **Rattle from the front of the engine** after a cold start or when lifting off the throttle\n- Check-engine light, **cam/crank correlation** fault (e.g. P0016 – check the actual code with a scan tool)\n- Harder starting, rough running, loss of power\n- Metal particles in the oil at an oil change (serious warning)'),
+        notes: [
+          { level: 'warning', text: V('Při chrastění nebo chybě vačka/klika jezděte co nejméně, bez nákladu a nízkými otáčkami – a nechte vůz diagnostikovat.', 'With rattling or a cam/crank fault drive as little as possible, unladen and at low revs – and get it diagnosed.') },
+          { level: 'info', text: V('Kódy a jejich význam se u PSA/Ford řídicích jednotek liší – ověřte v diagnostice.', 'Codes and their meaning differ between PSA/Ford ECUs – verify with your scan tool.'), verify: true }
+        ]
+      } },
+      { after: 'why', step: {
+        id: 'chain-diag', anim: 'timing.diag',
+        title: V('Diagnostika: nesoulad vačka/klika', 'Diagnosis: cam/crank correlation'),
+        body: V('1. Připojte **Diagbox / Lexia (PP2000)** nebo kvalitní tester s podporou PSA.\n2. Přečtěte chyby motorové jednotky.\n3. V živých datech hledejte parametr **synchronizace / odchylky vačky vůči klice** (pokud ho jednotka nabízí).\n4. Poslechněte motor při studeném startu (stetoskop / šroubovák na víku rozvodů).\n5. Při podezření nechte měření ověřit v servisu – často je nutné **sundat víko rozvodů a změřit protažení** řetězu.',
+          '1. Connect **Diagbox / Lexia (PP2000)** or a quality tool with PSA support.\n2. Read the engine ECU fault codes.\n3. In live data look for a **cam-to-crank synchronisation / deviation** parameter (if the ECU offers one).\n4. Listen to the engine at a cold start (stethoscope / screwdriver on the timing cover).\n5. If in doubt, have a workshop confirm it – often the **timing cover must come off to measure chain stretch**.'),
+        notes: [
+          { level: 'info', text: V('Dostupnost parametru synchronizace závisí na řídicí jednotce a testeru – ověřte.', 'Whether a synchronisation parameter is available depends on the ECU and tester – verify.'), verify: true },
+          { level: 'tip', text: V('Zapište si hodnoty, datum a km – porovnání v čase ukáže trend.', 'Write down the values, date and mileage – comparing over time shows the trend.') }
+        ]
+      } },
+      { after: 'why', step: {
+        id: 'chain-prevent', anim: 'timing.chain',
+        title: V('Prevence: olej je nejlepší ochrana řetězu', 'Prevention: oil is the best chain protection'),
+        body: V('- Olej **přesně podle normy** pro váš motor (s DPF jen low-SAPS) – viz návod Výměna oleje\n- U dodávky raději **kratší interval** (např. 15 000 km nebo 1× ročně)\n- Hladinu kontrolujte pravidelně, zvlášť s nákladem a na dálnici\n- Studený motor nevytáčejte a nejezděte hned naplno s nákladem',
+          '- Oil **exactly to the spec** for your engine (with a DPF only low-SAPS) – see the Oil change tutorial\n- For a van prefer a **shorter interval** (e.g. 15,000 km or once a year)\n- Check the level regularly, especially when loaded and on motorways\n- Do not rev a cold engine or drive it hard with a load straight away'),
+        notes: [{ level: 'info', text: V('Kratší interval je praktická rada, ne předpis výrobce.', 'The shorter interval is practical advice, not a manufacturer requirement.') }]
+      } },
+      { after: 'why', step: {
+        id: 'chain-workshop', anim: 'timing.lock',
+        title: V('Když je řetěz natažený: co čekat od servisu', 'If the chain is stretched: what to expect from the workshop'),
+        body: V('Výměna rozvodového řetězu 2.2 HDi je **dílenská práce**: demontáž příslušenství a předního víka motoru, aretační přípravky klikové a vačkové hřídele, nový řetěz, vodítka, napínák, kola a těsnění, často i podpěra motoru.\n\nPožadujte originální nebo kvalitní sadu (řetěz + vodítka + napínák + kola) a fotky starých dílů.',
+          'Replacing the 2.2 HDi timing chain is **workshop work**: removing ancillaries and the engine front cover, crankshaft and camshaft locking tools, new chain, guides, tensioner, sprockets and seals, often with engine support.\n\nAsk for a genuine or quality kit (chain + guides + tensioner + sprockets) and photos of the old parts.'),
+        notes: [
+          { level: 'warning', text: V('Nikdy neotáčejte vačkou ani klikou s povoleným nebo sundaným řetězem – ventily narazí do pístů.', 'Never turn the camshaft or crankshaft with the chain loose or removed – valves will hit the pistons.') },
+          { level: 'info', text: V('Návod nic nezakazuje – jen jde o rozsáhlou práci, kde chyba = nový motor. Postup a přípravky ověřte v dílenské dokumentaci PSA.', 'Nothing is locked – it is simply a big job where a mistake means a new engine. Verify the procedure and tools in the PSA workshop documentation.'), verify: true }
+        ]
+      } }
+    ];
+  }
+
   S.registerTutorial({
     id: 'timing-belt',
     level: 2,
@@ -391,6 +444,41 @@
             notes: [{ level: 'info', text: V('Po montáži proveďte ve VIDA případné adaptace a vymazání chyb.', 'After assembly run any required adaptations and clear fault codes in VIDA.') }]
           }
         }
+      },
+      'citroen-jumper-22hdi': {
+        status: 'pro',
+        title: V('Rozvody: kontrola rozvodového řetězu', 'Timing drive: checking the timing chain'),
+        time: V('30–60 min (diagnostika)', '30–60 min (diagnosis)'),
+        summary: V('Motor 2.2 HDi má řetěz, ne řemen. Jak poznat natažený řetěz a kdy do servisu.', 'The 2.2 HDi has a chain, not a belt. How to spot a stretched chain and when to see a workshop.'),
+        intro: V('Váš motor 2.2 HDi **nemá rozvodový řemen**, ale **řetěz** bez pravidelného intervalu výměny. Návod proto neobsahuje výměnu řemenu – ukáže, jak **včas poznat opotřebení řetězu**, jak ho diagnostikovat a jak ho chránit.', 'Your 2.2 HDi engine has **no timing belt** but a **chain** with no scheduled replacement interval. So this tutorial does not cover a belt change – it shows how to **spot chain wear early**, how to diagnose it and how to protect it.'),
+        specs: [
+          { label: V('Rozvody', 'Timing drive'), value: V('řetěz (2.2 HDi, rodina Ford Duratorq „Puma“)', 'chain (2.2 HDi, Ford Duratorq "Puma" family)'), verify: true },
+          { label: V('Interval výměny', 'Replacement interval'), value: V('bez intervalu – výměna dle stavu', 'none – replace on condition'), verify: true },
+          { label: V('Typický příznak', 'Typical symptom'), value: V('chrastění vpředu + chyba vačka/klika', 'front rattle + cam/crank fault'), verify: true },
+          { label: V('Diagnostika', 'Scan tool'), value: 'Diagbox / Lexia (PP2000)' }
+        ],
+        notes: [
+          { level: 'info', text: V('Tento motor **nemá rozvodový řemen** (ověřte kódem motoru). Návod ukazuje, jak stav řetězu sledovat a kdy jet do servisu.', 'This engine **has no timing belt** (verify by engine code). The tutorial shows how to monitor the chain and when to visit a workshop.'), verify: true },
+          { level: 'warning', text: V('Common Rail diesel – nikdy neotevírejte vysokotlaká palivová vedení za chodu ani hned po vypnutí.', 'Common Rail diesel – never open high-pressure fuel lines with the engine running or right after switching off.') }
+        ],
+        replaceTools: true,
+        replaceFinalChecks: true,
+        tools: [
+          V('Diagbox / Lexia (PP2000) nebo tester s podporou PSA', 'Diagbox / Lexia (PP2000) or a scan tool with PSA support'),
+          V('Mechanický stetoskop (nebo dlouhý šroubovák)', 'Mechanic\'s stethoscope (or a long screwdriver)'),
+          V('Zápisník na hodnoty (porovnání v čase)', 'Notebook for values (comparison over time)')
+        ],
+        parts: [
+          V('Pro prevenci: motorový olej správné normy + filtr', 'For prevention: engine oil of the correct spec + filter'),
+          V('Při opravě (servis): sada řetězu – řetěz, vodítka, napínák, kola, těsnění', 'For repair (workshop): chain kit – chain, guides, tensioner, sprockets, seals')
+        ],
+        finalChecks: [
+          V('Chyby motoru přečteny a zapsány', 'Engine fault codes read and recorded'),
+          V('Zvuk po studeném startu zkontrolován', 'Cold-start sound checked'),
+          V('Další kontrola naplánována (cca za 10–20 tis. km)', 'Next check scheduled (approx. in 10–20 thousand km)')
+        ],
+        steps: skipAll(),
+        extraSteps: jumperChainSteps()
       },
       'mb-cl500-c216': {
         status: 'pro',

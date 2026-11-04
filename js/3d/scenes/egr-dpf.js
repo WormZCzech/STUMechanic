@@ -225,7 +225,7 @@
       var ebody = K.mesh(K.G.cyl(0.08, 0.45, 24), 'toolRed'); ebody.position.y = 0.225; ext.add(ebody);
       var ehead = K.mesh(K.G.rbox(0.06, 0.05, 0.08, 0.01), 'plasticBlack'); ehead.position.y = 0.48; ext.add(ehead);
       ext.position.set(d.rear - 0.6, 0, d.W / 2 + 0.7); root.add(ext);
-      var dist = Math.max(d.L * 0.95, 4.2);
+      var dist = Math.max(d.L * 1.2, 5.2);
       return {
         root: root,
         update: function (t) {

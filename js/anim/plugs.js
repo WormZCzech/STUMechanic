@@ -217,8 +217,8 @@
       dx.forEach(function (d, i) {
         s += '<g transform="translate(' + (230 + (i % 3) * 10) + ',100)"><circle class="k-rust plugs-debris" r="' + (3 + (i % 2)) + '" style="--dx:' + d + 'px;animation-delay:' + (i * 0.27).toFixed(2) + 's"/></g>';
       });
-      s += '<g transform="translate(300,20) rotate(35)"><rect class="k-danger s-dark" stroke-width="1" x="-8" y="-40" width="16" height="50" rx="4"/><rect class="k-metal s-dark" stroke-width="1" x="-3" y="10" width="6" height="40"/></g>';
-      s += '<path class="k-none s-fluid plugs-air" stroke-width="3" d="M272,62 L250,100"/>';
+      s += '<g transform="translate(372,62) rotate(35)"><rect class="k-danger s-dark" stroke-width="1" x="-8" y="-40" width="16" height="50" rx="4"/><rect class="k-metal s-dark" stroke-width="1" x="-3" y="10" width="6" height="40"/></g>';
+      s += '<path class="k-none s-fluid plugs-air" stroke-width="3" d="M340,106 L258,122"/>';
       s += L.label(16, 24, ctx.t({ cs: 'Šachtu vyfoukat PŘED povolením svíčky', en: 'Blow out the well BEFORE loosening the plug' }), { anchor: 'start', bg: true });
       s += L.warnIcon(36, 268) + L.label(60, 272, ctx.t({ cs: 'Písek ve válci = poškrábaný válec. Brýle!', en: 'Grit in the cylinder = scored bore. Glasses!' }), { anchor: 'start', bg: true });
       return L.svg(s, ctx.t({ cs: 'Vyfoukání šachty svíčky', en: 'Blowing out the plug well' }));

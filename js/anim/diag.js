@@ -233,7 +233,7 @@
       s += '<path class="k-none s-danger diag-draw" pathLength="600" stroke-width="3" d="M30,220 C120,200 170,110 260,90 S400,86 450,86"/>';
       // fuel trim oscillating around zero line (y=160)
       var d = 'M30,160';
-      for (var x = 30; x <= 450; x += 15) d += ' L' + (x + 7.5) + ',' + (160 + (Math.sin(x / 9) * 10).toFixed(1)) + ' L' + (x + 15) + ',' + (160 - (Math.sin(x / 7) * 8).toFixed(1));
+      for (var x = 30; x <= 450; x += 15) d += ' L' + (x + 7.5) + ',' + (160 + Math.sin(x / 9) * 10).toFixed(1) + ' L' + (x + 15) + ',' + (160 - Math.sin(x / 7) * 8).toFixed(1);
       s += '<path class="k-none s-ok diag-draw" pathLength="600" stroke-width="2.5" d="' + d + '"/>';
       // lambda switching
       var dl = 'M30,200';

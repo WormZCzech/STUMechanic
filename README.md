@@ -14,7 +14,9 @@ safety warnings, built for beginners. It's an installable web app (PWA) that wor
   - **Intermediate:** brake fluid change & bleeding, gearbox & differential oils, exhaust replacement + legal modifications, steering wheel (airbag), timing belt (výměna rozvodů)
   - **Advanced:** clutch + dual-mass flywheel, bodywork – dent & rust repair, filler, primer, paint (klempířské práce)
 - **Search** on the home page, plus a per-vehicle list of all tutorials with difficulty status.
-- **Animated SVG illustration for each step** with pause, slow-motion and replay.
+- **Interactive 3D scene for each step** (WebGL, three.js): realistic materials, reflections and shadows. Drag to rotate, scroll or pinch to zoom, labels anchored to parts, plus pause, slow-motion, replay and view reset.
+  Your car is shown with its own body shape and proportions when you select it.
+  A 2D (SVG) version of every animation remains as an automatic fallback and can be chosen with the 2D/3D toggle.
 - **Failsafe warnings** at every step, in five levels: DANGER, WARNING, CAUTION, NOTE and TIP.
 - **Vehicle switch:** a generic procedure plus vehicle-specific specs, torques, extra steps, warnings and animation variants for:
   - Mercedes-Benz CL 500 (C216) 2007 – M273 V8, 7G-Tronic, RWD, ABC
@@ -50,8 +52,13 @@ js/core.js              STU namespace, registries, i18n helpers, markdown-lite, 
 js/i18n.js              UI strings (cs/en)
 js/vehicles.js          vehicle definitions (facts + quirks, verify flags)
 js/app.js               router, views, vehicle-specific merging (resolveTutorial)
-js/anim/lib.js          SVG building blocks (car, wheel, jack, stand, arrows, labels…)
-js/anim/*.js            animations per topic
+js/vendor/three.min.js  three.js r147 (MIT, see js/vendor/THREE_LICENSE) – bundled for offline use
+js/3d/engine.js         3D viewer: lighting, environment reflections, shadows, orbit/zoom, labels, timelines, thumbnails
+js/3d/parts.js          PBR materials, geometry helpers, mechanical parts (wheel, disc, calipers, jack, stands, tools, engine…)
+js/3d/cars.js           procedural body shells per vehicle (real dimensions, no logos)
+js/3d/scenes/*.js       3D scenes per topic (same ids as the 2D animations)
+js/anim/lib.js          2D SVG building blocks (fallback)
+js/anim/*.js            2D animations per topic (fallback)
 js/tutorials/*.js       tutorial content per topic
 sw.js                   offline cache (bump VERSION when files change)
 ```
@@ -71,6 +78,9 @@ sw.js                   offline cache (bump VERSION when files change)
 Notes are `{ level: 'danger'|'warning'|'caution'|'info'|'tip', text, verify? }`. Specs are `{ label, value, verify? }`.
 All texts are `{ cs, en }`. Add the script tag to `index.html` and the file path to `sw.js`.
 
-**Animation:** `STU.anim.register('<file>.<name>', { render(ctx) { return STU.animLib.svg(...) } })`. The conventions are described at the top of `js/anim/lib.js`.
+**3D scene:** `STU.scene3d.register('<topic>.<name>', { duration, camera, build(ctx, K) { return { root, update(t), labels, captions } } })`.
+The full API is described at the top of `js/3d/engine.js`, and `js/3d/scenes/lifting.js` is the reference example.
+
+**2D fallback animation:** `STU.anim.register('<file>.<name>', { render(ctx) { return STU.animLib.svg(...) } })`. The conventions are described at the top of `js/anim/lib.js`.
 
 **Vehicle:** add `STU.registerVehicle({...})` in `js/vehicles.js`, then add overrides under `vehicles` in each tutorial.

@@ -219,16 +219,18 @@
       '</div></div>' + animBox('lift.hero', { controls: false }) + '</section>';
 
     h += callout({ level: 'warning', text: ui('disclaimer') });
+    h += '<div class="search"><input type="search" id="q" placeholder="🔍 ' + esc(ui('search')) + '" aria-label="' + esc(ui('search')) + '" autocomplete="off"></div>';
 
     [1, 2, 3].forEach(function (lvl) {
       var list = S.tutorials.filter(function (x) { return x.level === lvl; });
-      h += '<section class="section"><div class="section-head"><h2>' + levelPill(lvl) + '</h2><span class="muted small">' + esc(ui('level' + lvl + 'd')) + '</span></div>';
+      h += '<section class="section lvl-section"><div class="section-head"><h2>' + levelPill(lvl) + '</h2><span class="muted small">' + esc(ui('level' + lvl + 'd')) + '</span></div>';
       if (!list.length) {
         h += '<p class="muted">' + esc(ui('comingSoon')) + '</p>';
       } else {
         h += '<div class="grid cols">' + list.map(function (tut) {
           var r = resolve(tut, vid);
-          return '<a class="card tcard" href="#/t/' + tut.id + '">' +
+          var hay = [t(r.title), t(tut.summary), t(tut.title)].join(' ').toLowerCase();
+          return '<a class="card tcard" href="#/t/' + tut.id + '" data-search="' + esc(hay) + '">' +
             '<div class="thumb">' + animBox(tut.thumb || (tut.steps[0] && tut.steps[0].anim), { controls: false, cls: 'thumbbox' }) + '</div>' +
             '<h3>' + esc(t(r.title)) + '</h3><p>' + esc(t((tut.vehicles && tut.vehicles[vid] && tut.vehicles[vid].summary) || tut.summary)) + '</p>' +
             '<div class="meta"><span class="pill">⏱ ' + esc(t(r.time)) + '</span><span class="pill">' + r.steps.length + ' ' + esc(ui('steps').toLowerCase()) + '</span>' +
@@ -368,6 +370,12 @@
       }).join('') + '</tbody></table></section>';
     }
     h += '<section class="section"><h2>' + esc(ui('quirks')) + '</h2>' + sortNotes(v.quirks).map(callout).join('') + '</section>';
+    if (id !== 'generic') {
+      h += '<section class="section card"><h2>' + esc(ui('allTutorials')) + '</h2><ol class="steplist">' + S.tutorials.map(function (tut, i) {
+        var r = resolve(tut, id);
+        return '<li><a href="#/t/' + tut.id + '" data-vehicle-go="' + id + '"><span class="num">' + tut.level + '</span><span>' + esc(t(r.title)) + '</span>' + statusPill(r.status) + '</a></li>';
+      }).join('') + '</ol></section>';
+    }
     return h;
   }
 
@@ -419,12 +427,29 @@
 
   /* --------------------------------------------------------------- events */
   document.addEventListener('click', function (ev) {
+    var go = ev.target.closest('[data-vehicle-go]');
+    if (go) { S.store.set('vehicle', go.getAttribute('data-vehicle-go')); return; }
     var vb = ev.target.closest('[data-vehicle]');
     if (vb) { ev.preventDefault(); setVehicle(vb.getAttribute('data-vehicle')); return; }
     var lb = ev.target.closest('[data-lang]');
     if (lb) { setLang(lb.getAttribute('data-lang')); return; }
     var rb = ev.target.closest('[data-reset]');
     if (rb) { S.store.set('prog.' + rb.getAttribute('data-reset') + '.' + vehicleId(), {}); render(); }
+  });
+
+  function norm(x) { return x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+  document.addEventListener('input', function (ev) {
+    if (ev.target.id !== 'q') return;
+    var q = norm(ev.target.value.trim());
+    app.querySelectorAll('.lvl-section').forEach(function (sec) {
+      var any = false;
+      sec.querySelectorAll('.tcard').forEach(function (c) {
+        var show = !q || norm(c.getAttribute('data-search')).indexOf(q) >= 0;
+        c.style.display = show ? '' : 'none';
+        if (show) any = true;
+      });
+      sec.style.display = any || !q ? '' : 'none';
+    });
   });
 
   document.addEventListener('change', function (ev) {

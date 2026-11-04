@@ -231,16 +231,16 @@
         specs: [
           { label: V('Olej', 'Oil'), value: V('dle uživatelské příručky (viskozita dle provozu)', 'per owner\'s manual (viscosity depends on use)'), verify: true },
           { label: V('Množství s filtrem', 'Capacity incl. filter'), value: V('cca 4,5 l', 'approx. 4.5 L'), verify: true },
-          { label: V('Filtr', 'Filter'), value: V('Našroubovací (ověřte typ na voze)', 'Spin-on (check the type on the car)'), verify: true },
+          { label: V('Filtr', 'Filter'), value: V('Našroubovací (kanystr) – dle majitele; díl ověřte podle VIN', 'Spin-on canister – per owner; verify part number by VIN'), verify: true },
           { label: V('Moment vypouštěcího šroubu', 'Drain plug torque'), value: V('dle TIS', 'per TIS'), verify: true }
         ],
         notes: [
           { level: 'warning', text: V('Při okruhovém provozu měňte olej mnohem častěji (např. po každé sezóně / akci na okruhu). Turbomotor s vysokým výkonem je na kvalitu oleje citlivý.', 'With track use change the oil much more often (e.g. after every season / track event). The high-output turbo engine is sensitive to oil quality.') },
-          { level: 'info', text: V('Typ filtru a přístup k němu si ověřte před nákupem dílů (TIS / prodejce Toyota) – nechceme hádat.', 'Verify the filter type and access before buying parts (TIS / Toyota dealer) – we do not want to guess.'), verify: true }
+          { level: 'info', text: V('Filtr je našroubovací kanystr. Konkrétní díl (číslo) a utahovací postup si ověřte podle VIN v TIS / u prodejce Toyota.', 'The filter is a spin-on canister. Verify the exact part number and tightening procedure by VIN in TIS / with a Toyota dealer.'), verify: true }
         ],
         steps: {
           lift: { body: V('Vůz je nízký – použijte nízkoprofilový hever nebo nízké nájezdy. Pro přístup bývá nutné sundat spodní aerodynamický kryt.', 'The car is low – use a low-profile jack or low ramps. The underbody aero cover usually has to be removed for access.') },
-          filter: { anim: 'oil.filterSpin', notes: [{ level: 'info', text: V('Animace ukazuje našroubovací filtr. Pokud má váš motor vložkový filtr, postupujte dle prvního odstavce.', 'The animation shows a spin-on filter. If your engine has a cartridge filter, follow the first paragraph.'), verify: true }] },
+          filter: { anim: 'oil.filterSpin', body: V('Váš vůz má **našroubovací filtr (kanystr)** – postupujte podle druhého odstavce. Pod filtr dejte misku, při povolení z něj vyteče olej.', 'Your car has a **spin-on canister filter** – follow the second paragraph. Put a tray under it, oil runs out when you loosen it.') },
           fill: { specs: [{ label: V('Množství', 'Capacity'), value: V('cca 4,5 l', 'approx. 4.5 L'), verify: true }] },
           reset: { body: V('Upomínku údržby vynulujte v menu přístrojové desky (MID) – postup dle uživatelské příručky.', 'Reset the maintenance reminder in the instrument cluster menu (MID) – procedure per the owner\'s manual.'), verify: true }
         }

@@ -170,19 +170,22 @@
         }
       },
       'volvo-xc60-b4': {
-        status: 'ok',
         specs: [
+          { label: V('Podvozek', 'Suspension'), value: V('Vzduchové odpružení – nutný režim zvedání', 'Air suspension – jacking mode required') },
           { label: V('Šrouby kol', 'Wheel bolts'), value: V('M14 × 1,5, hlava 19 mm', 'M14 × 1.5, 19 mm head'), verify: true },
           { label: V('Utahovací moment kol', 'Wheel torque'), value: '140 Nm', verify: true },
           { label: V('Parkovací brzda', 'Parking brake'), value: V('Elektrická – brzdí zadní kola', 'Electric – holds the rear wheels') }
         ],
         notes: [
-          { level: 'warning', text: V('Pokud má váš XC60 volitelné **vzduchové odpružení**, před zvedáním aktivujte režim pro zvedání / vypněte regulaci výšky (dle příručky) – jinak se vůz může sám spustit.', 'If your XC60 has the optional **air suspension**, activate jacking mode / switch off level control before lifting (per manual) – otherwise the car can lower itself.'), verify: true },
+          { level: 'danger', text: V('Váš XC60 má **vzduchové odpružení**. Před zvedáním **vypněte automatickou regulaci výšky / zapněte režim zvedání** (centrální displej, ověřte cestu v menu v příručce). Jinak se vůz může sám spustit nebo zvednout a sklouznout ze stojanů.', 'Your XC60 has **air suspension**. Before lifting **switch off automatic level control / enable jacking mode** (centre display, verify the menu path in the manual). Otherwise the car can lower or raise itself and slip off the stands.'), verify: true },
           { level: 'info', text: V('Funkce Auto-hold a automatická parkovací brzda můžou při práci pípat a samy se aktivovat – to je normální.', 'Auto-hold and the automatic parking brake may beep and engage on their own while you work – that is normal.') }
         ],
+        status: 'caution',
         tools: [V('Hlavice 19 mm', '19 mm socket'), V('Adaptér bezpečnostního šroubu (v sadě nářadí ve voze)', 'Locking bolt key (in the car tool kit)')],
         steps: {
           park: { notes: [{ level: 'warning', text: V('EPB drží jen zadní kola. Při zvedání zadní nápravy zakliňte přední kola z obou stran.', 'The EPB holds the rear wheels only. When lifting the rear axle, chock the front wheels on both sides.') }] },
+          jack: { notes: [{ level: 'danger', text: V('**Než začnete zvedat:** regulace výšky vzduchového podvozku musí být vypnutá (režim zvedání). Zkontrolujte to na displeji.', '**Before you start lifting:** the air suspension level control must be off (jacking mode). Check it on the display.'), verify: true }] },
+          refit: { notes: [{ level: 'info', text: V('Po spuštění vozu na zem regulaci výšky znovu zapněte (nebo se zapne sama po rozjezdu – ověřte v příručce).', 'After lowering the car, switch level control back on (or it re-enables itself when driving – verify in the manual).'), verify: true }] },
           torque: { specs: [{ label: V('Utahovací moment', 'Torque'), value: '140 Nm', verify: true }] }
         }
       },

@@ -84,6 +84,7 @@
     clickToJump: { cs: 'Klepnutím přejdete na krok.', en: 'Tap to jump to a step.' },
     checklistHint: { cs: 'Odškrtávejte si, co máte připravené. Stav se ukládá v zařízení.', en: 'Tick off what you have ready. State is saved on this device.' },
     finalChecks: { cs: 'Závěrečná kontrola', en: 'Final checks' },
-    comingSoon: { cs: 'Připravujeme', en: 'Coming soon' }
+    comingSoon: { cs: 'Připravujeme', en: 'Coming soon' },
+    search: { cs: 'Hledat návod (např. brzdy, olej, světla…)', en: 'Search tutorials (e.g. brakes, oil, lights…)' }
   };
 })(window.STU);

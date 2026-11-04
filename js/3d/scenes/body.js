@@ -169,7 +169,7 @@
           }
         },
         labels: [
-          { text: V('promáčklina', 'dent'), at: s.p.surf(s.p.dent.x, s.p.dent.y + 0.11, 0.01), show: [1.5, 9], level: 'accent' },
+          { text: V('promáčklina', 'dent'), at: s.p.surf(s.p.dent.x, s.p.dent.y - 0.1, 0.01), show: [1.5, 9], level: 'accent' },
           { text: ctx.vehicle === 'generic' ? V('Magnet drží = ocel · nedrží = hliník / plast', 'Magnet sticks = steel · not = aluminium / plastic')
             : alu ? V('Magnet nedrží = hliník!', 'Magnet falls = aluminium!') : V('Magnet drží = ocelový díl', 'Magnet sticks = steel panel'),
             at: function () { return mag.position.clone().add(new THREE.Vector3(0, 0.08, 0)); }, show: [5.4, 9], level: alu ? 'danger' : 'ok' }

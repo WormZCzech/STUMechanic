@@ -76,22 +76,30 @@ window.STU = (function () {
     var text = S.t(src);
     if (!text) return '';
     var blocks = text.split(/\n\s*\n/);
+    var inline = function (l) {
+      return S.esc(l).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    };
+    var kind = function (l) {
+      return /^\s*-\s+/.test(l) ? 'ul' : /^\s*\d+\.\s+/.test(l) ? 'ol' : 'p';
+    };
+    // Within a block, group consecutive lines of the same kind (paragraph / bullet / numbered).
     return blocks.map(function (b) {
-      var lines = b.split('\n');
-      var inline = function (l) {
-        return S.esc(l).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      var out = '', cur = null, buf = [];
+      var flush = function () {
+        if (!buf.length) return;
+        if (cur === 'p') out += '<p>' + buf.map(inline).join('<br>') + '</p>';
+        else out += '<' + cur + '>' + buf.map(function (l) {
+          return '<li>' + inline(l.replace(/^\s*(-|\d+\.)\s+/, '')) + '</li>';
+        }).join('') + '</' + cur + '>';
+        buf = [];
       };
-      if (lines.every(function (l) { return /^\s*-\s+/.test(l); })) {
-        return '<ul>' + lines.map(function (l) {
-          return '<li>' + inline(l.replace(/^\s*-\s+/, '')) + '</li>';
-        }).join('') + '</ul>';
-      }
-      if (lines.every(function (l) { return /^\s*\d+\.\s+/.test(l); })) {
-        return '<ol>' + lines.map(function (l) {
-          return '<li>' + inline(l.replace(/^\s*\d+\.\s+/, '')) + '</li>';
-        }).join('') + '</ol>';
-      }
-      return '<p>' + lines.map(inline).join('<br>') + '</p>';
+      b.split('\n').forEach(function (l) {
+        var k = kind(l);
+        if (k !== cur) { flush(); cur = k; }
+        buf.push(l);
+      });
+      flush();
+      return out;
     }).join('');
   };
 

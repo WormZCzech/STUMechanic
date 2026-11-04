@@ -286,13 +286,21 @@
             notes: [{ level: 'caution', text: V('Pokud k žárovce nedosáhnete, nelámejte plastové díly – u některých verzí je nutné uvolnit další díly (ověřit).', 'If you cannot reach the bulb, do not break plastic parts – some versions require removing extra parts (verify).'), verify: true }]
           },
           unitOut: { notes: [{ level: 'info', text: V('Jumper: světlomet je pravděpodobně přišroubován za maskou / nárazníkem – postup ověřte v dílenské příručce.', 'Jumper: the headlight is probably bolted behind the grille / bumper – verify the procedure in the workshop manual.'), verify: true }] },
-          basic: {
-            title: V('Regulace sklonu: ruční kolečko', 'Range control: manual wheel'),
-            body: V('Jumper s halogeny nemá automatickou regulaci, kterou by bylo nutné nastavovat diagnostikou. Kolečko na palubní desce dejte na **0** (prázdný vůz) a pokračujte seřízením na stěně.', 'A Jumper with halogen lamps has no automatic range control that needs a scan tool. Set the dashboard wheel to **0** (empty van) and continue with aiming against a wall.'),
-            notes: [{ level: 'info', text: V('Pokud má váš vůz jinou výbavu (např. xenony s automatikou), postup se liší – ověřte.', 'If your van has different equipment (e.g. xenons with auto levelling), the procedure differs – verify.'), verify: true }]
-          },
+          basic: { skip: true },
           aimPrep: { notes: [{ level: 'warning', text: V('Vůz **vyložený**, kolečko sklonu na 0, tlaky v pneumatikách podle štítku ve dveřích (zadní bývá vyšší).', 'Van **unloaded**, range wheel at 0, tyre pressures per the door-pillar label (rear is often higher).'), verify: true }] }
-        }
+        },
+        extraSteps: [{
+          after: 'test',
+          step: {
+            id: 'jumperRange', anim: 'lights.basicSetting',
+            title: V('Regulace sklonu: ruční kolečko', 'Range control: manual wheel'),
+            body: V('Jumper s halogeny nemá automatickou regulaci, kterou by bylo nutné nastavovat diagnostikou. Kolečko regulace sklonu na palubní desce dejte na **0** (prázdný vůz) a pokračujte seřízením na stěně.\n\nPři jízdě s nákladem kolečko nastavte podle zatížení (vyšší číslo = světla níž).', 'A Jumper with halogen lamps has no automatic range control that needs a scan tool. Set the range wheel on the dashboard to **0** (empty van) and continue with aiming against a wall.\n\nWhen driving loaded, set the wheel for the load (higher number = beams lower).'),
+            notes: [
+              { level: 'info', text: V('Pokud má váš vůz jinou výbavu (např. xenony s automatikou), postup se liší – ověřte.', 'If your van has different equipment (e.g. xenons with auto levelling), the procedure differs – verify.'), verify: true },
+              { level: 'warning', text: V('Kolečko na nesprávné pozici = oslňování protijedoucích nebo špatný výhled.', 'Wheel in the wrong position = dazzling oncoming traffic or poor visibility.') }
+            ]
+          }
+        }]
       }
     }
   });

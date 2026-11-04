@@ -335,8 +335,9 @@
       var el = self.labelEls[i];
       var on = visibleAt(l.show, t);
       if (on) {
-        if (typeof l.at === 'function') tmp.copy(l.at(t));
+        if (typeof l.at === 'function') { var a = l.at(t); if (a && a.isVector3) tmp.copy(a); else if (a) tmp.set(a[0], a[1], a[2]); }
         else if (l.at && l.at.isObject3D) l.at.getWorldPosition(tmp);
+        else if (l.at && l.at.isVector3) tmp.copy(l.at);
         else tmp.set(l.at[0], l.at[1], l.at[2]);
         tmp.project(self.camera);
         if (tmp.z > 1 || tmp.z < -1) on = false;

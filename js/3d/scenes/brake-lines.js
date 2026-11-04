@@ -360,10 +360,10 @@
       var R0 = 0.04;
       var wheel = K.mesh(K.G.cyl(R0 - 0.003, 0.02, 40), 'steel'); wheel.position.y = 0; root.add(wheel);
       var groove = K.mesh(K.G.torus(R0, 0.0032, PI * 2, 48), 'steelDark'); groove.rotation.x = PI / 2; root.add(groove);
-      var straight = K.mesh(K.G.cylX(0.0025, 0.2, 12), 'copper'); straight.position.set(-0.1, 0, R0); root.add(straight);
+      var straight = K.mesh(K.G.cylX(0.0025, 0.2, 12), 'copper'); straight.position.set(-0.1, 0, R0 + 0.0045); root.add(straight);
       var pieces = [], N = 12;
       for (var i = 0; i < N; i++) {
-        var p = K.mesh(K.G.torus(R0, 0.0025, PI / 2 / N + 0.002, 4), 'copper');
+        var p = K.mesh(K.G.torus(R0 + 0.0045, 0.0025, PI / 2 / N + 0.002, 4), 'copper');
         p.rotation.x = PI / 2; p.rotation.z = PI / 2 - (i + 1) * (PI / 2 / N);
         p.position.y = 0; root.add(p); pieces.push(p);
       }
@@ -378,7 +378,7 @@
           var k = T.seg(t, 1, 4.5) * (1 - T.seg(t, 6.4, 7));
           var ang = k * PI / 2;
           pieces.forEach(function (p, i) { p.visible = (i + 1) / N <= k + 1e-6; });
-          var px = Math.sin(ang) * R0, pz = Math.cos(ang) * R0;
+          var px = Math.sin(ang) * (R0 + 0.0045), pz = Math.cos(ang) * (R0 + 0.0045);
           tail.position.set(px, 0, pz); tail.rotation.y = -ang;
           lever.position.set(px, 0.012, pz + 0.008 * Math.cos(ang)); lever.rotation.y = -ang;
         },

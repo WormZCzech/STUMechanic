@@ -393,9 +393,9 @@
         root: root,
         update: function (t) { drops.update(t, t > 6.5); puddle.visible = t > 7; },
         labels: [
-          { text: V('Brzdy: destičky, kotouče, hadičky', 'Brakes: pads, discs, hoses'), at: wc.clone().add(new THREE.Vector3(0, 0.45, 0.2)), show: [0.5, 10] },
-          { text: V('Pneu: tlak, opotřebení, poškození', 'Tyres: pressure, wear, damage'), at: wc.clone().add(new THREE.Vector3(0.35, 0.05, 0.2)), show: [2.5, 10] },
-          { text: V('Matice kol dotáhnout', 'Re-torque wheel nuts'), at: wc.clone().add(new THREE.Vector3(-0.1, -0.15, 0.25)), show: [4.5, 10], level: 'accent' },
+          { text: V('Brzdy: destičky, kotouče, hadičky', 'Brakes: pads, discs, hoses'), at: wc.clone().add(new THREE.Vector3(0, 0.45, 0.2)).toArray(), show: [0.5, 10] },
+          { text: V('Pneu: tlak, opotřebení, poškození', 'Tyres: pressure, wear, damage'), at: wc.clone().add(new THREE.Vector3(0.35, 0.05, 0.2)).toArray(), show: [2.5, 10] },
+          { text: V('Matice kol dotáhnout', 'Re-torque wheel nuts'), at: wc.clone().add(new THREE.Vector3(-0.1, -0.15, 0.25)).toArray(), show: [4.5, 10], level: 'accent' },
           { text: V('Úniky pod vozem?', 'Leaks under the car?'), at: [d.front - 0.6, 0.15, 0.3], show: [6.5, 10], level: 'danger' }
         ],
         captions: [

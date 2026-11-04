@@ -58,8 +58,8 @@
           var p = surf(0.085, 0.655, 0.004 + (1 - k) * 0.1); ruler.position.copy(p); ruler.rotation.y = 0.085;
         },
         labels: [
-          { text: V('Prasklina', 'Crack'), at: surf(0.09, 0.73, 0.01), level: 'danger' },
-          { text: V('Do ~10 cm, bez chybějících kusů = DIY', 'Up to ~10 cm, no missing pieces = DIY'), at: surf(0.09, 0.62, 0.01), show: [3, 7], level: 'ok' }
+          { text: V('Prasklina', 'Crack'), at: surf(0.09, 0.73, 0.01).toArray(), level: 'danger' },
+          { text: V('Do ~10 cm, bez chybějících kusů = DIY', 'Up to ~10 cm, no missing pieces = DIY'), at: surf(0.09, 0.62, 0.01).toArray(), show: [3, 7], level: 'ok' }
         ],
         captions: [
           { text: V('Utržené úchyty, chybějící kusy, deformace u čidel → nový díl', 'Torn mounting tabs, missing pieces, deformation near sensors → new part') },
@@ -86,8 +86,8 @@
         root: root,
         update: function (t) { lamp.intensity = 1.4 * T.seg(t, 0.5, 1.5); },
         labels: [
-          { text: V('Značka materiálu (rub dílu)', 'Material code (back side)'), at: surf(-0.08, 0.64, -0.01), show: [1, 6], level: 'accent' },
-          { text: V('PP / PP-EPDM / ABS / PC…', 'PP / PP-EPDM / ABS / PC…'), at: surf(-0.08, 0.55, -0.01), show: [2.5, 6] }
+          { text: V('Značka materiálu (rub dílu)', 'Material code (back side)'), at: surf(-0.08, 0.64, -0.01).toArray(), show: [1, 6], level: 'accent' },
+          { text: V('PP / PP-EPDM / ABS / PC…', 'PP / PP-EPDM / ABS / PC…'), at: surf(-0.08, 0.55, -0.01).toArray(), show: [2.5, 6] }
         ],
         captions: [
           { text: V('Podle materiálu volíte sponky, lepidlo a promotor přilnavosti', 'The material decides staples, adhesive and adhesion promoter') },
@@ -115,8 +115,8 @@
           zone.material.opacity = 0.25 + 0.15 * Math.sin(t * 4);
         },
         labels: [
-          { text: V('Parkovací senzory', 'Parking sensors'), at: surf(0.32, BY + 0.13, 0.01) },
-          { text: volvo ? V('Zóna radaru – žádný tmel ani oprava!', 'Radar zone – no filler, no repair!') : V('Zóna radaru / kamery (je-li) – neopravovat', 'Radar / camera zone (if fitted) – do not repair'), at: surf(0, BY + 0.07, 0.01), level: 'danger' }
+          { text: V('Parkovací senzory', 'Parking sensors'), at: surf(0.32, BY + 0.13, 0.01).toArray() },
+          { text: volvo ? V('Zóna radaru – žádný tmel ani oprava!', 'Radar zone – no filler, no repair!') : V('Zóna radaru / kamery (je-li) – neopravovat', 'Radar / camera zone (if fitted) – do not repair'), at: surf(0, BY + 0.07, 0.01).toArray(), level: 'danger' }
         ],
         captions: [
           { text: V('Tmel a silná vrstva laku u senzorů = chybná měření', 'Filler and thick paint near sensors = wrong readings') },
@@ -152,8 +152,8 @@
           sander.position.copy(surf(CRACK[i][0], CRACK[i][1], 0.008)); sander.rotation.set(0, CRACK[i][0], t * 30);
         },
         labels: [
-          { text: V('Konce praskliny provrtat (Ø 3 mm) – dál nepraskne', 'Drill the crack ends (Ø 3 mm) – stops it spreading'), at: surf(0.15, 0.62, 0.01), show: [0.4, 3.2], level: 'accent' },
-          { text: V('Drážka do V', 'V-groove'), at: surf(0.08, 0.74, 0.01), show: [3.4, 8] }
+          { text: V('Konce praskliny provrtat (Ø 3 mm) – dál nepraskne', 'Drill the crack ends (Ø 3 mm) – stops it spreading'), at: surf(0.15, 0.62, 0.01).toArray(), show: [0.4, 3.2], level: 'accent' },
+          { text: V('Drážka do V', 'V-groove'), at: surf(0.08, 0.74, 0.01).toArray(), show: [3.4, 8] }
         ],
         captions: [
           { text: V('Odmastit (antisilikon), pak drážkovat a brousit P80', 'Degrease (silicone remover), then groove and sand P80') },
@@ -196,7 +196,7 @@
           tool.position.copy(s.position).add(normalAt(CRACK[0][0] + idx * 0.026).multiplyScalar(-0.03 + push * 0.02));
           tool.rotation.set(0, s.rotation.y, s.rotation.z);
         },
-        labels: [{ text: V('Rozžhavená sponka se zatlačí do plastu', 'The heated staple melts into the plastic'), at: surf(0.08, 0.76, -0.02), level: 'accent' }],
+        labels: [{ text: V('Rozžhavená sponka se zatlačí do plastu', 'The heated staple melts into the plastic'), at: surf(0.08, 0.76, -0.02).toArray(), level: 'accent' }],
         captions: [
           { text: V('Z rubu: sponky křížem přes prasklinu, ~1 cm od sebe', 'From the back: staples across the crack, ~1 cm apart') },
           { text: V('Sponky pálí (~400 °C) – nesahat, nechat vychladnout', 'Staples are very hot (~400 °C) – do not touch, let them cool'), level: 'danger', show: [2, 8] }
@@ -239,7 +239,7 @@
           var p = surf(0.08, 0.63 + k * 0.13, -0.03);
           gun.position.copy(p); gun.rotation.y = PI + 0.08; gun.visible = t > 2 && t < 6.4;
         },
-        labels: [{ text: V('Výztužná síťka', 'Reinforcement mesh'), at: surf(0.18, 0.78, -0.02), show: [1, 8] }],
+        labels: [{ text: V('Výztužná síťka', 'Reinforcement mesh'), at: surf(0.18, 0.78, -0.02).toArray(), show: [1, 8] }],
         captions: [
           { text: V('Alternativa: 2K lepidlo na plasty + síťka z rubu', 'Alternative: 2K plastic adhesive + mesh from the back') },
           { text: V('Promotor přilnavosti dle materiálu; dodržet dobu tuhnutí', 'Adhesion promoter per material; respect the curing time'), level: 'info', show: [3, 8] }
@@ -274,8 +274,8 @@
           groove.visible = f < 0.95;
         },
         labels: [
-          { text: V('Promotor přilnavosti', 'Adhesion promoter'), at: surf(0.08, 0.78, 0.03), show: [0.6, 2.8] },
-          { text: V('Pružný tmel na plasty', 'Flexible plastic filler'), at: surf(0.08, 0.76, 0.02), show: [3.2, 9], level: 'ok' }
+          { text: V('Promotor přilnavosti', 'Adhesion promoter'), at: surf(0.08, 0.78, 0.03).toArray(), show: [0.6, 2.8] },
+          { text: V('Pružný tmel na plasty', 'Flexible plastic filler'), at: surf(0.08, 0.76, 0.02).toArray(), show: [3.2, 9], level: 'ok' }
         ],
         captions: [
           { text: V('Jen pružný tmel – tvrdý tmel na ocel na nárazníku praská', 'Flexible filler only – hard steel filler cracks on bumpers') },

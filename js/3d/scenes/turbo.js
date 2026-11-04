@@ -101,7 +101,7 @@
   });
 
   R('turbo.play', {
-    duration: 7, camera: { pos: [0.2, 0.26, 0.26], target: [0.09, 0.21, 0], fov: 34 }, shadow: 0.5, thumbT: 3,
+    duration: 7, camera: { pos: [0.34, 0.34, 0.42], target: [0.07, 0.22, 0], fov: 34 }, shadow: 0.5, thumbT: 3,
     build: function (ctx, K) {
       var T = K.T, s = onStand(ctx, K, { solid: true });
       var hand = K.P.glove(); hand.scale.setScalar(0.55); hand.rotation.set(0, -PI / 2, -PI / 2); s.root.add(hand);
@@ -330,4 +330,21 @@
       };
     }
   });
+
+  // naturally aspirated engines: vacuum (intake) leak test re-uses the smoke-test scene with its own captions
+  (function () {
+    var base = S.scenes['turbo.boostLeak'];
+    R('turbo.naCheck', {
+      duration: base.duration, camera: base.camera, shadow: base.shadow, thumbT: base.thumbT,
+      build: function (ctx, K) {
+        var o = base.build(ctx, K);
+        o.labels = [{ text: V('falešný vzduch!', 'false air!'), at: [0.1, 0.32, 0.05], level: 'danger', show: [2.5, 8] }];
+        o.captions = [
+          { text: V('Kouřový test sání: netěsnost za snímačem hmotnosti vzduchu = „falešný vzduch“', 'Intake smoke test: a leak after the mass air flow sensor = "false air"') },
+          { text: V('Projeví se kladnými palivovými korekcemi, nerovným volnoběhem a ztrátou výkonu', 'Shows up as positive fuel trims, rough idle and loss of power'), show: [3, 8], level: 'info' }
+        ];
+        return o;
+      }
+    });
+  })();
 })(window.STU);

@@ -411,7 +411,7 @@
         { p: new THREE.Vector3(d.xf - 0.1, d.hoodF - 0.1, -0.35), ok: false, txt: V('uložení motoru? (ťuk při změně plynu)', 'engine mount? (clunk on throttle change)') }
       ];
       var marks = spots.map(function (s) {
-        var m = K.mesh(K.G.sphere(0.07, 16), K.M.clone(s.ok ? 'hiAccent' : 'hiInfo', { transparent: true, opacity: 0.85, depthTest: false }));
+        var m = K.mesh(K.G.sphere(0.11, 16), K.M.clone(s.ok ? 'hiAccent' : 'hiInfo', { transparent: true, opacity: 0.85, depthTest: false }));
         m.position.copy(s.p); m.userData.noShadow = true; m.renderOrder = 10; root.add(m); return m;
       });
       var steth = new THREE.Group(); root.add(steth);

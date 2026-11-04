@@ -115,11 +115,11 @@
       var cl = cluster(K, function (x, W, H, s) {
         s = s || {};
         x.fillStyle = '#0b0f14'; x.fillRect(0, 0, W, H);
-        gauge(x, W * 0.2, H * 0.5, H * 0.36, s.rpm || 0, 7, 'rpm ×1000', s.slip ? '#e5484d' : '#f5a524');
-        gauge(x, W * 0.8, H * 0.5, H * 0.36, s.kmh || 0, 220, 'km/h', '#3e8ed0');
+        gauge(x, W * 0.17, H * 0.45, H * 0.33, s.rpm || 0, 7, 'rpm ×1000', s.slip ? '#e5484d' : '#f5a524');
+        gauge(x, W * 0.83, H * 0.45, H * 0.33, s.kmh || 0, 220, 'km/h', '#3e8ed0');
         x.fillStyle = s.limp ? '#e5484d' : '#ffffff'; x.font = 'bold ' + Math.round(H * 0.3) + 'px system-ui'; x.textAlign = 'center';
         x.fillText('D ' + (s.gear || 1), W / 2, H * 0.45);
-        if (s.msg) { x.font = 'bold ' + Math.round(H * 0.085) + 'px system-ui'; x.fillStyle = s.limp ? '#e5484d' : '#f5a524'; x.fillText(s.msg, W / 2, H * 0.78); }
+        if (s.msg) { x.font = 'bold ' + Math.round(H * 0.075) + 'px system-ui'; x.fillStyle = s.limp ? '#e5484d' : '#f5a524'; x.fillText(s.msg, W / 2, H * 0.93); }
       }, {});
       cl.position.y = 0.5; root.add(cl);
       return {
@@ -379,7 +379,7 @@
 
   /* ------------------------------------------------------------------- next */
   R('gearbox-7g.next', {
-    duration: 8, camera: { pos: [0, 0.55, 0.85], target: [0, 0.5, 0], fov: 34 }, shadow: 0.6, thumbT: 5,
+    duration: 8, camera: { pos: [0, 0.52, 1.25], target: [0, 0.5, 0], fov: 34 }, shadow: 0.6, thumbT: 5,
     build: function (ctx, K) {
       var root = new THREE.Group();
       var items = [V('Prokluz nebo spálená ATF', 'Slipping or burnt ATF'), V('Kovové částice / mléčná ATF', 'Metal particles / milky ATF'), V('Chyby i po ATF + adaptaci', 'Faults persist after ATF + adaptation'), V('Výměna vodicí desky s kódováním', 'Conductor plate replacement with coding')];

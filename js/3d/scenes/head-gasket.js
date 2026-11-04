@@ -99,7 +99,7 @@
     g.userData = { liquid: liquid, neck: neck };
     return g;
   }
-  var TCAM = { pos: [0.25, 0.3, 0.42], target: [0, 0.12, 0], fov: 34 };
+  var TCAM = { pos: [0.35, 0.42, 0.62], target: [0.02, 0.17, 0], fov: 34 };
 
   R('head-gasket.ruleOut', {
     duration: 10, camera: { pos: [0.9, 0.9, 1.1], target: [0.05, 0.3, 0], fov: 36 }, shadow: 1.2, thumbT: 2,
@@ -149,7 +149,7 @@
   });
 
   R('head-gasket.blockTest', {
-    duration: 9, camera: { pos: [0.3, 0.38, 0.5], target: [0.03, 0.2, 0], fov: 34 }, shadow: 0.6, thumbT: 7,
+    duration: 9, camera: { pos: [0.38, 0.5, 0.7], target: [0.03, 0.22, 0], fov: 34 }, shadow: 0.6, thumbT: 7,
     build: function (ctx, K) {
       var T = K.T, root = new THREE.Group();
       root.add(S.n5.bench(K, 0.6, 0.4));
@@ -180,7 +180,7 @@
   });
 
   R('head-gasket.pressure', {
-    duration: 9, camera: { pos: [0.32, 0.38, 0.5], target: [0.03, 0.2, 0], fov: 34 }, shadow: 0.6, thumbT: 6,
+    duration: 9, camera: { pos: [0.4, 0.5, 0.72], target: [0.05, 0.22, 0], fov: 34 }, shadow: 0.6, thumbT: 6,
     build: function (ctx, K) {
       var T = K.T, H = S.n5, root = new THREE.Group();
       root.add(H.bench(K, 0.6, 0.4));
@@ -226,15 +226,15 @@
   }
 
   R('head-gasket.compression', {
-    duration: 10, camera: { pos: [0.4, 0.62, 0.62], target: [0, 0.38, 0], fov: 34 }, shadow: 0.8, thumbT: 7,
+    duration: 10, camera: { pos: [0.35, 0.78, 0.9], target: [-0.05, 0.42, 0], fov: 36 }, shadow: 0.8, thumbT: 7,
     build: function (ctx, K) {
       var H = S.n5, root = new THREE.Group(), s = stack(ctx, K); root.add(s.group);
       var diesel = ['skoda-octavia-rs-tdi', 'citroen-jumper-22hdi'].indexOf(ctx.vehicle) >= 0;
       var max = diesel ? 40 : 20;
       var vals = diesel ? [30, 31, 21, 30] : [13, 13.5, 8, 13];
-      var dial = gaugeDial(K, 0.12); dial.position.set(0.0, 0.55, 0.12); root.add(dial);
+      var dial = gaugeDial(K, 0.08); dial.position.set(0.0, 0.53, 0.12); root.add(dial);
       var hose = H.pipe(K, [[0, 0.33, 0.0], [0, 0.42, 0.06], [0, 0.5, 0.11]], 0.006, 'rubber'); root.add(hose);
-      var table = K.FX.canvasPanel(0.24, 0.12, function (x, W, Hh, st) {
+      var table = K.FX.canvasPanel(0.2, 0.1, function (x, W, Hh, st) {
         x.fillStyle = '#0b1620'; x.fillRect(0, 0, W, Hh);
         x.font = 'bold ' + Math.round(Hh * 0.2) + 'px Arial'; x.textBaseline = 'middle';
         for (var i = 0; i < s.n; i++) {
@@ -244,7 +244,7 @@
           x.fillText('C' + (i + 1) + ': ' + vals[i] + ' bar', W * 0.06 + (i % 2) * W * 0.5, Hh * (0.3 + Math.floor(i / 2) * 0.42));
         }
       }, { px: 512, state: -1 });
-      table.position.set(0.22, 0.55, 0.08); root.add(table);
+      table.position.set(-s.len / 2 - 0.12, 0.45, 0.06); table.rotation.y = 0.3; root.add(table);
       return {
         root: root,
         update: function (t) {
@@ -265,11 +265,11 @@
   });
 
   R('head-gasket.leakdown', {
-    duration: 8, camera: { pos: [0.4, 0.62, 0.62], target: [0, 0.38, 0], fov: 34 }, shadow: 0.8, thumbT: 5,
+    duration: 8, camera: { pos: [0.3, 0.75, 0.9], target: [-0.08, 0.4, 0], fov: 36 }, shadow: 0.8, thumbT: 5,
     build: function (ctx, K) {
       var H = S.n5, T = K.T, root = new THREE.Group(), s = stack(ctx, K); root.add(s.group);
-      var g1 = gaugeDial(K, 0.1), g2 = gaugeDial(K, 0.1);
-      g1.position.set(-0.07, 0.56, 0.12); g2.position.set(0.07, 0.56, 0.12); root.add(g1); root.add(g2);
+      var g1 = gaugeDial(K, 0.075), g2 = gaugeDial(K, 0.075);
+      g1.position.set(-0.05, 0.56, 0.12); g2.position.set(0.05, 0.56, 0.12); root.add(g1); root.add(g2);
       root.add(H.pipe(K, [[0.0, 0.33, 0.0], [0, 0.44, 0.06], [0, 0.52, 0.1]], 0.006, 'rubber'));
       var tk = tank(K, ctx.vehicle); tk.position.set(-0.32, 0.25, 0.05); root.add(tk);
       var bubble = K.FX.puff(0xdddddd, 10, 0.02, 0.1); bubble.group.position.set(-0.28, 0.42, 0.05); root.add(bubble.group);
@@ -348,7 +348,7 @@
         x.fillStyle = st > 0.85 ? '#e5484d' : '#30a46c'; x.fillRect(W * 0.08, Hh * 0.62, (W * 0.84) * st, Hh * 0.18);
         x.fillStyle = '#fff'; x.font = 'bold ' + Math.round(Hh * 0.3) + 'px Arial'; x.fillText(Math.round(40 + st * 60) + ' °C', W * 0.08, Hh * 0.38);
       }, { px: 256, state: 0 });
-      temp.position.set(0.0, 0.28, 0.0); root.add(temp);
+      temp.position.set(0.17, 0.12, 0.0); root.add(temp);
       return {
         root: root,
         update: function (t) { temp.userData.redraw(Math.round(T.seg(t, 0.5, 5) * 0.75 * 20) / 20); tk.userData.liquid.scale.y = 0.85 + 0.15 * T.seg(t, 0.5, 3); },

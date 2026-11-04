@@ -94,8 +94,13 @@
         parts: [V('Nic – informační návod', 'Nothing – information only')],
         finalChecks: [V('Příčina ztráty výkonu nalezena diagnostikou', 'Cause of power loss found by diagnosis')],
         steps: (function () { var o = {}; ALL.forEach(function (id) { o[id] = { skip: true }; }); return o; })(),
-        extraSteps: [{ after: 'how', step: { id: 'na', anim: 'turbo.na', title: V('Atmosférický V8 – bez turba', 'Naturally aspirated V8 – no turbo'),
-          body: V('Vzduch proudí přes vzduchové filtry a snímač hmotnosti vzduchu přímo do sání. Ztráta výkonu = sání, netěsnosti podtlaku, snímače, zapalování nebo palivo.', 'Air flows through the air filters and the mass air flow sensor straight into the intake. Loss of power = intake, vacuum leaks, sensors, ignition or fuel.') } }]
+        extraSteps: [
+          { after: 'how', step: { id: 'na', anim: 'turbo.na', title: V('Atmosférický V8 – bez turba', 'Naturally aspirated V8 – no turbo'),
+            body: V('Vzduch proudí přes vzduchové filtry a snímač hmotnosti vzduchu přímo do sání. Ztráta výkonu = sání, netěsnosti podtlaku, snímače, zapalování nebo palivo.', 'Air flows through the air filters and the mass air flow sensor straight into the intake. Loss of power = intake, vacuum leaks, sensors, ignition or fuel.') } },
+          { after: 'na', step: { id: 'naCheck', anim: 'turbo.naCheck', title: V('Hledání falešného vzduchu', 'Finding false air (vacuum leaks)'),
+            body: V('V diagnostice porovnejte palivové korekce obou bank (V8). Vysoké kladné korekce na volnoběh, které klesají s otáčkami, ukazují na netěsnost sání. Najdete ji kouřovým testem nebo poslechem syčení u hadic odvětrání a sacího potrubí.', 'In the scan tool compare the fuel trims of both banks (V8). High positive trims at idle that drop with revs point to an intake leak. Find it with a smoke test or by listening for hissing at the breather hoses and intake manifold.'),
+            notes: [{ level: 'warning', text: V('Kouřový test jen s vypnutým motorem a dle návodu přístroje.', 'Smoke test only with the engine off and per the tester instructions.') }] } }
+        ]
       },
       'volvo-xc60-b4': {
         status: 'pro',

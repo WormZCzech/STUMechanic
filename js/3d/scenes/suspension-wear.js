@@ -6,10 +6,6 @@
   var THREE = window.THREE, R = S.scene3d.register, PI = Math.PI;
   var V = function (cs, en) { return { cs: cs, en: en }; };
   function n3() { return S.n3; }
-  function cs(id, dur, caps, labels, anim, opts) { return S.n3.cornerScene(id, dur, caps, labels, anim, opts); }
-  // cornerScene is defined in struts-springs.js – register lazily once it exists
-  var queue = [];
-  function defer(fn) { if (S.n3 && S.n3.cornerScene) fn(); else queue.push(fn); }
 
   function hands(K, rig, a, b) {
     var h1 = K.P.glove(), h2 = K.P.glove();

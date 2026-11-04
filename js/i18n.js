@@ -93,6 +93,7 @@
     symptomsIntro: { cs: 'Vyberte, co pozorujete – zvuk, vibrace, pocit z pedálu, kontrolku… Ukážeme možné příčiny od nejčastějších, jak je ověřit, jak je to vážné a který návod vám pomůže.', en: 'Pick what you notice – a noise, vibration, pedal feel, warning light… We show possible causes from the most common, how to check them, how serious it is and which tutorial helps.' },
     symptomsCta: { cs: 'Něco není v pořádku? Otevřete průvodce příznaky →', en: 'Something wrong? Open the symptom guide →' },
     symptomsSearch: { cs: 'Hledat příznak (např. klepání, vibrace, kouř…)', en: 'Search a symptom (e.g. knocking, vibration, smoke…)' },
+    causesHidden: { cs: 'Příčiny, které u vašeho vozu nemohou nastat (např. jiný typ motoru či převodovky), jsou skryté. Pro všechny zvolte Obecné vozidlo.', en: 'Causes that cannot occur on your car (e.g. different engine or gearbox type) are hidden. Select Generic vehicle to see all.' },
     relatedSymptoms: { cs: 'Jaké problémy tento návod řeší', en: 'Which problems this tutorial fixes' },
     possibleCauses: { cs: 'Možné příčiny', en: 'Possible causes' },
     howToCheck: { cs: 'Jak ověřit', en: 'How to check' },

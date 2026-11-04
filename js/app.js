@@ -444,6 +444,13 @@
     var d = SEV[sev] || SEV.watch;
     return '<span class="pill sev sev-' + (sev || 'watch') + '" title="' + esc(ui(d.key + 'D')) + '">' + d.ico + ' ' + esc(ui(d.key)) + '</span>';
   }
+  /** onlyFor / notFor on a symptom or cause: hide what cannot happen on the selected car (generic shows all). */
+  function fits(x, vid) {
+    if (vid === 'generic') return true;
+    if (x.onlyFor && x.onlyFor.indexOf(vid) < 0) return false;
+    if (x.notFor && x.notFor.indexOf(vid) >= 0) return false;
+    return true;
+  }
   function tutLink(id) {
     var tut = S.tutorialMap[id];
     if (!tut) return '';
@@ -457,7 +464,8 @@
       '<div class="search"><input type="search" id="qs" placeholder="🔍 ' + esc(ui('symptomsSearch')) + '" autocomplete="off"></div>' +
       '<nav class="symjump">' + S.symptomGroups.map(function (g) { return '<a href="#" data-jump="g-' + g.id + '">' + (g.icon || '') + ' ' + esc(t(g.title)) + '</a>'; }).join('') + '</nav>';
     S.symptomGroups.forEach(function (g) {
-      var list = S.symptoms.filter(function (sm) { return sm.group === g.id; });
+      var vidS = vehicleId();
+      var list = S.symptoms.filter(function (sm) { return sm.group === g.id && fits(sm, vidS); });
       if (!list.length) return;
       h += '<section class="section sym-section" id="g-' + g.id + '"><div class="section-head"><h2>' + (g.icon || '') + ' ' + esc(t(g.title)) + '</h2>' +
         (g.intro ? '<span class="muted small">' + esc(t(g.intro)) + '</span>' : '') + '</div><div class="grid cols">' +
@@ -484,7 +492,8 @@
     if (sm.ask && sm.ask.length) {
       h += '<section class="section card"><h2>❓ ' + esc(ui('askYourself')) + '</h2><ul>' + sm.ask.map(function (q) { return '<li>' + esc(t(q)) + '</li>'; }).join('') + '</ul></section>';
     }
-    var causes = (sm.causes || []).slice().sort(function (a, b) { return (LIKE[a.likelihood] || LIKE.possible).n - (LIKE[b.likelihood] || LIKE.possible).n; });
+    var allCauses = sm.causes || [];
+    var causes = allCauses.filter(function (c) { return fits(c, vid); }).sort(function (a, b) { return (LIKE[a.likelihood] || LIKE.possible).n - (LIKE[b.likelihood] || LIKE.possible).n; });
     h += '<section class="section"><h2>' + esc(ui('possibleCauses')) + '</h2><ol class="causes">' + causes.map(function (c) {
       var vnote = c.vehicles && c.vehicles[vid];
       var links = (c.tutorials || []).filter(function (tid) { var tu = S.tutorialMap[tid]; return tu && appliesTo(tu, vid); }).map(tutLink).join('');
@@ -495,7 +504,7 @@
         (vnote ? callout({ level: 'info', text: vnote, vehicle: vid }) : '') +
         (links ? '<div class="tutlinks"><div class="small muted">' + esc(ui('relatedTutorials')) + '</div>' + links + '</div>' : '') +
         '</li>';
-    }).join('') + '</ol></section>' + callout({ level: 'info', text: ui('symptomDisclaimer') });
+    }).join('') + '</ol>' + (allCauses.length > causes.length ? '<p class="small muted">' + esc(ui('causesHidden')) + ' (' + (allCauses.length - causes.length) + ')</p>' : '') + '</section>' + callout({ level: 'info', text: ui('symptomDisclaimer') });
     return h;
   }
 

@@ -209,8 +209,8 @@
     var lengths = K.G.pathLengths(path), total = lengths[lengths.length - 1];
     var pitch = 0.008, n = Math.floor(total / pitch); pitch = total / n;
     var linkMat = K.M.clone('steel', { roughness: 0.35 });
-    var plates = new THREE.InstancedMesh(K.G.rbox(pitch * 1.25, 0.0075, 0.0016, 0.003), linkMat, n * 2);
-    var rollers = new THREE.InstancedMesh(K.G.cylZ(0.0026, 0.012, 10), K.M.steelDark, n);
+    var plates = new THREE.InstancedMesh(new THREE.BoxGeometry(pitch * 1.25, 0.0075, 0.0016), linkMat, n * 2);
+    var rollers = new THREE.InstancedMesh(K.G.cylZ(0.0026, 0.012, 8), K.M.steelDark, n);
     root.add(plates); root.add(rollers);
     // guide rail (tight side: crank → right cam) and tensioner rail (slack side: left cam → crank)
     function railAlong(a, b, off) {

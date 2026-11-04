@@ -194,7 +194,7 @@
         '<g class="exhaust-plug"><rect class="k-dark" x="304" y="78" width="36" height="24" rx="4"/><rect class="k-ok" x="304" y="82" width="6" height="16"/>' +
         '<path class="k-none s-dark" stroke-width="5" stroke-linecap="round" d="M340,90 L410,90"/></g>';
       // strap supporting exhaust
-      s += '<g class="exhaust-strap"><path class="k-none s-accent" stroke-width="6" d="M392,0 L392,186 Q392,240 420,240 Q448,240 448,186 L448,0"/>' +
+      s += '<g class="exhaust-strap"><path class="k-none s-accent" stroke-width="6" d="M424,120 L424,186 Q424,240 446,240 Q468,240 468,186 L468,120"/>' +
         L.label(470, 256, ctx.t({ cs: 'Výfuk podepřít / zavěsit', en: 'Support / hang the exhaust' }), { bg: true, anchor: 'end' }) + '</g>';
       s += L.label(16, 24, ctx.t({ cs: 'Nejdřív odpojit konektor sondy – kabel nekroutit', en: 'Unplug the sensor connector first – never twist the wire' }), { anchor: 'start', bg: true });
       s += L.label(170, 140, ctx.t({ cs: 'lambda sonda', en: 'lambda sensor' }), { bg: true, size: 12, anchor: 'end' });

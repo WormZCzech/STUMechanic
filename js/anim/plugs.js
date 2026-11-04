@@ -288,7 +288,7 @@
         L.rotArrow(240, 52, 26, 'cw', 'ok', 220) +
         // bad example
         '<g transform="translate(420,190)"><g class="plugs-badtilt"><g transform="scale(.55)">' + (glow ? glowPlug() : sparkPlug()) + '</g></g></g>' +
-        L.cross(420, 236) + L.label(420, 266, ctx.t({ cs: 'šikmo = stržený závit', en: 'crooked = stripped thread' }), { bg: true, size: 11 }) +
+        L.cross(420, 236) + L.label(470, 266, ctx.t({ cs: 'šikmo = stržený závit', en: 'crooked = stripped thread' }), { bg: true, size: 11, anchor: 'end' }) +
         L.label(16, 24, ctx.t(glow ? { cs: 'Zašroubovat RUKOU až na doraz', en: 'Thread in BY HAND until it seats' } : { cs: 'Zašroubovat RUKOU – trik s hadičkou', en: 'Thread in BY HAND – rubber hose trick' }), { anchor: 'start', bg: true }) +
         L.label(16, 286, ctx.t({ cs: 'Drhne? Zastavit, vyndat, zkusit znovu rovně', en: 'Binding? Stop, remove, try again straight' }), { anchor: 'start', bg: true });
       return L.svg(s, ctx.t({ cs: 'Zašroubování rukou', en: 'Threading in by hand' }));

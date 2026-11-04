@@ -150,6 +150,7 @@
   /** Rounded box w×h×d with edge radius r. */
   G.rbox = function (w, h, d, r) {
     r = r == null ? Math.min(w, h, d) * 0.12 : r;
+    r = Math.min(r, d * 0.45, w * 0.45, h * 0.45); // bevel adds to the size – keep the box at w×h×d
     return G.extrude(G.rrect(w - 2 * r * 0.9, h - 2 * r * 0.9, r * 0.5), d, r);
   };
   /** Annular sector (in XY plane) from radius r1 to r2, angles a0..a1, extruded depth along Z. */
